@@ -15,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL) // remove?
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CinemaResponseDto {
     private Long id;
     private String name;

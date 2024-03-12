@@ -1,30 +1,26 @@
-package vemc.cinema.entity;
+package vemc.cinema.dto;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import vemc.cinema.entity.Hall;
+import vemc.cinema.entity.Movie;
+import vemc.cinema.entity.Ticket;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity(name = "screening")
-public class Screening {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ScreeningResponseDto {
     private Long id;
     private boolean is3d;
-    @ManyToOne(fetch = FetchType.EAGER)
     private Movie movie;
-    @OneToMany(fetch = FetchType.EAGER)
     private List<Hall> hall = new ArrayList<>();
     private LocalDate datetime;
-    @OneToMany(fetch = FetchType.EAGER)
     private List<Ticket> tickets = new ArrayList<>();
 }

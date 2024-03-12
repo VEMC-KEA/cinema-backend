@@ -60,15 +60,16 @@ public class SetupCinema implements ApplicationRunner {
         Screening screening1 = new Screening();
         screening1.set3d(true);
         screening1.setMovie(movieRepository.findById(1L).orElse(null));
-        screening1.setHall(hallRepository.findById(1L).orElse(null));
+        //screening1.setMovie(movieRepository.findById(1L).orElse(null));
+        //screening1.setHall(hallRepository.findById(1L).orElse(null));
         screening1.setDatetime(LocalDate.of(2024, 3, 12));
         screening1.setTickets(tickets);
         screeningRepository.save(screening1);
 
         Screening screening2 = new Screening();
         screening2.set3d(false);
-        screening2.setMovie(movieRepository.findById(2L).orElse(null));
-        screening2.setHall(hallRepository.findById(2L).orElse(null));
+        //screening2.setMovie(movieRepository.findById(2L).orElse(null));
+        //screening2.setHall(hallRepository.findById(2L).orElse(null));
         screening2.setDatetime(LocalDate.of(2024, 3, 12));
         screeningRepository.save(screening2);
 
