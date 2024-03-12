@@ -7,7 +7,9 @@ import lombok.Setter;
 import vemc.cinema.entity.Hall;
 import vemc.cinema.entity.Movie;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -21,6 +23,6 @@ public class CinemaResponseDto {
     private Double groupDiscount;
     private Integer movieBasePrice;
     private Set<Movie> movies = new HashSet<>();
-    private Hall hall;
+    private List<Hall> hall = new ArrayList<>();
 }
 

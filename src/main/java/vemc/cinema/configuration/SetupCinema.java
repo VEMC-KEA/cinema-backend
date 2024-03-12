@@ -8,6 +8,7 @@ import vemc.cinema.repository.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,7 +36,6 @@ public class SetupCinema implements ApplicationRunner {
     }
 
     private void generateCinemas() {
-
 
         // Create Tickets
         List<Ticket> tickets = new ArrayList<>();
@@ -99,12 +99,15 @@ public class SetupCinema implements ApplicationRunner {
         movieRepository.save(movie2);
 
         // Create and save halls
+        List<Hall> halls = new ArrayList<>();
+
         Hall hall1 = new Hall();
         hall1.setName("Hall 1");
         hall1.setAmountOfFrontRowDiscounted(0.5);
         hall1.setSeat(seat1);
         hall1.setScreening(screening1);
         hallRepository.save(hall1);
+        halls.add(hall1);
 
         Hall hall2 = new Hall();
         hall2.setName("Hall 2");
@@ -112,6 +115,7 @@ public class SetupCinema implements ApplicationRunner {
         hall2.setSeat(seat2);
         hall2.setScreening(screening2);
         hallRepository.save(hall2);
+        halls.add(hall2);
 
         // Create Cinemas
         Cinema cinema1 = new Cinema();
@@ -119,7 +123,7 @@ public class SetupCinema implements ApplicationRunner {
         cinema1.setReservationFee(10);
         cinema1.setGroupDiscount(0.7);
         cinema1.setMovieBasePrice(130);
-        cinema1.setHall(hall1);
+        cinema1.setHall(halls);
         cinema1.getMovies().add(movie1);
 
         Cinema cinema2 = new Cinema();
@@ -127,15 +131,9 @@ public class SetupCinema implements ApplicationRunner {
         cinema2.setReservationFee(10);
         cinema2.setGroupDiscount(0.7);
         cinema2.setMovieBasePrice(130);
-        cinema2.setHall(hall2);
         cinema2.getMovies().add(movie2);
 
         cinemaRepository.save(cinema1);
         cinemaRepository.save(cinema2);
     }
-
-
-
-
-
 }

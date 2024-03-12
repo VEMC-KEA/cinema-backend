@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -22,7 +24,6 @@ public class Cinema {
     private Integer movieBasePrice;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Movie> movies = new HashSet<>();
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Hall hall;
-
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Hall> hall = new ArrayList<>();
 }

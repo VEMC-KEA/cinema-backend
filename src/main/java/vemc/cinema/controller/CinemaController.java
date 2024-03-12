@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vemc.cinema.dto.CinemaResponseDto;
+import vemc.cinema.dto.HallResponseDto;
 import vemc.cinema.service.CinemaService;
 
 import java.util.List;
@@ -40,4 +41,12 @@ public class CinemaController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/{id}/halls")
+    public ResponseEntity<List<HallResponseDto>> getHallsByCinemaId(@PathVariable Long id){
+        var halls = this.cinemaService.getHallsByCinemaId(id);
+        if(halls != null){
+            return ResponseEntity.ok(halls);
+        }
+        return ResponseEntity.noContent().build();
+    }
 }
