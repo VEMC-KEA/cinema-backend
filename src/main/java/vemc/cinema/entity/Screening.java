@@ -10,8 +10,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity(name = "shows")
-public class Shows {
+@Entity(name = "screening")
+public class Screening {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

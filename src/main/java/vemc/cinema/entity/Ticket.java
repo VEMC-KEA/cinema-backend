@@ -14,7 +14,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.EAGER)
-    private Shows shows;
+    private Screening screening;
     @OneToOne(fetch = FetchType.EAGER)
     private Seat seat;
     private boolean isCompleted = false;

@@ -13,9 +13,10 @@ public class Hall {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
     private Double amountOfFrontRowDiscounted;
     @ManyToOne(fetch = FetchType.EAGER)
-    private Shows shows;
+    private Screening screening;
     @ManyToOne(fetch = FetchType.EAGER)
     private Seat seat;
 

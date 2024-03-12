@@ -19,7 +19,7 @@ public class Cinema {
     private String name;
     private Integer reservationFee;
     private Double groupDiscount;
-    private Double movieBasePrice;
+    private Integer movieBasePrice;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Movie> movies = new HashSet<>();
     @ManyToOne(fetch = FetchType.EAGER)

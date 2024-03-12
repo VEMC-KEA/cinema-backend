@@ -3,12 +3,15 @@ package vemc.cinema.controller;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vemc.cinema.dto.CinemaResponseDto;
 import vemc.cinema.service.CinemaService;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("cinemas")
@@ -27,4 +30,14 @@ public class CinemaController {
         }
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CinemaResponseDto> getCinemaById(@PathVariable Long id){
+        var cinema = this.cinemaService.findById(id);
+        if(cinema != null){
+            return ResponseEntity.ok(cinema);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 }

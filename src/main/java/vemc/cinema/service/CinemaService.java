@@ -6,6 +6,7 @@ import vemc.cinema.entity.Cinema;
 import vemc.cinema.repository.CinemaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CinemaService {
@@ -17,6 +18,15 @@ public class CinemaService {
 
     public List<CinemaResponseDto> findAll() {
         return cinemaRepository.findAll().stream().map(this::toDto).toList();
+    }
+
+  /*  public Optional<CinemaResponseDto> findById(Long id) {
+        return cinemaRepository.findById(id).map(this::toDto);
+    }*/
+
+    public CinemaResponseDto findById(Long id) {
+        Optional<Cinema> cinemaOptional = cinemaRepository.findById(id);
+        return cinemaOptional.map(this::toDto).orElse(null);
     }
 
 

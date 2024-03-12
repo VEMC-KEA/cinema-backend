@@ -19,7 +19,7 @@ public class CinemaResponseDto {
     private String name;
     private Integer reservationFee;
     private Double groupDiscount;
-    private Double movieBasePrice;
+    private Integer movieBasePrice;
     private Set<Movie> movies = new HashSet<>();
     private Hall hall;
 }

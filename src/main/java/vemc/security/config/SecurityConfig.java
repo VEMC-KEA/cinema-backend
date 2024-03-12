@@ -62,6 +62,9 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/index.html")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/")).permitAll()
 
+            // Allow all user cinema endpoints
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/cinemas")).permitAll()
+
             //Allow for swagger-ui
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/swagger-ui/**")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/swagger-resources/**")).permitAll()

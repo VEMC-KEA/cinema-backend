@@ -12,9 +12,9 @@ import lombok.Setter;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private int runTime;
-    private boolean isClassic;
+    private Long id;
+    private Integer runTime;
+    private Boolean isClassic;
     private String genre;
-    private boolean pg13;
+    private Boolean pg13;
 }
