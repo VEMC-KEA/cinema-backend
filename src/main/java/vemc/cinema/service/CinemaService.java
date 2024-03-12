@@ -19,16 +19,10 @@ public class CinemaService {
     public List<CinemaResponseDto> findAll() {
         return cinemaRepository.findAll().stream().map(this::toDto).toList();
     }
-
-  /*  public Optional<CinemaResponseDto> findById(Long id) {
-        return cinemaRepository.findById(id).map(this::toDto);
-    }*/
-
     public CinemaResponseDto findById(Long id) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(id);
         return cinemaOptional.map(this::toDto).orElse(null);
     }
-
 
     private CinemaResponseDto toDto(Cinema cinema) {
         CinemaResponseDto dto = new CinemaResponseDto();

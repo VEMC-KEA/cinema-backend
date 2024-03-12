@@ -19,5 +19,4 @@ public class Hall {
     private Screening screening;
     @ManyToOne(fetch = FetchType.EAGER)
     private Seat seat;
-
 }

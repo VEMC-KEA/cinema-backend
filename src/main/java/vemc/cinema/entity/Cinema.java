@@ -24,4 +24,5 @@ public class Cinema {
     private Set<Movie> movies = new HashSet<>();
     @ManyToOne(fetch = FetchType.EAGER)
     private Hall hall;
+
 }
