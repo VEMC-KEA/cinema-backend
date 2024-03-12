@@ -23,7 +23,7 @@ public class Cinema {
     private Double groupDiscount;
     private Integer movieBasePrice;
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Movie> movies = new HashSet<>();
+    private List<Movie> movies = new ArrayList<>();
     @OneToMany(fetch = FetchType.EAGER)
     private List<Hall> hall = new ArrayList<>();
 }

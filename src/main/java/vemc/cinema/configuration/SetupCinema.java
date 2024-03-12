@@ -87,6 +87,8 @@ public class SetupCinema implements ApplicationRunner {
         seatRepository.save(seat2);
         seats.add(seat2);
 
+        List<Movie> movie = new ArrayList<>();
+
         // Create and save movies
         Movie movie1 = new Movie();
         movie1.setRunTime(120);
@@ -94,6 +96,7 @@ public class SetupCinema implements ApplicationRunner {
         movie1.setGenre("Action");
         movie1.setPg13(true);
         movieRepository.save(movie1);
+        movie.add(movie1);
 
         Movie movie2 = new Movie();
         movie2.setRunTime(150);
@@ -101,6 +104,7 @@ public class SetupCinema implements ApplicationRunner {
         movie2.setGenre("Drama");
         movie2.setPg13(false);
         movieRepository.save(movie2);
+        movie.add(movie2);
 
         // Create and save halls
         List<Hall> halls = new ArrayList<>();
@@ -127,14 +131,14 @@ public class SetupCinema implements ApplicationRunner {
         cinema1.setGroupDiscount(0.7);
         cinema1.setMovieBasePrice(130);
         cinema1.setHall(halls);
-        cinema1.getMovies().add(movie1);
+        cinema1.setMovies(movie);
 
         Cinema cinema2 = new Cinema();
         cinema2.setName("Kino 2");
         cinema2.setReservationFee(10);
         cinema2.setGroupDiscount(0.7);
         cinema2.setMovieBasePrice(130);
-        cinema2.getMovies().add(movie2);
+        cinema2.setMovies(movie);
 
         cinemaRepository.save(cinema1);
         cinemaRepository.save(cinema2);

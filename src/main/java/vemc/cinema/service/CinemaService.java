@@ -3,11 +3,9 @@ package vemc.cinema.service;
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.CinemaResponseDto;
 import vemc.cinema.dto.HallResponseDto;
+import vemc.cinema.dto.MovieResponseDto;
 import vemc.cinema.dto.SeatResponseDto;
-import vemc.cinema.entity.Cinema;
-import vemc.cinema.entity.Hall;
-import vemc.cinema.entity.Screening;
-import vemc.cinema.entity.Seat;
+import vemc.cinema.entity.*;
 import vemc.cinema.repository.CinemaRepository;
 import vemc.cinema.repository.HallRepository;
 import vemc.cinema.repository.SeatRepository;
@@ -106,6 +104,24 @@ public class CinemaService {
         return seatOptional.map(this::toDtoSeat).orElse(null);
     }
 
+    public List<MovieResponseDto> getMovieByCinemaId (Long id) {
+        Optional<Cinema> cinemaOptional = cinemaRepository.findById(id);
+
+        if (cinemaOptional.isEmpty()) {
+            return null;
+        }
+
+        Cinema cinema = cinemaOptional.get();
+        List<Movie> movie = cinema.getMovies();
+        if (movie == null || movie.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+
+        return movie.stream()
+                .map(this::toDtoMovie)
+                .collect(Collectors.toList());
+    }
 
     private CinemaResponseDto toDto(Cinema cinema) {
         CinemaResponseDto dto = new CinemaResponseDto();
@@ -133,6 +149,16 @@ public class CinemaService {
         dto.setId(seat.getId());
         dto.setNumber(seat.getNumber());
         dto.setRowNum(seat.getRowNum());
+        return dto;
+    }
+
+    private MovieResponseDto toDtoMovie(Movie movie) {
+        MovieResponseDto dto = new MovieResponseDto();
+        dto.setId(movie.getId());
+        dto.setRunTime(movie.getRunTime());
+        dto.setIsClassic(movie.getIsClassic());
+        dto.setGenre(movie.getGenre());
+        dto.setPg13(movie.getPg13());
         return dto;
     }
 

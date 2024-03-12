@@ -7,10 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vemc.cinema.dto.CinemaResponseDto;
 import vemc.cinema.dto.HallResponseDto;
+import vemc.cinema.dto.MovieResponseDto;
 import vemc.cinema.dto.SeatResponseDto;
+import vemc.cinema.entity.Movie;
 import vemc.cinema.service.CinemaService;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("cinemas")
@@ -74,4 +77,14 @@ public class CinemaController {
         }
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}/movies")
+    public  ResponseEntity<List<MovieResponseDto>> getMovieByCinemaId(@PathVariable Long id){
+        var movies = this.cinemaService.getMovieByCinemaId(id);
+        if (movies != null){
+            return ResponseEntity.ok(movies);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
 }
