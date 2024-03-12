@@ -49,6 +49,17 @@ public class CinemaService {
                 .collect(Collectors.toList());
     }
 
+    public HallResponseDto getHallsByIdByCinemaId(Long cinemaId, Long hallId) {
+        Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);
+        if(cinemaOptional.isEmpty()) {
+            return null;
+        }
+
+        Cinema cinema = cinemaOptional.get();
+        Optional<Hall> hallOptional = cinema.getHall().stream().filter(hall -> hall.getId().equals(hallId)).findFirst();
+        return hallOptional.map(this::toDtoHall).orElse(null);
+    }
+
     private CinemaResponseDto toDto(Cinema cinema) {
         CinemaResponseDto dto = new CinemaResponseDto();
         dto.setId(cinema.getId());

@@ -49,4 +49,13 @@ public class CinemaController {
         }
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{cinemaId}/halls/{hallId}")
+    public ResponseEntity<HallResponseDto> getHallsByIdByCinemaId(@PathVariable Long cinemaId, @PathVariable Long hallId){
+        var hall = this.cinemaService.getHallsByIdByCinemaId(cinemaId, hallId);
+        if(hall != null){
+            return ResponseEntity.ok(hall);
+        }
+        return ResponseEntity.noContent().build();
+    }
 }
