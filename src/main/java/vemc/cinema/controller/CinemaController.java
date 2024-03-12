@@ -1,6 +1,5 @@
 package vemc.cinema.controller;
 
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,11 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vemc.cinema.dto.CinemaResponseDto;
 import vemc.cinema.dto.HallResponseDto;
+import vemc.cinema.dto.SeatResponseDto;
 import vemc.cinema.service.CinemaService;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("cinemas")
@@ -55,6 +53,24 @@ public class CinemaController {
         var hall = this.cinemaService.getHallsByIdByCinemaId(cinemaId, hallId);
         if(hall != null){
             return ResponseEntity.ok(hall);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{cinemaId}/halls/{hallId}/seats")
+    public ResponseEntity <List<SeatResponseDto>> getSeatsByHallsIdByCinemaId(@PathVariable Long cinemaId, @PathVariable Long hallId){
+        var seats = this.cinemaService.getSeatsByHallsIdByCinemaId(cinemaId, hallId);
+        if(seats != null){
+            return ResponseEntity.ok(seats);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{cinemaId}/halls/{hallId}/seats/{seatId}")
+    public ResponseEntity <SeatResponseDto> getSeatByIdByHallsIdByCinemaId(@PathVariable Long cinemaId, @PathVariable Long hallId, @PathVariable Long seatId){
+        var seat = this.cinemaService.getSeatByIdByHallsIdByCinemaId(cinemaId, hallId, seatId);
+        if(seat != null){
+            return ResponseEntity.ok(seat);
         }
         return ResponseEntity.noContent().build();
     }

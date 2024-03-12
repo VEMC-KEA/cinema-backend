@@ -72,16 +72,20 @@ public class SetupCinema implements ApplicationRunner {
         screening2.setDatetime(LocalDate.of(2024, 3, 12));
         screeningRepository.save(screening2);
 
+
+        List<Seat> seats = new ArrayList<>();
         // Create seats
         Seat seat1 = new Seat();
         seat1.setRowNum(1);
         seat1.setNumber(1);
         seatRepository.save(seat1);
+        seats.add(seat1);
 
         Seat seat2 = new Seat();
-        seat1.setRowNum(2);
-        seat1.setNumber(2);
+        seat2.setRowNum(2);
+        seat2.setNumber(2);
         seatRepository.save(seat2);
+        seats.add(seat2);
 
         // Create and save movies
         Movie movie1 = new Movie();
@@ -104,7 +108,7 @@ public class SetupCinema implements ApplicationRunner {
         Hall hall1 = new Hall();
         hall1.setName("Hall 1");
         hall1.setAmountOfFrontRowDiscounted(0.5);
-        hall1.setSeat(seat1);
+        hall1.setSeat(seats);
         hall1.setScreening(screening1);
         hallRepository.save(hall1);
         halls.add(hall1);
@@ -112,7 +116,6 @@ public class SetupCinema implements ApplicationRunner {
         Hall hall2 = new Hall();
         hall2.setName("Hall 2");
         hall2.setAmountOfFrontRowDiscounted(0.5);
-        hall2.setSeat(seat2);
         hall2.setScreening(screening2);
         hallRepository.save(hall2);
         halls.add(hall2);

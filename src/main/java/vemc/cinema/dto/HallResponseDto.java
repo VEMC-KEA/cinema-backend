@@ -20,6 +20,7 @@ public class HallResponseDto {
     private String name;
     private Double amountOfFrontRowDiscounted;
     private Screening screening;
-    private Seat seat;
+    private List<Seat> seat = new ArrayList<>();
+
 }
 

@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,6 +20,6 @@ public class Hall {
     private Double amountOfFrontRowDiscounted;
     @ManyToOne(fetch = FetchType.EAGER)
     private Screening screening;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Seat seat;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Seat> seat = new ArrayList<>();
 }
