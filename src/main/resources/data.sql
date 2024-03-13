@@ -18,12 +18,12 @@ VALUES (1, 0.25),
        (3, 0.2),
        (4, 0.15);
 
-INSERT INTO screening (is3d, movie_id, datetime)
-VALUES (FALSE, 1, NOW() + INTERVAL 1 DAY),
-       (TRUE, 2, NOW() + INTERVAL 2 DAY),
-       (FALSE, 3, NOW() + INTERVAL 3 DAY),
-       (FALSE, 4, NOW() + INTERVAL 4 DAY),
-       (TRUE, 5, NOW() + INTERVAL 5 DAY);
+INSERT INTO screening (is3d, movie_id, datetime, cinema_id)
+VALUES (FALSE, 1, NOW() + INTERVAL 1 DAY, 1),
+       (TRUE, 2, NOW() + INTERVAL 2 DAY, 1),
+       (FALSE, 3, NOW() + INTERVAL 3 DAY, 2),
+       (FALSE, 4, NOW() + INTERVAL 4 DAY, 3),
+       (TRUE, 5, NOW() + INTERVAL 5 DAY, 2);
 
 INSERT INTO seat (row_num, number)
 VALUES (1, 1),

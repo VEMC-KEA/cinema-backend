@@ -20,6 +20,7 @@ public class Cinema {
     private Long id;
     private String name;
     private Integer reservationFee;
+    private String imageUrl;
     private Double groupDiscount;
     private Integer movieBasePrice;
     @ManyToMany(fetch = FetchType.EAGER)

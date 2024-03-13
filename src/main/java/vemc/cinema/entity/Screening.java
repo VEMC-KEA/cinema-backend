@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import vemc.cinema.dto.CinemaDto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,4 +28,6 @@ public class Screening {
     private LocalDate datetime;
     @OneToMany(fetch = FetchType.EAGER)
     private List<Ticket> tickets = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Cinema cinema;
 }

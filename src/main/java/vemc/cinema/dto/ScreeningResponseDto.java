@@ -19,8 +19,9 @@ import java.util.List;
 public class ScreeningResponseDto {
     private Long id;
     private boolean is3d;
-    private Movie movie;
-    private List<Hall> hall = new ArrayList<>();
+    private CinemaDto cinema;
+    private MovieDto movie;
+    private List<HallDto> hall = new ArrayList<>();
     private LocalDate datetime;
-    private List<Ticket> tickets = new ArrayList<>();
+    private List<TicketDto> tickets = new ArrayList<>();
 }
