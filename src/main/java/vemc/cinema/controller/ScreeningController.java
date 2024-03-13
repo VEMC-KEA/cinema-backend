@@ -22,18 +22,18 @@ public class ScreeningController {
 
     @GetMapping
     public ResponseEntity<List<ScreeningResponseDto>> getAllScreenings(){
-        var Screening = this.screeningService.findAll();
-        if(Screening != null){
-            return ResponseEntity.ok(Screening);
+        var screenings = this.screeningService.findAll();
+        if(screenings != null){
+            return ResponseEntity.ok(screenings);
         }
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ScreeningResponseDto> getAllScreeningsById(@PathVariable Long id){
-        var Screenings = this.screeningService.findById(id);
-        if(Screenings != null){
-            return ResponseEntity.ok(Screenings);
+        var screening = this.screeningService.findById(id);
+        if(screening != null){
+            return ResponseEntity.ok(screening);
         }
         return ResponseEntity.notFound().build();
     }
