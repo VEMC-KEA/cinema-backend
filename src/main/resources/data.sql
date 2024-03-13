@@ -12,11 +12,11 @@ VALUES ('The Matrix', 136, FALSE, 'Sci-Fi', TRUE),
        ('Forrest Gump', 142, TRUE, 'Drama', TRUE),
        ('The Dark Knight', 152, FALSE, 'Action', TRUE);
 
-INSERT INTO hall (name, amount_of_front_row_discounted)
-VALUES ('Hall A', 0.25),
-       ('Hall B', 0.2),
-       ('Hall C', 0.2),
-       ('Hall D', 0.15);
+INSERT INTO hall (number, amount_of_front_row_discounted)
+VALUES (1, 0.25),
+       (2, 0.2),
+       (3, 0.2),
+       (4, 0.15);
 
 INSERT INTO screening (is3d, movie_id, datetime)
 VALUES (FALSE, 1, NOW() + INTERVAL 1 DAY),

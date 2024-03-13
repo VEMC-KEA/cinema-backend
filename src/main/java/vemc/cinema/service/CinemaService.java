@@ -1,19 +1,13 @@
 package vemc.cinema.service;
 
 import org.springframework.stereotype.Service;
-import vemc.cinema.dto.CinemaResponseDto;
-import vemc.cinema.dto.HallResponseDto;
-import vemc.cinema.dto.MovieResponseDto;
-import vemc.cinema.dto.SeatResponseDto;
+import vemc.cinema.dto.*;
 import vemc.cinema.entity.*;
 import vemc.cinema.repository.CinemaRepository;
 import vemc.cinema.repository.HallRepository;
 import vemc.cinema.repository.SeatRepository;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,11 +23,11 @@ public class CinemaService {
     }
 
     public List<CinemaResponseDto> findAll() {
-        return cinemaRepository.findAll().stream().map(this::toDto).toList();
+        return cinemaRepository.findAll().stream().map(this::toDtoCinema).toList();
     }
     public CinemaResponseDto findById(Long id) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(id);
-        return cinemaOptional.map(this::toDto).orElse(null);
+        return cinemaOptional.map(this::toDtoCinema).orElse(null);
     }
 
     public List<HallResponseDto> getHallsByCinemaId(Long cinemaId) {
@@ -123,21 +117,37 @@ public class CinemaService {
                 .collect(Collectors.toList());
     }
 
-    private CinemaResponseDto toDto(Cinema cinema) {
+    private CinemaResponseDto toDtoCinema(Cinema cinema) {
         CinemaResponseDto dto = new CinemaResponseDto();
         dto.setId(cinema.getId());
-        dto.setName(cinema.getName());
-        dto.setReservationFee(cinema.getReservationFee());
-        dto.setGroupDiscount(cinema.getGroupDiscount());
-        dto.setMovieBasePrice(cinema.getMovieBasePrice());
-        dto.setMovies(cinema.getMovies());
-        dto.setHall(cinema.getHall());
+
+        List<MovieDto> movieDtos = cinema.getMovies().stream()
+                .map(movie -> {
+                    MovieDto movieDto = new MovieDto();
+                    movieDto.setId(movie.getId());
+                    movieDto.setTitle(movie.getTitle());
+                    return movieDto;
+                })
+                .collect(Collectors.toList());
+        dto.setMovies(movieDtos);
+
+        List<HallDto> hallDtos = cinema.getHall().stream()
+                .map(hall -> {
+                    HallDto hallDto = new HallDto();
+                    hallDto.setId(hall.getId());
+                    hallDto.setNumber(hall.getNumber());
+                    return hallDto;
+                })
+                .collect(Collectors.toList());
+        dto.setHall(hallDtos);
+
         return dto;
     }
+
     private HallResponseDto toDtoHall(Hall hall) {
         HallResponseDto dto = new HallResponseDto();
         dto.setId(hall.getId());
-        dto.setName(hall.getName());
+        dto.setNumber(hall.getNumber());
         dto.setAmountOfFrontRowDiscounted(hall.getAmountOfFrontRowDiscounted());
         dto.setSeat(hall.getSeat());
         dto.setScreening(hall.getScreening());

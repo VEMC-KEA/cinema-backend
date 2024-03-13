@@ -8,9 +8,7 @@ import vemc.cinema.entity.Hall;
 import vemc.cinema.entity.Movie;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -22,7 +20,7 @@ public class CinemaResponseDto {
     private Integer reservationFee;
     private Double groupDiscount;
     private Integer movieBasePrice;
-    private List<Movie> movies = new ArrayList<>();
-    private List<Hall> hall = new ArrayList<>();
+    private List<MovieDto> movies = new ArrayList<>();
+    private List<HallDto> hall = new ArrayList<>();
 }
 
