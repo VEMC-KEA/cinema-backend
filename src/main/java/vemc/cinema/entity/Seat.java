@@ -13,6 +13,7 @@ public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer rowNum;
+    @Column(length = 2)
+    private String row_letter;
     private Integer number;
 }

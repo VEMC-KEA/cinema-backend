@@ -25,17 +25,17 @@ VALUES (FALSE, 1, NOW() + INTERVAL 1 DAY, 1),
        (FALSE, 4, NOW() + INTERVAL 4 DAY, 3),
        (TRUE, 5, NOW() + INTERVAL 5 DAY, 2);
 
-INSERT INTO seat (row_num, number)
-VALUES (1, 1),
-       (1, 2),
-       (2, 1),
-       (2, 2),
-       (3, 1),
-       (3, 2),
-       (4, 1),
-       (4, 2),
-       (5, 1),
-       (5, 2);
+INSERT INTO seat (row_letter, number)
+VALUES ('1A', 1),
+       ('1B', 2),
+       ('2A', 1),
+       ('2B', 2),
+       ('3A', 1),
+       ('3B', 2),
+       ('4A', 1),
+       ('4B', 2),
+       ('5A', 1),
+       ('5B', 2);
 
 INSERT INTO ticket (screening_id, seat_id, is_completed, price)
 VALUES (1, 1, FALSE, 30),
