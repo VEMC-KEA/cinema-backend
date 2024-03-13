@@ -2,6 +2,8 @@ package vemc.cinema.service;
 
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.*;
+import vemc.cinema.dto.helperdto.HallHelperDto;
+import vemc.cinema.dto.helperdto.MovieHelperDto;
 import vemc.cinema.entity.*;
 import vemc.cinema.repository.CinemaRepository;
 import vemc.cinema.repository.HallRepository;
@@ -121,9 +123,9 @@ public class CinemaService {
         CinemaResponseDto dto = new CinemaResponseDto();
         dto.setId(cinema.getId());
 
-        List<MovieDto> movieDtos = cinema.getMovies().stream()
+        List<MovieHelperDto> movieDtos = cinema.getMovies().stream()
                 .map(movie -> {
-                    MovieDto movieDto = new MovieDto();
+                    MovieHelperDto movieDto = new MovieHelperDto();
                     movieDto.setId(movie.getId());
                     movieDto.setTitle(movie.getTitle());
                     return movieDto;
@@ -131,9 +133,9 @@ public class CinemaService {
                 .collect(Collectors.toList());
         dto.setMovies(movieDtos);
 
-        List<HallDto> hallDtos = cinema.getHall().stream()
+        List<HallHelperDto> hallDtos = cinema.getHall().stream()
                 .map(hall -> {
-                    HallDto hallDto = new HallDto();
+                    HallHelperDto hallDto = new HallHelperDto();
                     hallDto.setId(hall.getId());
                     hallDto.setNumber(hall.getNumber());
                     return hallDto;

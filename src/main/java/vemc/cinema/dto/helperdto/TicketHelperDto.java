@@ -1,4 +1,4 @@
-package vemc.cinema.dto;
+package vemc.cinema.dto.helperdto;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,7 +11,7 @@ import vemc.cinema.entity.Seat;
 @Setter
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TicketDto {
+public class TicketHelperDto {
     private Long id;
     private Seat seat;
     private boolean isCompleted = false;

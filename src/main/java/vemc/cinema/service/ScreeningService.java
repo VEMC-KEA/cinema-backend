@@ -2,12 +2,14 @@ package vemc.cinema.service;
 
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.*;
+import vemc.cinema.dto.helperdto.CinemaHelperDto;
+import vemc.cinema.dto.helperdto.HallHelperDto;
+import vemc.cinema.dto.helperdto.MovieHelperDto;
+import vemc.cinema.dto.helperdto.TicketHelperDto;
 import vemc.cinema.entity.Screening;
 import vemc.cinema.repository.ScreeningRepository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ScreeningService {
@@ -41,28 +43,28 @@ public class ScreeningService {
         dto.setId(screening.getId());
         dto.set3d(screening.is3d());
 
-        CinemaDto cinemaDto = new CinemaDto();
+        CinemaHelperDto cinemaDto = new CinemaHelperDto();
         cinemaDto.setId(screening.getCinema().getId());
         cinemaDto.setName(screening.getCinema().getName());
 
         dto.setCinema(cinemaDto);
 
-        MovieDto movieDto = new MovieDto();
+        MovieHelperDto movieDto = new MovieHelperDto();
         movieDto.setId(screening.getMovie().getId());
         movieDto.setTitle(screening.getMovie().getTitle());
 
         dto.setMovie(movieDto);
 
-        List<HallDto> hallDtos = screening.getHall().stream().map(hall -> {
-            HallDto hallDto = new HallDto();
+        List<HallHelperDto> hallDtos = screening.getHall().stream().map(hall -> {
+            HallHelperDto hallDto = new HallHelperDto();
             hallDto.setId(hall.getId());
             hallDto.setNumber(hall.getNumber());
             return hallDto;
         }).toList();
         dto.setHall(hallDtos);
 
-        List<TicketDto> ticketDtos = screening.getTickets().stream().map(ticket -> {
-            TicketDto ticketDto = new TicketDto();
+        List<TicketHelperDto> ticketDtos = screening.getTickets().stream().map(ticket -> {
+            TicketHelperDto ticketDto = new TicketHelperDto();
             ticketDto.setId(ticket.getId());
             ticketDto.setSeat(ticket.getSeat());
             ticketDto.setPrice(ticket.getPrice());

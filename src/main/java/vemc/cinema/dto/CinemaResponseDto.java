@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import vemc.cinema.entity.Hall;
-import vemc.cinema.entity.Movie;
+import vemc.cinema.dto.helperdto.HallHelperDto;
+import vemc.cinema.dto.helperdto.MovieHelperDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class CinemaResponseDto {
     private Integer reservationFee;
     private Double groupDiscount;
     private Integer movieBasePrice;
-    private List<MovieDto> movies = new ArrayList<>();
-    private List<HallDto> hall = new ArrayList<>();
+    private List<MovieHelperDto> movies = new ArrayList<>();
+    private List<HallHelperDto> hall = new ArrayList<>();
 }
 

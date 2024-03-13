@@ -1,4 +1,4 @@
-package vemc.cinema.dto;
+package vemc.cinema.dto.helperdto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CinemaDto {
+public class CinemaHelperDto {
     private Long id;
     private String name;
 
