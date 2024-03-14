@@ -1,5 +1,7 @@
 package vemc.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +22,12 @@ public class Screening {
     private boolean is3d;
     @ManyToOne(fetch = FetchType.EAGER)
     private Movie movie;
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Hall> hall = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private Hall hall;
     private LocalDate datetime;
     @OneToMany(fetch = FetchType.EAGER)
+    @JsonBackReference
     private List<Ticket> tickets = new ArrayList<>();
     @ManyToOne(fetch = FetchType.EAGER)
     private Cinema cinema;

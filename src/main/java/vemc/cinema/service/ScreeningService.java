@@ -6,9 +6,12 @@ import vemc.cinema.dto.helperdto.CinemaHelperDto;
 import vemc.cinema.dto.helperdto.HallHelperDto;
 import vemc.cinema.dto.helperdto.MovieHelperDto;
 import vemc.cinema.dto.helperdto.TicketHelperDto;
+import vemc.cinema.entity.Hall;
+import vemc.cinema.entity.Movie;
 import vemc.cinema.entity.Screening;
 import vemc.cinema.repository.ScreeningRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -49,19 +52,28 @@ public class ScreeningService {
 
         dto.setCinema(cinemaDto);
 
+        Movie movie = screening.getMovie();
         MovieHelperDto movieDto = new MovieHelperDto();
-        movieDto.setId(screening.getMovie().getId());
-        movieDto.setTitle(screening.getMovie().getTitle());
-
+        movieDto.setId(movie.getId());
+        movieDto.setTitle(movie.getTitle());
         dto.setMovie(movieDto);
 
-        List<HallHelperDto> hallDtos = screening.getHall().stream().map(hall -> {
-            HallHelperDto hallDto = new HallHelperDto();
-            hallDto.setId(hall.getId());
+/* List<HallHelperDto> hallDtos = screening.getHall().stream().map(hall -> {
+         HallHelperDto hallDto = new HallHelperDto();
+          hallDto.setId(hall.getId());
             hallDto.setNumber(hall.getNumber());
-            return hallDto;
-        }).toList();
+           return hallDto;
+      }).toList();
+        dto.setHall(hallDtos);*/
+
+        List<HallHelperDto> hallDtos = new ArrayList<>();
+        HallHelperDto hallDto = new HallHelperDto();
+        hallDto.setId(hallDto.getId());
+        hallDto.setNumber(hallDto.getNumber());
+        hallDtos.add(hallDto);
         dto.setHall(hallDtos);
+
+
 
         List<TicketHelperDto> ticketDtos = screening.getTickets().stream().map(ticket -> {
             TicketHelperDto ticketDto = new TicketHelperDto();

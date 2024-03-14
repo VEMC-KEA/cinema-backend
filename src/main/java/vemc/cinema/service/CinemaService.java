@@ -3,6 +3,7 @@ package vemc.cinema.service;
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.*;
 import vemc.cinema.dto.helperdto.HallHelperDto;
+import vemc.cinema.dto.helperdto.HallScreeningHelperDto;
 import vemc.cinema.dto.helperdto.MovieHelperDto;
 import vemc.cinema.entity.*;
 import vemc.cinema.repository.CinemaRepository;
@@ -156,6 +157,13 @@ public class CinemaService {
         return dto;
     }
 
+//    private HallScreeningHelperDto toDtoHall(Hall hall) {
+//        HallScreeningHelperDto dto = new HallScreeningHelperDto();
+//        dto.setId(hall.getId());
+//        dto.setTicketScreeningHelperDtos(hall.);
+//        return dto;
+//    }
+
     private SeatDto toDtoSeat(Seat seat) {
         SeatDto dto = new SeatDto();
         dto.setId(seat.getId());
@@ -174,6 +182,10 @@ public class CinemaService {
         return dto;
     }
 
+//    private HallScreeningHelperDto toDtoScreening(Screening screenings) {
+//        HallScreeningHelperDto dto = new HallScreeningHelperDto();
+//        dto.setTicketScreeningHelperDtos(screenings.getTickets());
+//    }
 
 }
 

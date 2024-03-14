@@ -1,5 +1,6 @@
 package vemc.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,8 +19,9 @@ public class Hall {
     private Long id;
     private Integer number;
     private Double amountOfFrontRowDiscounted;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Screening screening;
+    @OneToMany(fetch = FetchType.EAGER)
+    @JsonBackReference
+    private List<Screening> screening = new ArrayList<>();
     @OneToMany(fetch = FetchType.EAGER)
     private List<Seat> seat = new ArrayList<>();
 }
