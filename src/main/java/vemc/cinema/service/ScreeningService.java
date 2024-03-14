@@ -66,12 +66,11 @@ public class ScreeningService {
       }).toList();
         dto.setHall(hallDtos);*/
 
-        List<HallHelperDto> hallDtos = new ArrayList<>();
+        Hall hall = screening.getHall();
         HallHelperDto hallDto = new HallHelperDto();
-        hallDto.setId(hallDto.getId());
-        hallDto.setNumber(hallDto.getNumber());
-        hallDtos.add(hallDto);
-        dto.setHall(hallDtos);
+        hallDto.setId(hall.getId());
+        hallDto.setNumber(hall.getNumber());
+        dto.setHall(List.of(hallDto));
 
 
 

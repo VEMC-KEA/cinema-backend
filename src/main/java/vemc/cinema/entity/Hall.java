@@ -19,7 +19,7 @@ public class Hall {
     private Long id;
     private Integer number;
     private Double amountOfFrontRowDiscounted;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JsonBackReference
     private List<Screening> screening = new ArrayList<>();
     @OneToMany(fetch = FetchType.EAGER)

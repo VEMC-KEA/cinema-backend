@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vemc.cinema.dto.helperdto.HallScreeningHelperDto;
+import vemc.cinema.dto.helperdto.ScreeningHelperDto;
 import vemc.cinema.entity.Screening;
 import vemc.cinema.entity.Seat;
 
@@ -19,9 +20,7 @@ public class HallDto {
     private Long id;
     private Integer number;
     private Double amountOfFrontRowDiscounted;
-    private List<Screening> screening = new ArrayList<>();
-    // lavet om til en Screening List i stedet for en HallScreeningHelperDto
-    private List<Seat> seat = new ArrayList<>();
+    private List<Seat> seats = new ArrayList<>();
 
 }
 

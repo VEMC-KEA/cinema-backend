@@ -16,7 +16,7 @@ import java.util.List;
 public class HallScreeningHelperDto {
     private Long id;
     private MovieHelperDto movieHelperDto;
-    private ScreeningHallHelperDto screeningHallHelperDto;
+    private List<ScreeningHallHelperDto> screeningHallHelperDto = new ArrayList<>();
     private List<TicketScreeningHelperDto> ticketScreeningHelperDtos = new ArrayList<>();
 
 }

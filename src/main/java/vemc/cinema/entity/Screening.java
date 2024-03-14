@@ -23,11 +23,10 @@ public class Screening {
     @ManyToOne(fetch = FetchType.EAGER)
     private Movie movie;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonManagedReference
     private Hall hall;
     private LocalDate datetime;
-    @OneToMany(fetch = FetchType.EAGER)
-    @JsonBackReference
+    @OneToMany(fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Ticket> tickets = new ArrayList<>();
     @ManyToOne(fetch = FetchType.EAGER)
     private Cinema cinema;

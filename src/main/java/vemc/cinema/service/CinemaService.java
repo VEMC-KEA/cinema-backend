@@ -5,6 +5,7 @@ import vemc.cinema.dto.*;
 import vemc.cinema.dto.helperdto.HallHelperDto;
 import vemc.cinema.dto.helperdto.HallScreeningHelperDto;
 import vemc.cinema.dto.helperdto.MovieHelperDto;
+import vemc.cinema.dto.helperdto.ScreeningHelperDto;
 import vemc.cinema.entity.*;
 import vemc.cinema.repository.CinemaRepository;
 import vemc.cinema.repository.HallRepository;
@@ -147,20 +148,31 @@ public class CinemaService {
         return dto;
     }
 
+//    private HallDto toDtoHall(Hall hall) {
+//        HallDto dto = new HallDto();
+//        dto.setId(hall.getId());
+//        dto.setNumber(hall.getNumber());
+//        dto.setAmountOfFrontRowDiscounted(hall.getAmountOfFrontRowDiscounted());
+//        dto.setSeat(hall.getSeat());
+//        dto.setScreening(hall.getScreening());
+//        return dto;
+//    }
+
     private HallDto toDtoHall(Hall hall) {
         HallDto dto = new HallDto();
         dto.setId(hall.getId());
         dto.setNumber(hall.getNumber());
         dto.setAmountOfFrontRowDiscounted(hall.getAmountOfFrontRowDiscounted());
-        dto.setSeat(hall.getSeat());
-        dto.setScreening(hall.getScreening());
+        dto.setSeats(hall.getSeat());
         return dto;
     }
+
+
 
 //    private HallScreeningHelperDto toDtoHall(Hall hall) {
 //        HallScreeningHelperDto dto = new HallScreeningHelperDto();
 //        dto.setId(hall.getId());
-//        dto.setTicketScreeningHelperDtos(hall.);
+//        dto.setScreeningHallHelperDto(hall.getScreening());
 //        return dto;
 //    }
 
