@@ -5,11 +5,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import vemc.cinema.dto.helperdto.ReservationHelperDto;
 import vemc.cinema.dto.helperdto.ReservationScreeningHelperDto;
 import vemc.cinema.dto.helperdto.ReservationTicketHelperDto;
-import vemc.cinema.entity.Screening;
-
 import java.util.ArrayList;
 import java.util.List;
 

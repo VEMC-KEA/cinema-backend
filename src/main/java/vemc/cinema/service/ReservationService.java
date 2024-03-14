@@ -1,18 +1,10 @@
 package vemc.cinema.service;
 
-import org.hibernate.annotations.processing.Find;
 import org.springframework.stereotype.Service;
-import vemc.cinema.dto.MovieDto;
 import vemc.cinema.dto.ReservationDto;
 import vemc.cinema.dto.ReservationTicketDto;
-import vemc.cinema.dto.ScreeningDto;
-import vemc.cinema.dto.helperdto.ReservationHelperDto;
-import vemc.cinema.dto.helperdto.ReservationScreeningHelperDto;
 import vemc.cinema.dto.helperdto.ReservationTicketHelperDto;
-import vemc.cinema.dto.helperdto.ScreeningHelperDto;
-import vemc.cinema.entity.Cinema;
 import vemc.cinema.entity.Reservation;
-import vemc.cinema.entity.Screening;
 import vemc.cinema.entity.Ticket;
 import vemc.cinema.repository.ReservationRepository;
 
@@ -88,5 +80,4 @@ public class ReservationService {
         dto.setTickets(ticketService.toHelperDtoList(reservation.getTickets()));
         return dto;
     }
-
 }

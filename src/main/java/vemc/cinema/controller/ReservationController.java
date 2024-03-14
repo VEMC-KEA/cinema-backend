@@ -2,13 +2,8 @@ package vemc.cinema.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vemc.cinema.dto.HallDto;
 import vemc.cinema.dto.ReservationDto;
 import vemc.cinema.dto.ReservationTicketDto;
-import vemc.cinema.dto.ScreeningDto;
-import vemc.cinema.dto.helperdto.ReservationHelperDto;
-import vemc.cinema.dto.helperdto.ReservationTicketHelperDto;
-import vemc.cinema.entity.Reservation;
 import vemc.cinema.service.ReservationService;
 
 import java.util.List;

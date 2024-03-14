@@ -7,8 +7,6 @@ import vemc.cinema.dto.helperdto.HallHelperDto;
 import vemc.cinema.dto.helperdto.MovieHelperDto;
 import vemc.cinema.entity.*;
 import vemc.cinema.repository.CinemaRepository;
-import vemc.cinema.repository.HallRepository;
-import vemc.cinema.repository.SeatRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,18 +14,15 @@ import java.util.stream.Collectors;
 @Service
 public class CinemaService {
     private final CinemaRepository cinemaRepository;
-    private final HallRepository hallRepository;
-    private final SeatRepository seatRepository;
 
-    public CinemaService(CinemaRepository cinemaRepository, HallRepository hallRepository, SeatRepository seatRepository) {
+    public CinemaService(CinemaRepository cinemaRepository) {
         this.cinemaRepository = cinemaRepository;
-        this.hallRepository = hallRepository;
-        this.seatRepository = seatRepository;
     }
 
     public List<CinemaDto> findAll() {
         return cinemaRepository.findAll().stream().map(this::toDtoCinema).toList();
     }
+
     public CinemaDto findById(Long id) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(id);
         return cinemaOptional.map(this::toDtoCinema).orElse(null);
@@ -147,16 +142,6 @@ public class CinemaService {
         return dto;
     }
 
-//    private HallDto toDtoHall(Hall hall) {
-//        HallDto dto = new HallDto();
-//        dto.setId(hall.getId());
-//        dto.setNumber(hall.getNumber());
-//        dto.setAmountOfFrontRowDiscounted(hall.getAmountOfFrontRowDiscounted());
-//        dto.setSeat(hall.getSeat());
-//        dto.setScreening(hall.getScreening());
-//        return dto;
-//    }
-
     private HallDto toDtoHall(Hall hall) {
         HallDto dto = new HallDto();
         dto.setId(hall.getId());
@@ -165,15 +150,6 @@ public class CinemaService {
         dto.setSeats(hall.getSeat());
         return dto;
     }
-
-
-
-//    private HallScreeningHelperDto toDtoHall(Hall hall) {
-//        HallScreeningHelperDto dto = new HallScreeningHelperDto();
-//        dto.setId(hall.getId());
-//        dto.setScreeningHallHelperDto(hall.getScreening());
-//        return dto;
-//    }
 
     private SeatDto toDtoSeat(Seat seat) {
         SeatDto dto = new SeatDto();
@@ -197,14 +173,7 @@ public class CinemaService {
         CinemaHelperDto dto = new CinemaHelperDto();
         dto.setId(cinema.getId());
         dto.setName(cinema.getName());
-        // set other properties as needed
         return dto;
     }
-
-//    private HallScreeningHelperDto toDtoScreening(Screening screenings) {
-//        HallScreeningHelperDto dto = new HallScreeningHelperDto();
-//        dto.setTicketScreeningHelperDtos(screenings.getTickets());
-//    }
-
 }
 
