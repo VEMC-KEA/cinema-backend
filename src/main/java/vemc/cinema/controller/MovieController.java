@@ -1,16 +1,14 @@
 package vemc.cinema.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import vemc.cinema.dto.MovieResponseDto;
 import vemc.cinema.dto.ScreeningResponseDto;
 import vemc.cinema.service.MovieService;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("movies")
@@ -31,10 +29,37 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MovieResponseDto> getAllMoviesById(@PathVariable Long id){
+    public ResponseEntity<Optional<MovieResponseDto>> getAllMoviesById(@PathVariable Long id){
         var movie = this.MovieService.findById(id);
-        if(movie != null){
+        if(movie.isPresent()){
             return ResponseEntity.ok(movie);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping
+    public ResponseEntity<MovieResponseDto> create(@RequestBody MovieResponseDto movie){
+        var savedMovie = this.MovieService.save(movie);
+        if(savedMovie != null){
+            return ResponseEntity.ok(savedMovie);
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MovieResponseDto> update(@PathVariable Long id, @RequestBody MovieResponseDto movie){
+        var updatedMovie = this.MovieService.updateIfExist(id, movie);
+        if(updatedMovie.isPresent()){
+            return ResponseEntity.ok(updatedMovie.get());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<MovieResponseDto> delete(@PathVariable Long id){
+        var deletedMovie = this.MovieService.deleteById(id);
+        if(deletedMovie.isPresent()){
+            return ResponseEntity.ok(deletedMovie.get());
         }
         return ResponseEntity.notFound().build();
     }
