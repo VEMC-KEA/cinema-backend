@@ -37,31 +37,22 @@ public class MovieController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<MovieResponseDto> create(@RequestBody MovieResponseDto movie){
-        var savedMovie = this.MovieService.save(movie);
-        if(savedMovie != null){
-            return ResponseEntity.ok(savedMovie);
+        if(movie.getTitle() == null){
+            return null;
         }
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.ok(MovieService.save(movie));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MovieResponseDto> update(@PathVariable Long id, @RequestBody MovieResponseDto movie){
-        var updatedMovie = this.MovieService.updateIfExist(id, movie);
-        if(updatedMovie.isPresent()){
-            return ResponseEntity.ok(updatedMovie.get());
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<MovieResponseDto> update(@RequestBody MovieResponseDto movie, @PathVariable("id") Long id) {
+        return ResponseEntity.of(MovieService.updateIfExist(id, movie));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<MovieResponseDto> delete(@PathVariable Long id){
-        var deletedMovie = this.MovieService.deleteById(id);
-        if(deletedMovie.isPresent()){
-            return ResponseEntity.ok(deletedMovie.get());
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<MovieResponseDto> delete(@PathVariable("id") Long id) {
+        return ResponseEntity.of(MovieService.deleteById(id));
     }
 
 
