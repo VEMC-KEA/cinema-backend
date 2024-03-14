@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Screening {
     private Movie movie;
     @ManyToOne(fetch = FetchType.EAGER)
     private Hall hall;
-    private LocalDate datetime;
+    private LocalDate date;
     @OneToMany(fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Ticket> tickets = new ArrayList<>();
@@ -31,4 +32,5 @@ public class Screening {
     private Cinema cinema;
     @OneToMany(fetch = FetchType.EAGER)
     private List<Reservation> reservations = new ArrayList<>();
+    private LocalTime time;
 }

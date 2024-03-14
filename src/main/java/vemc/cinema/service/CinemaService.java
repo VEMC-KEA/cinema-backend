@@ -118,6 +118,8 @@ public class CinemaService {
     private CinemaDto toDtoCinema(Cinema cinema) {
         CinemaDto dto = new CinemaDto();
         dto.setId(cinema.getId());
+        dto.setImageUrl(cinema.getImageUrl());
+        dto.setName(cinema.getName());
 
         List<MovieHelperDto> movieDtos = cinema.getMovies().stream()
                 .map(movie -> {

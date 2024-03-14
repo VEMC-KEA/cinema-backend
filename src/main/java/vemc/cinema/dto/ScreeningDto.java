@@ -10,6 +10,7 @@ import vemc.cinema.dto.helperdto.MovieHelperDto;
 import vemc.cinema.dto.helperdto.TicketHelperDto;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class ScreeningDto {
     private CinemaHelperDto cinema;
     private MovieHelperDto movie;
     private List<HallHelperDto> hall = new ArrayList<>();
-    private LocalDate datetime;
+    private LocalDate date;
+    private LocalTime time;
     private List<TicketHelperDto> tickets = new ArrayList<>();
 }

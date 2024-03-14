@@ -1,10 +1,10 @@
 USE cinema;
 
-INSERT INTO cinema (name, reservation_fee, group_discount, movie_base_price)
-VALUES ('Cinema Royale', 12, 0.15, 140),
-       ('Movie Magic', 10, 0.1, 140),
-       ('Star Cinema', 15, 0.2, 150),
-       ('The Gentalman', 20, 0.2, 130);
+INSERT INTO cinema (name, reservation_fee, group_discount, movie_base_price, image_url)
+VALUES ('Cinema Royale', 12, 0.15, 140, "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L25zODIzMC1pbWFnZS5qcGc.jpg"),
+       ('Movie Magic', 10, 0.1, 140, "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L25zODIzMC1pbWFnZS5qcGc.jpg"),
+       ('Star Cinema', 15, 0.2, 150, "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L25zODIzMC1pbWFnZS5qcGc.jpg"),
+       ('The Gentalman', 20, 0.2, 130, "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L25zODIzMC1pbWFnZS5qcGc.jpg");
 
 INSERT INTO movie (title, run_time, is_classic, genre, pg13, image_url)
 VALUES ('The Matrix', 136, FALSE, 'Sci-Fi', TRUE, "https://i.etsystatic.com/20217829/r/il/16b095/2467136209/il_fullxfull.2467136209_lutd.jpg"),
@@ -32,17 +32,17 @@ VALUES (1, 0.25),
        (10, 0.15);
 
 
-INSERT INTO screening (is3d, movie_id, datetime, cinema_id, hall_id)
-VALUES (FALSE, 1, NOW() + INTERVAL 1 DAY, 1, 1),
-       (TRUE, 2, NOW() + INTERVAL 2 DAY, 1, 1),
-       (FALSE, 3, NOW() + INTERVAL 3 DAY, 2, 2),
-       (FALSE, 4, NOW() + INTERVAL 4 DAY, 3, 3),
-       (TRUE, 5, NOW() + INTERVAL 5 DAY, 2, 2),
-        (FALSE, 6, NOW() + INTERVAL 6 DAY, 1, 1),
-        (TRUE, 7, NOW() + INTERVAL 7 DAY, 1, 1),
-        (FALSE, 8, NOW() + INTERVAL 8 DAY, 2, 2),
-        (FALSE, 9, NOW() + INTERVAL 9 DAY, 3, 3),
-        (TRUE, 10, NOW() + INTERVAL 10 DAY, 2, 2);
+INSERT INTO screening (is3d, movie_id, date, time, cinema_id, hall_id)
+VALUES (FALSE, 1, NOW() + INTERVAL 1 DAY, '15:30:00', 1, 1),
+       (TRUE, 2, NOW() + INTERVAL 2 DAY, '15:30:00', 1, 1),
+       (FALSE, 3, NOW() + INTERVAL 3 DAY, '17:30:00',2, 2),
+       (FALSE, 4, NOW() + INTERVAL 4 DAY,'15:30:00',3, 3),
+       (TRUE, 5, NOW() + INTERVAL 5 DAY, '15:30:00',2, 2),
+        (FALSE, 6, NOW() + INTERVAL 6 DAY, '15:30:00',1, 1),
+        (TRUE, 7, NOW() + INTERVAL 7 DAY, '15:30:00',1, 1),
+        (FALSE, 8, NOW() + INTERVAL 8 DAY, '15:30:00',2, 2),
+        (FALSE, 9, NOW() + INTERVAL 9 DAY, '15:30:00',3, 3),
+        (TRUE, 10, NOW() + INTERVAL 10 DAY, '15:30:00',2, 2);
 
 
 INSERT INTO seat (row_letter, number)

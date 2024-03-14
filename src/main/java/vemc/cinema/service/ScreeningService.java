@@ -39,7 +39,8 @@ public class ScreeningService {
         dto.setCinema(cinemaService.toHelperDto(screening.getCinema()));
         dto.setMovie(movieService.toHelperDto(screening.getMovie()));
         dto.setHall(hallService.toHelperDto(screening.getHall()));
-        dto.setDatetime(screening.getDatetime());
+        dto.setDate(screening.getDate());
+        dto.setTime(screening.getTime());
         return dto;
     }
 

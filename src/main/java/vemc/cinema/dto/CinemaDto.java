@@ -20,6 +20,7 @@ public class CinemaDto {
     private Integer reservationFee;
     private Double groupDiscount;
     private Integer movieBasePrice;
+    private String imageUrl;
     private List<MovieHelperDto> movies = new ArrayList<>();
     private List<HallHelperDto> hall = new ArrayList<>();
 }

@@ -20,6 +20,5 @@ public class Ticket {
     @OneToOne(fetch = FetchType.EAGER)
     private Seat seat;
     private Double price;
-
 }
 
