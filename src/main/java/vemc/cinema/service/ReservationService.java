@@ -45,23 +45,6 @@ public class ReservationService {
         return reservationRepository.findById(id).map(this::toDto);
     }
 
-  /*  public Optional<ReservationDto> findAllTicketsByReservationId(Long id) {
-        Optional<Reservation> reservationOptional = ReservationRepository.findById(cinemaId);
-        if (reservationOptional.isEmpty()) {
-            return Collections.emptyList();
-        }
-        Reservation reservation = reservationOptional.get();
-        List<Ticket> reservationOptional.getTicket();
-        
-
-
-
-        return tickets.stream()
-                .map(this::toDto)
-                .collect(Collectors.toList());
-    }*/
-
-
     public Optional<ReservationTicketDto> findTicketsByReservationId(Long id) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
         if (reservationOptional.isEmpty()) {
@@ -71,6 +54,24 @@ public class ReservationService {
         return Optional.of(toDtoReservationTicket(reservation));
     }
 
+    public Optional<ReservationTicketDto> findOneTicketByReservationId(Long id, Long ticketId) {
+        Optional<Reservation> reservationOptional = reservationRepository.findById(id);
+        if (reservationOptional.isEmpty()) {
+            return Optional.empty();
+        }
+        Reservation reservation = reservationOptional.get();
+        Ticket ticket = reservation.getTickets().stream()
+                .filter(t -> t.getId().equals(ticketId))
+                .findFirst()
+                .orElse(null);
+        if (ticket == null) {
+            return Optional.empty();
+        }
+        ReservationTicketHelperDto ticketDto = ticketService.toHelperDto(ticket);
+        ReservationTicketDto reservationTicketDto = new ReservationTicketDto();
+        reservationTicketDto.setTickets(Collections.singletonList(ticketDto));
+        return Optional.of(reservationTicketDto);
+    }
 
     public ReservationTicketDto toDtoReservationTicket(Reservation reservation) {
         ReservationTicketDto dto = new ReservationTicketDto();
@@ -78,8 +79,6 @@ public class ReservationService {
         dto.setTickets(ticketDtos);
         return dto;
     }
-
-
 
     public ReservationDto toDto (Reservation reservation){
         ReservationDto dto = new ReservationDto();

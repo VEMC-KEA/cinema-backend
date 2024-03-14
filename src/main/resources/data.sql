@@ -112,6 +112,7 @@ VALUES (1, FALSE),
 
 INSERT INTO reservation_tickets(reservation_id, tickets_id)
 VALUES (1, 1),
+       (1, 6),
        (2, 2),
        (3, 3),
        (4, 4);

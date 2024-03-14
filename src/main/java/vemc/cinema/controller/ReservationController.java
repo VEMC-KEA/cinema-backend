@@ -2,6 +2,7 @@ package vemc.cinema.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vemc.cinema.dto.HallDto;
 import vemc.cinema.dto.ReservationDto;
 import vemc.cinema.dto.ReservationTicketDto;
 import vemc.cinema.dto.ScreeningDto;
@@ -49,5 +50,12 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
-
+    @GetMapping("/{reservationId}/tickets/{ticketsId}")
+    public ResponseEntity<Optional<ReservationTicketDto>> getAllTicketsByReservationId(@PathVariable Long reservationId, @PathVariable Long ticketsId){
+        var ticket = this.reservationService.findOneTicketByReservationId(reservationId, ticketsId);
+        if(ticket.isPresent()){
+            return ResponseEntity.ok(ticket);
+        }
+        return ResponseEntity.noContent().build();
+    }
 }

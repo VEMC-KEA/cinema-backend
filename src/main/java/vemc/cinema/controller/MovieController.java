@@ -53,6 +53,5 @@ public class MovieController {
     public ResponseEntity<MovieDto> delete(@PathVariable("id") Long id) {
         return ResponseEntity.of(MovieService.deleteById(id));
     }
-    
 }
 
