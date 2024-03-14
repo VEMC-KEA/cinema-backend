@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import vemc.cinema.entity.Seat;
+import vemc.cinema.dto.helperdto.ReservationHelperDto;
+import vemc.cinema.dto.helperdto.ReservationTicketHelperDto;
+import vemc.cinema.dto.helperdto.TicketHelperDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +15,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class HallDto {
-    private Long id;
-    private Integer number;
-    private Double amountOfFrontRowDiscounted;
-    private List<Seat> seats = new ArrayList<>();
-
+public class ReservationTicketDto {
+    private List<ReservationTicketHelperDto> tickets = new ArrayList<>();
 }
-

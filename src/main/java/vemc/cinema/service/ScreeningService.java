@@ -2,10 +2,7 @@ package vemc.cinema.service;
 
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.*;
-import vemc.cinema.dto.helperdto.CinemaHelperDto;
-import vemc.cinema.dto.helperdto.HallHelperDto;
-import vemc.cinema.dto.helperdto.MovieHelperDto;
-import vemc.cinema.dto.helperdto.TicketHelperDto;
+import vemc.cinema.dto.helperdto.*;
 import vemc.cinema.entity.Hall;
 import vemc.cinema.entity.Movie;
 import vemc.cinema.entity.Screening;
@@ -17,9 +14,16 @@ import java.util.List;
 @Service
 public class ScreeningService {
     private final ScreeningRepository screeningRepository;
+    private final CinemaService cinemaService;
+    private final MovieService movieService;
 
-    public ScreeningService(ScreeningRepository screeningRepository){
+    private final HallService hallService;
+
+    public ScreeningService(ScreeningRepository screeningRepository, CinemaService cinemaService, MovieService movieService, HallService hallService){
         this.screeningRepository = screeningRepository;
+        this.cinemaService = cinemaService;
+        this.movieService = movieService;
+        this.hallService = hallService;
     }
 
     public List<ScreeningDto> findAll() {
@@ -40,6 +44,29 @@ public class ScreeningService {
 //        dto.setTickets(screening.getTickets());
 //        return dto;
 //    }
+
+    public ScreeningHelperDto toHelperDto(Screening screening) {
+        ScreeningHelperDto dto = new ScreeningHelperDto();
+        dto.setId(screening.getId());
+        dto.set3d(screening.is3d());
+        dto.setMovie(screening.getMovie());
+        dto.setHall(screening.getHall());
+        dto.setDatetime(screening.getDatetime());
+        return dto;
+    }
+
+    public ReservationScreeningHelperDto toHelperDtoScreening(Screening screening) {
+        ReservationScreeningHelperDto dto = new ReservationScreeningHelperDto();
+        dto.set3d(screening.is3d());
+        // Assuming that you have methods to convert Cinema, Movie, and Hall to their respective HelperDto
+        dto.setCinema(cinemaService.toHelperDto(screening.getCinema()));
+        dto.setMovie(movieService.toHelperDto(screening.getMovie()));
+        dto.setHall(hallService.toHelperDto(screening.getHall()));
+        dto.setDatetime(screening.getDatetime());
+        return dto;
+    }
+
+
 
     public ScreeningDto toDto(Screening screening) {
         ScreeningDto dto = new ScreeningDto();

@@ -2,10 +2,9 @@ package vemc.cinema.service;
 
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.*;
+import vemc.cinema.dto.helperdto.CinemaHelperDto;
 import vemc.cinema.dto.helperdto.HallHelperDto;
-import vemc.cinema.dto.helperdto.HallScreeningHelperDto;
 import vemc.cinema.dto.helperdto.MovieHelperDto;
-import vemc.cinema.dto.helperdto.ScreeningHelperDto;
 import vemc.cinema.entity.*;
 import vemc.cinema.repository.CinemaRepository;
 import vemc.cinema.repository.HallRepository;
@@ -191,6 +190,14 @@ public class CinemaService {
         dto.setIsClassic(movie.getIsClassic());
         dto.setGenre(movie.getGenre());
         dto.setPg13(movie.getPg13());
+        return dto;
+    }
+
+    public CinemaHelperDto toHelperDto(Cinema cinema) {
+        CinemaHelperDto dto = new CinemaHelperDto();
+        dto.setId(cinema.getId());
+        dto.setName(cinema.getName());
+        // set other properties as needed
         return dto;
     }
 

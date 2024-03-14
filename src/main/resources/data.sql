@@ -33,28 +33,28 @@ VALUES (FALSE, 1, NOW() + INTERVAL 1 DAY, 1, 1),
        (TRUE, 5, NOW() + INTERVAL 5 DAY, 2, 2);
 
 INSERT INTO seat (row_letter, number)
-VALUES ('1A', 1),
-       ('1B', 2),
-       ('2A', 1),
-       ('2B', 2),
-       ('3A', 1),
-       ('3B', 2),
-       ('4A', 1),
-       ('4B', 2),
-       ('5A', 1),
-       ('5B', 2);
+VALUES ('A', 1),
+       ('B', 2),
+       ('A', 1),
+       ('B', 2),
+       ('A', 1),
+       ('B', 2),
+       ('A', 1),
+       ('B', 2),
+       ('A', 1),
+       ('B', 2);
 
-INSERT INTO ticket (screening_id, seat_id, is_completed, price)
-VALUES (1, 1, FALSE, 30),
-       (1, 2, FALSE, 30),
-       (2, 3, FALSE, 25),
-       (2, 4, FALSE, 25),
-       (3, 5, FALSE, 20),
-       (3, 6, FALSE, 20),
-       (4, 7, FALSE, 35),
-       (4, 8, FALSE, 35),
-       (5, 9, FALSE, 40),
-       (5, 10, FALSE, 40);
+INSERT INTO ticket (screening_id, seat_id, price)
+VALUES (1, 1, 30),
+       (1, 2, 30),
+       (2, 3, 25),
+       (2, 4, 25),
+       (3, 5, 20),
+       (3, 6, 20),
+       (4, 7, 35),
+       (4, 8, 35),
+       (5, 9, 40),
+       (5, 10, 40);
 
 INSERT INTO cinema_hall (cinema_id, hall_id)
 VALUES (1, 1),
@@ -102,3 +102,16 @@ VALUES (1, 1),
        (2, 3),
        (2, 4),
        (3, 1);
+
+INSERT INTO reservation (screening_id, is_completed)
+VALUES (1, FALSE),
+       (2, FALSE),
+       (3, FALSE),
+       (4, FALSE),
+       (5, FALSE);
+
+INSERT INTO reservation_tickets(reservation_id, tickets_id)
+VALUES (1, 1),
+       (2, 2),
+       (3, 3),
+       (4, 4);

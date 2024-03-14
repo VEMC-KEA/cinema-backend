@@ -2,6 +2,9 @@ package vemc.cinema.service;
 
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.MovieDto;
+import vemc.cinema.dto.helperdto.CinemaHelperDto;
+import vemc.cinema.dto.helperdto.MovieHelperDto;
+import vemc.cinema.entity.Cinema;
 import vemc.cinema.entity.Movie;
 import vemc.cinema.repository.MovieRepository;
 
@@ -65,6 +68,13 @@ public class MovieService {
         entity.setPg13(movie.getPg13());
         entity.setImageUrl(movie.getImageUrl());
         return entity;
+    }
+
+    public MovieHelperDto toHelperDto(Movie movie) {
+        MovieHelperDto dto = new MovieHelperDto();
+        dto.setId(movie.getId());
+        dto.setTitle(movie.getTitle());
+        return dto;
     }
 
 }

@@ -30,4 +30,6 @@ public class Screening {
     private List<Ticket> tickets = new ArrayList<>();
     @ManyToOne(fetch = FetchType.EAGER)
     private Cinema cinema;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Reservation> reservations = new ArrayList<>();
 }

@@ -8,15 +8,15 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class HallScreeningHelperDto {
-    private Long id;
-    private MovieHelperDto movieHelperDto;
-    private List<ScreeningHallHelperDto> screeningHallHelperDto = new ArrayList<>();
-    private List<TicketScreeningHelperDto> ticketScreeningHelperDtos = new ArrayList<>();
-
+public class ReservationScreeningHelperDto {
+    private boolean is3d;
+    private CinemaHelperDto cinema;
+    private MovieHelperDto movie;
+    private List<HallHelperDto> hall = new ArrayList<>();
+    private LocalDate datetime;
 }
+
