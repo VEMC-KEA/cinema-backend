@@ -21,4 +21,5 @@ public class Movie {
     private Boolean isClassic;
     private String genre;
     private Boolean pg13;
+    private String imageUrl;
 }

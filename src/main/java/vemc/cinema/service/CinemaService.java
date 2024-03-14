@@ -24,15 +24,15 @@ public class CinemaService {
         this.seatRepository = seatRepository;
     }
 
-    public List<CinemaResponseDto> findAll() {
+    public List<CinemaDto> findAll() {
         return cinemaRepository.findAll().stream().map(this::toDtoCinema).toList();
     }
-    public CinemaResponseDto findById(Long id) {
+    public CinemaDto findById(Long id) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(id);
         return cinemaOptional.map(this::toDtoCinema).orElse(null);
     }
 
-    public List<HallResponseDto> getHallsByCinemaId(Long cinemaId) {
+    public List<HallDto> getHallsByCinemaId(Long cinemaId) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);
         if (cinemaOptional.isEmpty()) {
             return Collections.emptyList();
@@ -47,7 +47,7 @@ public class CinemaService {
                 .collect(Collectors.toList());
     }
 
-    public HallResponseDto getHallsByIdByCinemaId(Long cinemaId, Long hallId) {
+    public HallDto getHallsByIdByCinemaId(Long cinemaId, Long hallId) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);
         if(cinemaOptional.isEmpty()) {
             return null;
@@ -58,7 +58,7 @@ public class CinemaService {
         return hallOptional.map(this::toDtoHall).orElse(null);
     }
 
-    public List<SeatResponseDto> getSeatsByHallsIdByCinemaId(Long cinemaId, Long hallId) {
+    public List<SeatDto> getSeatsByHallsIdByCinemaId(Long cinemaId, Long hallId) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);
 
         if (cinemaOptional.isEmpty()) {
@@ -80,7 +80,7 @@ public class CinemaService {
                 .collect(Collectors.toList());
     }
 
-    public SeatResponseDto getSeatByIdByHallsIdByCinemaId(Long cinemaId, Long hallId, Long seatId) {
+    public SeatDto getSeatByIdByHallsIdByCinemaId(Long cinemaId, Long hallId, Long seatId) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);
 
         if (cinemaOptional.isEmpty()) {
@@ -100,7 +100,7 @@ public class CinemaService {
         return seatOptional.map(this::toDtoSeat).orElse(null);
     }
 
-    public List<MovieResponseDto> getMovieByCinemaId (Long id) {
+    public List<MovieDto> getMovieByCinemaId (Long id) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(id);
 
         if (cinemaOptional.isEmpty()) {
@@ -119,8 +119,8 @@ public class CinemaService {
                 .collect(Collectors.toList());
     }
 
-    private CinemaResponseDto toDtoCinema(Cinema cinema) {
-        CinemaResponseDto dto = new CinemaResponseDto();
+    private CinemaDto toDtoCinema(Cinema cinema) {
+        CinemaDto dto = new CinemaDto();
         dto.setId(cinema.getId());
 
         List<MovieHelperDto> movieDtos = cinema.getMovies().stream()
@@ -146,8 +146,8 @@ public class CinemaService {
         return dto;
     }
 
-    private HallResponseDto toDtoHall(Hall hall) {
-        HallResponseDto dto = new HallResponseDto();
+    private HallDto toDtoHall(Hall hall) {
+        HallDto dto = new HallDto();
         dto.setId(hall.getId());
         dto.setNumber(hall.getNumber());
         dto.setAmountOfFrontRowDiscounted(hall.getAmountOfFrontRowDiscounted());
@@ -156,16 +156,16 @@ public class CinemaService {
         return dto;
     }
 
-    private SeatResponseDto toDtoSeat(Seat seat) {
-        SeatResponseDto dto = new SeatResponseDto();
+    private SeatDto toDtoSeat(Seat seat) {
+        SeatDto dto = new SeatDto();
         dto.setId(seat.getId());
         dto.setNumber(seat.getNumber());
         dto.setRow_letter(seat.getRow_letter());
         return dto;
     }
 
-    private MovieResponseDto toDtoMovie(Movie movie) {
-        MovieResponseDto dto = new MovieResponseDto();
+    private MovieDto toDtoMovie(Movie movie) {
+        MovieDto dto = new MovieDto();
         dto.setId(movie.getId());
         dto.setRunTime(movie.getRunTime());
         dto.setIsClassic(movie.getIsClassic());

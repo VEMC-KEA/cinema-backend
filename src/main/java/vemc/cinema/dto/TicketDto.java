@@ -1,5 +1,6 @@
 package vemc.cinema.dto;
 
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,19 +8,14 @@ import lombok.Setter;
 import vemc.cinema.entity.Screening;
 import vemc.cinema.entity.Seat;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class HallResponseDto {
+public class TicketDto {
     private Long id;
-    private Integer number;
-    private Double amountOfFrontRowDiscounted;
     private Screening screening;
-    private List<Seat> seat = new ArrayList<>();
-
+    private Seat seat;
+    private boolean isCompleted = false;
+    private Double price;
 }
-

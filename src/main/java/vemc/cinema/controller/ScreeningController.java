@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vemc.cinema.dto.ScreeningResponseDto;
+import vemc.cinema.dto.ScreeningDto;
 import vemc.cinema.service.ScreeningService;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class ScreeningController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ScreeningResponseDto>> getAllScreenings(){
+    public ResponseEntity<List<ScreeningDto>> getAllScreenings(){
         var screenings = this.screeningService.findAll();
         if(screenings != null){
             return ResponseEntity.ok(screenings);
@@ -30,7 +30,7 @@ public class ScreeningController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ScreeningResponseDto> getAllScreeningsById(@PathVariable Long id){
+    public ResponseEntity<ScreeningDto> getAllScreeningsById(@PathVariable Long id){
         var screening = this.screeningService.findById(id);
         if(screening != null){
             return ResponseEntity.ok(screening);

@@ -1,7 +1,7 @@
 package vemc.cinema.service;
 
 import org.springframework.stereotype.Service;
-import vemc.cinema.dto.MovieResponseDto;
+import vemc.cinema.dto.MovieDto;
 import vemc.cinema.entity.Movie;
 import vemc.cinema.repository.MovieRepository;
 
@@ -16,19 +16,19 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-    public List<MovieResponseDto> findAll() {
+    public List<MovieDto> findAll() {
         return movieRepository.findAll().stream().map(this::toDto).toList();
     }
 
-    public Optional<MovieResponseDto> findById(Long id) {
+    public Optional<MovieDto> findById(Long id) {
         return movieRepository.findById(id).map(this::toDto);
     }
 
-    public MovieResponseDto save(MovieResponseDto movie) {
+    public MovieDto save(MovieDto movie) {
         return toDto(movieRepository.save(toEntity(movie)));
     }
 
-    public Optional<MovieResponseDto> updateIfExist(Long id, MovieResponseDto movie) {
+    public Optional<MovieDto> updateIfExist(Long id, MovieDto movie) {
         if (movieRepository.existsById(id)) {
             Movie entity = toEntity(movie);
             entity.setId(id);
@@ -37,24 +37,25 @@ public class MovieService {
         return Optional.empty();
     }
 
-    public Optional<MovieResponseDto> deleteById(Long id) {
-        Optional<MovieResponseDto> existingMovie = findById(id);
+    public Optional<MovieDto> deleteById(Long id) {
+        Optional<MovieDto> existingMovie = findById(id);
         movieRepository.deleteById(id);
         return existingMovie;
     }
 
-    private MovieResponseDto toDto(Movie movie) {
-        MovieResponseDto dto = new MovieResponseDto();
+    private MovieDto toDto(Movie movie) {
+        MovieDto dto = new MovieDto();
         dto.setId(movie.getId());
         dto.setTitle(movie.getTitle());
         dto.setGenre(movie.getGenre());
         dto.setRunTime(movie.getRunTime());
         dto.setIsClassic(movie.getIsClassic());
         dto.setPg13(movie.getPg13());
+        dto.setImageUrl(movie.getImageUrl());
         return dto;
     }
 
-    public Movie toEntity (MovieResponseDto movie) {
+    public Movie toEntity (MovieDto movie) {
         Movie entity = new Movie();
         entity.setId(movie.getId());
         entity.setTitle(movie.getTitle());
@@ -62,6 +63,7 @@ public class MovieService {
         entity.setRunTime(movie.getRunTime());
         entity.setIsClassic(movie.getIsClassic());
         entity.setPg13(movie.getPg13());
+        entity.setImageUrl(movie.getImageUrl());
         return entity;
     }
 

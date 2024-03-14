@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CinemaResponseDto {
+public class CinemaDto {
     private Long id;
     private String name;
     private Integer reservationFee;

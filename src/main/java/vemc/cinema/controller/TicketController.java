@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vemc.cinema.dto.TicketResponseDto;
+import vemc.cinema.dto.TicketDto;
 import vemc.cinema.service.TicketService;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class TicketController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TicketResponseDto>>getAllTickets(){
+    public ResponseEntity<List<TicketDto>>getAllTickets(){
         var tickets = this.ticketService.findAll();
         if(tickets != null){
             return ResponseEntity.ok(tickets);
@@ -30,7 +30,7 @@ public class TicketController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TicketResponseDto>getTicketById(@PathVariable Long id){
+    public ResponseEntity<TicketDto>getTicketById(@PathVariable Long id){
         var ticket = this.ticketService.findById(id);
             if(ticket != null){
                 return ResponseEntity.ok(ticket);

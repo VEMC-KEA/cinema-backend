@@ -5,15 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vemc.cinema.dto.CinemaResponseDto;
-import vemc.cinema.dto.HallResponseDto;
-import vemc.cinema.dto.MovieResponseDto;
-import vemc.cinema.dto.SeatResponseDto;
-import vemc.cinema.entity.Movie;
+import vemc.cinema.dto.CinemaDto;
+import vemc.cinema.dto.HallDto;
+import vemc.cinema.dto.MovieDto;
+import vemc.cinema.dto.SeatDto;
 import vemc.cinema.service.CinemaService;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("cinemas")
@@ -25,7 +23,7 @@ public class CinemaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CinemaResponseDto>> getAllCinemas(){
+    public ResponseEntity<List<CinemaDto>> getAllCinemas(){
         var cinemas = this.cinemaService.findAll();
         if(cinemas != null){
             return ResponseEntity.ok(cinemas);
@@ -34,7 +32,7 @@ public class CinemaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CinemaResponseDto> getCinemaById(@PathVariable Long id){
+    public ResponseEntity<CinemaDto> getCinemaById(@PathVariable Long id){
         var cinema = this.cinemaService.findById(id);
         if(cinema != null){
             return ResponseEntity.ok(cinema);
@@ -43,7 +41,7 @@ public class CinemaController {
     }
 
     @GetMapping("/{id}/halls")
-    public ResponseEntity<List<HallResponseDto>> getHallsByCinemaId(@PathVariable Long id){
+    public ResponseEntity<List<HallDto>> getHallsByCinemaId(@PathVariable Long id){
         var halls = this.cinemaService.getHallsByCinemaId(id);
         if(halls != null){
             return ResponseEntity.ok(halls);
@@ -52,7 +50,7 @@ public class CinemaController {
     }
 
     @GetMapping("/{cinemaId}/halls/{hallId}")
-    public ResponseEntity<HallResponseDto> getHallsByIdByCinemaId(@PathVariable Long cinemaId, @PathVariable Long hallId){
+    public ResponseEntity<HallDto> getHallsByIdByCinemaId(@PathVariable Long cinemaId, @PathVariable Long hallId){
         var hall = this.cinemaService.getHallsByIdByCinemaId(cinemaId, hallId);
         if(hall != null){
             return ResponseEntity.ok(hall);
@@ -61,7 +59,7 @@ public class CinemaController {
     }
 
     @GetMapping("/{cinemaId}/halls/{hallId}/seats")
-    public ResponseEntity <List<SeatResponseDto>> getSeatsByHallsIdByCinemaId(@PathVariable Long cinemaId, @PathVariable Long hallId){
+    public ResponseEntity <List<SeatDto>> getSeatsByHallsIdByCinemaId(@PathVariable Long cinemaId, @PathVariable Long hallId){
         var seats = this.cinemaService.getSeatsByHallsIdByCinemaId(cinemaId, hallId);
         if(seats != null){
             return ResponseEntity.ok(seats);
@@ -70,7 +68,7 @@ public class CinemaController {
     }
 
     @GetMapping("/{cinemaId}/halls/{hallId}/seats/{seatId}")
-    public ResponseEntity <SeatResponseDto> getSeatByIdByHallsIdByCinemaId(@PathVariable Long cinemaId, @PathVariable Long hallId, @PathVariable Long seatId){
+    public ResponseEntity <SeatDto> getSeatByIdByHallsIdByCinemaId(@PathVariable Long cinemaId, @PathVariable Long hallId, @PathVariable Long seatId){
         var seat = this.cinemaService.getSeatByIdByHallsIdByCinemaId(cinemaId, hallId, seatId);
         if(seat != null){
             return ResponseEntity.ok(seat);
@@ -79,7 +77,7 @@ public class CinemaController {
     }
 
     @GetMapping("/{id}/movies")
-    public  ResponseEntity<List<MovieResponseDto>> getMovieByCinemaId(@PathVariable Long id){
+    public  ResponseEntity<List<MovieDto>> getMovieByCinemaId(@PathVariable Long id){
         var movies = this.cinemaService.getMovieByCinemaId(id);
         if (movies != null){
             return ResponseEntity.ok(movies);

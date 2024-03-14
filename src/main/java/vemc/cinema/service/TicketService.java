@@ -1,8 +1,7 @@
 package vemc.cinema.service;
 
 import org.springframework.stereotype.Service;
-import vemc.cinema.dto.MovieResponseDto;
-import vemc.cinema.dto.TicketResponseDto;
+import vemc.cinema.dto.TicketDto;
 import vemc.cinema.entity.Ticket;
 import vemc.cinema.repository.TicketRepository;
 
@@ -16,16 +15,16 @@ public class TicketService {
         this.ticketRepository = ticketRepository;
     }
 
-    public List<TicketResponseDto> findAll() {
+    public List<TicketDto> findAll() {
         return ticketRepository.findAll().stream().map(this::toDto).toList();
     }
 
-    public TicketResponseDto findById(Long id) {
+    public TicketDto findById(Long id) {
         return ticketRepository.findById(id).map(this::toDto).orElse(null);
     }
 
-    private TicketResponseDto toDto(Ticket ticket) {
-        TicketResponseDto dto = new TicketResponseDto();
+    private TicketDto toDto(Ticket ticket) {
+        TicketDto dto = new TicketDto();
         dto.setId(ticket.getId());
         dto.setPrice(ticket.getPrice());
         dto.setCompleted(ticket.isCompleted());

@@ -9,11 +9,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MovieResponseDto {
+public class SeatDto {
     private Long id;
-    private Integer runTime;
-    private Boolean isClassic;
-    private String genre;
-    private Boolean pg13;
-    private String title;
+    private String row_letter;
+    private Integer number;
 }
+
+
+
+

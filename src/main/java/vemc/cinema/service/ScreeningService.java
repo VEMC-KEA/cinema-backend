@@ -19,11 +19,11 @@ public class ScreeningService {
         this.screeningRepository = screeningRepository;
     }
 
-    public List<ScreeningResponseDto> findAll() {
+    public List<ScreeningDto> findAll() {
         return screeningRepository.findAll().stream().map(this::toDto).toList();
     }
 
-    public ScreeningResponseDto findById(Long id) {
+    public ScreeningDto findById(Long id) {
         return screeningRepository.findById(id).map(this::toDto).orElse(null);
     }
 
@@ -38,8 +38,8 @@ public class ScreeningService {
 //        return dto;
 //    }
 
-    public ScreeningResponseDto toDto(Screening screening) {
-        ScreeningResponseDto dto = new ScreeningResponseDto();
+    public ScreeningDto toDto(Screening screening) {
+        ScreeningDto dto = new ScreeningDto();
         dto.setId(screening.getId());
         dto.set3d(screening.is3d());
 

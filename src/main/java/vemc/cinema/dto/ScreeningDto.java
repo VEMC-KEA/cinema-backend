@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ScreeningResponseDto {
+public class ScreeningDto {
     private Long id;
     private boolean is3d;
     private CinemaHelperDto cinema;
