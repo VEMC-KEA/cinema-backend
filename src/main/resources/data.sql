@@ -1,10 +1,9 @@
 USE cinema;
 
 INSERT INTO cinema (name, reservation_fee, group_discount, movie_base_price, image_url)
-VALUES ('Cinema Royale', 12, 0.15, 140, "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L25zODIzMC1pbWFnZS5qcGc.jpg"),
-       ('Movie Magic', 10, 0.1, 140, "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L25zODIzMC1pbWFnZS5qcGc.jpg"),
-       ('Star Cinema', 15, 0.2, 150, "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L25zODIzMC1pbWFnZS5qcGc.jpg"),
-       ('The Gentalman', 20, 0.2, 130, "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L25zODIzMC1pbWFnZS5qcGc.jpg");
+VALUES ('Cinema Royale', 12, 0.15, 140, "https://migogkbh.dk/wp-content/uploads/2022/06/nfio-1000x600.png"),
+       ('Palads', 10, 0.1, 140, "https://upload.wikimedia.org/wikipedia/commons/b/bf/København_-_Nordisk_Film_Biografer_Palads_(25363585019).jpg"),
+       ('Star Cinema', 15, 0.2, 150, "https://live.staticflickr.com/5461/30688658861_5efbb9bb35_b.jpg");
 
 INSERT INTO movie (title, run_time, is_classic, genre, pg13, image_url)
 VALUES ('The Matrix', 136, FALSE, 'Sci-Fi', TRUE, "https://i.etsystatic.com/20217829/r/il/16b095/2467136209/il_fullxfull.2467136209_lutd.jpg"),
@@ -103,8 +102,6 @@ VALUES (1, 1),
        (2, 4),
        (3, 5),
        (3, 6),
-       (4, 7),
-       (4, 8),
        (1, 9),
        (1, 10);
 
