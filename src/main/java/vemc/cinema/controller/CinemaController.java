@@ -1,10 +1,7 @@
 package vemc.cinema.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import vemc.cinema.dto.CinemaDto;
 import vemc.cinema.dto.HallDto;
 import vemc.cinema.dto.MovieDto;
@@ -13,6 +10,7 @@ import vemc.cinema.service.CinemaService;
 
 import java.util.List;
 
+@CrossOrigin(origins = "https://cinema-frontend-nine.vercel.app/")
 @RestController
 @RequestMapping("cinemas")
 public class CinemaController {
