@@ -119,6 +119,22 @@ public class CinemaService {
         }
     }
 
+    public HallDto createHall(Long cinemaId, HallDto hallDto) {
+        Cinema cinema = cinemaRepository.findById(cinemaId)
+                .orElseThrow(() -> new RuntimeException("Cinema not found with id: " + cinemaId));
+
+        Hall hall = new Hall();
+        hall.setNumber(hallDto.getNumber());
+        hall.setAmountOfFrontRowDiscounted(hallDto.getAmountOfFrontRowDiscounted());
+
+        Hall savedHall = hallRepository.save(hall);
+
+        cinema.getHall().add(savedHall);
+        cinemaRepository.save(cinema);
+
+        return toDtoHall(savedHall);
+    }
+
     public HallDto getHallsByIdByCinemaId(Long cinemaId, Long hallId) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);
         if(cinemaOptional.isEmpty()) {

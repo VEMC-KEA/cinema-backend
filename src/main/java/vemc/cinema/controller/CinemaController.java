@@ -51,7 +51,7 @@ public class CinemaController {
         return ResponseEntity.ok(updatedCinema);
     }
 
-    @DeleteMapping("/cinemas/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCinema(@PathVariable Long id) {
         cinemaService.deleteCinema(id);
         return ResponseEntity.noContent().build();
@@ -64,6 +64,12 @@ public class CinemaController {
             return ResponseEntity.ok(halls);
         }
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/halls")
+    public ResponseEntity<HallDto> createHall(@PathVariable Long id, @RequestBody HallDto hallDto) {
+        HallDto createdHall = cinemaService.createHall(id, hallDto);
+        return ResponseEntity.ok(createdHall);
     }
 
     @GetMapping("/{cinemaId}/halls/{hallId}")
