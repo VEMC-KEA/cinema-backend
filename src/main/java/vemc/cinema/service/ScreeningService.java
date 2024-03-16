@@ -52,6 +52,27 @@ public class ScreeningService {
         return screeningRepository.findById(id).map(this::toDto).orElse(null);
     }
 
+    public ScreeningDto updateScreening(Long id, ScreeningDto screeningDto) {
+        Screening screening = screeningRepository.findById(id).orElse(null);
+        if(screening != null){
+            screening.set3d(screeningDto.is3d());
+            Cinema cinema = new Cinema();
+            cinema.setId(screeningDto.getCinema().getId());
+            screening.setCinema(cinema);
+            Movie movie = new Movie();
+            movie.setId(screeningDto.getMovie().getId());
+            screening.setMovie(movie);
+            Hall hall = new Hall();
+            hall.setId(screeningDto.getHall().get(0).getId());
+            screening.setHall(hall);
+            screening.setDate(screeningDto.getDate());
+            screening.setTime(screeningDto.getTime());
+            screeningRepository.save(screening);
+            return toDto(screening);
+        }
+        return null;
+    }
+
     public ReservationScreeningHelperDto toHelperDtoScreening(Screening screening) {
         ReservationScreeningHelperDto dto = new ReservationScreeningHelperDto();
         dto.set3d(screening.is3d());

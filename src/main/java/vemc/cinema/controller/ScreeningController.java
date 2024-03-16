@@ -43,4 +43,11 @@ public class ScreeningController {
         return ResponseEntity.notFound().build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ScreeningDto> updateScreening(@PathVariable Long id, @RequestBody ScreeningDto screeningDto) {
+        ScreeningDto updatedScreening = screeningService.updateScreening(id, screeningDto);
+        return ResponseEntity.ok(updatedScreening);
+    }
+
+
 }
