@@ -12,5 +12,4 @@ import lombok.Setter;
 public class CinemaHelperDto {
     private Long id;
     private String name;
-
 }

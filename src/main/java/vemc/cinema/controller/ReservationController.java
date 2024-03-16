@@ -1,5 +1,6 @@
 package vemc.cinema.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vemc.cinema.dto.ReservationDto;
@@ -26,6 +27,12 @@ public class ReservationController {
             return ResponseEntity.ok(reservations);
         }
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/reservations")
+    public ResponseEntity<ReservationDto> createReservation(@RequestBody ReservationDto reservationDto) {
+        ReservationDto createdReservation = reservationService.createReservation(reservationDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdReservation);
     }
 
     @GetMapping("/{id}")

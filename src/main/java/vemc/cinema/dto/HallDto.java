@@ -18,6 +18,5 @@ public class HallDto {
     private Integer number;
     private Double amountOfFrontRowDiscounted;
     private List<Seat> seats = new ArrayList<>();
-
 }
 
