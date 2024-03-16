@@ -108,6 +108,17 @@ public class CinemaService {
         return toDtoCinema(updatedCinema);
     }
 
+    public void deleteCinema(Long id) {
+        Optional<Cinema> cinemaOptional = cinemaRepository.findById(id);
+
+        if (cinemaOptional.isPresent()) {
+            Cinema cinema = cinemaOptional.get();
+            cinemaRepository.delete(cinema);
+        } else {
+            throw new RuntimeException("Cinema with ID " + id + " not found");
+        }
+    }
+
     public HallDto getHallsByIdByCinemaId(Long cinemaId, Long hallId) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);
         if(cinemaOptional.isEmpty()) {

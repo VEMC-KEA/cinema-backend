@@ -1,6 +1,7 @@
 package vemc.cinema.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import vemc.cinema.dto.CinemaDto;
 import vemc.cinema.dto.HallDto;
@@ -48,6 +49,12 @@ public class CinemaController {
     public ResponseEntity<CinemaDto> updateCinema(@PathVariable Long id, @RequestBody CinemaDto cinemaDto) {
         CinemaDto updatedCinema = cinemaService.updateCinema(id, cinemaDto);
         return ResponseEntity.ok(updatedCinema);
+    }
+
+    @DeleteMapping("/cinemas/{id}")
+    public ResponseEntity<Void> deleteCinema(@PathVariable Long id) {
+        cinemaService.deleteCinema(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}/halls")
