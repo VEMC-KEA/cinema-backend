@@ -76,6 +76,38 @@ public class CinemaService {
                 .collect(Collectors.toList());
     }
 
+    public CinemaDto updateCinema(Long id, CinemaDto cinemaDto) {
+        Optional<Cinema> cinemaOptional = cinemaRepository.findById(id);
+
+        if (cinemaOptional.isEmpty()) {
+            return null;
+        }
+
+        Cinema cinema = cinemaOptional.get();
+        cinema.setName(cinemaDto.getName());
+        cinema.setImageUrl(cinemaDto.getImageUrl());
+        cinema.setReservationFee(cinemaDto.getReservationFee());
+        cinema.setGroupDiscount(cinemaDto.getGroupDiscount());
+        cinema.setMovieBasePrice(cinemaDto.getMovieBasePrice());
+
+        List<Movie> movies = new ArrayList<>();
+        for (MovieHelperDto movieDto : cinemaDto.getMovies()) {
+            Optional<Movie> movieOptional = movieRepository.findById(movieDto.getId());
+            movieOptional.ifPresent(movies::add);
+        }
+        cinema.setMovies(movies);
+
+        List<Hall> halls = new ArrayList<>();
+        for (HallHelperDto hallDto : cinemaDto.getHall()) {
+            Optional<Hall> hallOptional = hallRepository.findById(hallDto.getId());
+            hallOptional.ifPresent(halls::add);
+        }
+        cinema.setHall(halls);
+        Cinema updatedCinema = cinemaRepository.save(cinema);
+
+        return toDtoCinema(updatedCinema);
+    }
+
     public HallDto getHallsByIdByCinemaId(Long cinemaId, Long hallId) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);
         if(cinemaOptional.isEmpty()) {

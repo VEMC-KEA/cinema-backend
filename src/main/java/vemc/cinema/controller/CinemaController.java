@@ -44,6 +44,12 @@ public class CinemaController {
         return ResponseEntity.notFound().build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<CinemaDto> updateCinema(@PathVariable Long id, @RequestBody CinemaDto cinemaDto) {
+        CinemaDto updatedCinema = cinemaService.updateCinema(id, cinemaDto);
+        return ResponseEntity.ok(updatedCinema);
+    }
+
     @GetMapping("/{id}/halls")
     public ResponseEntity<List<HallDto>> getHallsByCinemaId(@PathVariable Long id){
         var halls = this.cinemaService.getHallsByCinemaId(id);
