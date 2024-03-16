@@ -49,5 +49,9 @@ public class ScreeningController {
         return ResponseEntity.ok(updatedScreening);
     }
 
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteScreening(@PathVariable Long id) {
+        screeningService.deleteScreening(id);
+        return ResponseEntity.noContent().build();
+    }
 }

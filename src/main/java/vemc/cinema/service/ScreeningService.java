@@ -1,5 +1,6 @@
 package vemc.cinema.service;
 
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.*;
 import vemc.cinema.dto.helperdto.*;
@@ -9,7 +10,10 @@ import vemc.cinema.entity.Movie;
 import vemc.cinema.entity.Screening;
 import vemc.cinema.repository.ScreeningRepository;
 
+
+
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ScreeningService {
@@ -71,6 +75,12 @@ public class ScreeningService {
             return toDto(screening);
         }
         return null;
+    }
+
+    public void deleteScreening(Long id) {
+        Screening screening = screeningRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Screening not found with id: " + id));
+        screeningRepository.delete(screening);
     }
 
     public ReservationScreeningHelperDto toHelperDtoScreening(Screening screening) {
