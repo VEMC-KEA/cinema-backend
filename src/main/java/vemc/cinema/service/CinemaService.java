@@ -7,6 +7,8 @@ import vemc.cinema.dto.helperdto.HallHelperDto;
 import vemc.cinema.dto.helperdto.MovieHelperDto;
 import vemc.cinema.entity.*;
 import vemc.cinema.repository.CinemaRepository;
+import vemc.cinema.repository.HallRepository;
+import vemc.cinema.repository.MovieRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,13 +16,44 @@ import java.util.stream.Collectors;
 @Service
 public class CinemaService {
     private final CinemaRepository cinemaRepository;
+    private final MovieRepository movieRepository;
+    private final HallRepository hallRepository;
 
-    public CinemaService(CinemaRepository cinemaRepository) {
+    public CinemaService(CinemaRepository cinemaRepository, MovieRepository movieRepository, HallRepository hallRepository) {
         this.cinemaRepository = cinemaRepository;
+        this.movieRepository = movieRepository;
+        this.hallRepository = hallRepository;
     }
 
     public List<CinemaDto> findAll() {
         return cinemaRepository.findAll().stream().map(this::toDtoCinema).toList();
+    }
+
+    public CinemaDto createCinema(CinemaDto cinemaDto) {
+        Cinema cinema = new Cinema();
+        cinema.setName(cinemaDto.getName());
+        cinema.setImageUrl(cinemaDto.getImageUrl());
+        cinema.setReservationFee(cinemaDto.getReservationFee());
+        cinema.setGroupDiscount(cinemaDto.getGroupDiscount());
+        cinema.setMovieBasePrice(cinemaDto.getMovieBasePrice());
+
+        List<Movie> movies = new ArrayList<>();
+        for (MovieHelperDto movieDto : cinemaDto.getMovies()) {
+            Optional<Movie> movieOptional = movieRepository.findById(movieDto.getId());
+            movieOptional.ifPresent(movies::add);
+        }
+        cinema.setMovies(movies);
+
+        List<Hall> halls = new ArrayList<>();
+        for (HallHelperDto hallDto : cinemaDto.getHall()) {
+            Optional<Hall> hallOptional = hallRepository.findById(hallDto.getId());
+            hallOptional.ifPresent(halls::add);
+        }
+        cinema.setHall(halls);
+
+        Cinema savedCinema = cinemaRepository.save(cinema);
+
+        return toDtoCinema(savedCinema);
     }
 
     public CinemaDto findById(Long id) {

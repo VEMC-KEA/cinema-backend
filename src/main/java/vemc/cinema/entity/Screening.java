@@ -31,6 +31,6 @@ public class Screening {
     @ManyToOne(fetch = FetchType.EAGER)
     private Cinema cinema;
     @OneToMany(fetch = FetchType.EAGER)
-    private List<Reservation> reservations = new ArrayList<>();
+    private List<Reservation>   reservations = new ArrayList<>();
     private LocalTime time;
 }

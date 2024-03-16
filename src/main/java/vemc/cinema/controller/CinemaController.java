@@ -20,13 +20,19 @@ public class CinemaController {
         this.cinemaService = cinemaService;
     }
 
-    @GetMapping
+   @GetMapping
     public ResponseEntity<List<CinemaDto>> getAllCinemas(){
         var cinemas = this.cinemaService.findAll();
         if(cinemas != null){
             return ResponseEntity.ok(cinemas);
         }
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping
+    public ResponseEntity<CinemaDto> createCinema(@RequestBody CinemaDto cinemaDto) {
+        CinemaDto createdCinema = cinemaService.createCinema(cinemaDto);
+        return ResponseEntity.ok(createdCinema);
     }
 
     @GetMapping("/{id}")
@@ -75,9 +81,9 @@ public class CinemaController {
     }
 
     @GetMapping("/{id}/movies")
-    public  ResponseEntity<List<MovieDto>> getMovieByCinemaId(@PathVariable Long id){
+    public  ResponseEntity<List<MovieDto>> getMovieByCinemaId(@PathVariable Long id) {
         var movies = this.cinemaService.getMovieByCinemaId(id);
-        if (movies != null){
+        if (movies != null) {
             return ResponseEntity.ok(movies);
         }
         return ResponseEntity.noContent().build();
