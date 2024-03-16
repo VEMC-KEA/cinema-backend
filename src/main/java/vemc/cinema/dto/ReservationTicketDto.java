@@ -14,4 +14,5 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReservationTicketDto {
     private List<ReservationTicketHelperDto> tickets = new ArrayList<>();
+    private Double totalPrice;
 }

@@ -2,6 +2,7 @@ package vemc.cinema.service;
 
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.helperdto.ReservationTicketHelperDto;
+import vemc.cinema.dto.helperdto.SeatHelperDto;
 import vemc.cinema.entity.Ticket;
 
 import java.util.List;
@@ -22,16 +23,25 @@ public class TicketService {
                 .collect(Collectors.toList());
     }
 
-    public ReservationTicketHelperDto toReservationHelperDto(Ticket ticket){
+   /* public ReservationTicketHelperDto toReservationHelperDto(Ticket ticket){
         ReservationTicketHelperDto dto = new ReservationTicketHelperDto();
         dto.setSeat(seatService.toHelperDto(ticket.getSeat()));
+        dto.setPrice(ticket.getPrice());
+        return dto;
+    }*/
+
+    public ReservationTicketHelperDto toReservationHelperDto(Ticket ticket){
+        ReservationTicketHelperDto dto = new ReservationTicketHelperDto();
+        SeatHelperDto seatDto = seatService.toHelperDto(ticket.getSeat());
+        dto.setRow_letter(seatDto.getRow_letter());
+        dto.setNumber(seatDto.getNumber());
         dto.setPrice(ticket.getPrice());
         return dto;
     }
 
     public ReservationTicketHelperDto toHelperDto(Ticket ticket) {
         ReservationTicketHelperDto dto = new ReservationTicketHelperDto();
-        dto.setSeat(seatService.toHelperDto(ticket.getSeat()));
+        //dto.setSeat(seatService.toHelperDto(ticket.getSeat()));
         dto.setPrice(ticket.getPrice());
         return dto;
     }

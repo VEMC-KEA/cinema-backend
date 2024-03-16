@@ -1,16 +1,10 @@
 package vemc.cinema.service;
 
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.*;
 import vemc.cinema.dto.helperdto.*;
-import vemc.cinema.entity.Cinema;
-import vemc.cinema.entity.Hall;
-import vemc.cinema.entity.Movie;
-import vemc.cinema.entity.Screening;
+import vemc.cinema.entity.*;
 import vemc.cinema.repository.ScreeningRepository;
-
-
 
 import java.util.List;
 import java.util.NoSuchElementException;

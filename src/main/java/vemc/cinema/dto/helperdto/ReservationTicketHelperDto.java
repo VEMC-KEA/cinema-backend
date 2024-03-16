@@ -10,9 +10,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReservationTicketHelperDto {
-    private SeatHelperDto seat;
+    private String row_letter;
+    private Integer number;
     private Double price;
-    private ScreeningHelperDto screening;
 }

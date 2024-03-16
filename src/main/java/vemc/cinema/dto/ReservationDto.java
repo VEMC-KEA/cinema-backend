@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vemc.cinema.dto.helperdto.ReservationScreeningHelperDto;
 import vemc.cinema.dto.helperdto.ReservationTicketHelperDto;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,4 +20,5 @@ public class ReservationDto {
     private ReservationScreeningHelperDto screening;
     private List<ReservationTicketHelperDto> tickets = new ArrayList<>();
     private Boolean isCompleted;
+    private Double TotalPrice;
 }

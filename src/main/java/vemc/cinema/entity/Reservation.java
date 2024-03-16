@@ -21,4 +21,5 @@ public class Reservation {
     private Screening screening;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
+    private Double totalPrice;
 }
