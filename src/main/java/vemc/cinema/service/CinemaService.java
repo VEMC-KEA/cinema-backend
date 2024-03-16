@@ -184,6 +184,20 @@ public class CinemaService {
         return toDtoHall(updatedHall);
     }
 
+    public void deleteHall(Long cinemaId, Long hallId) {
+        Cinema cinema = cinemaRepository.findById(cinemaId)
+                .orElseThrow(() -> new NoSuchElementException("Cinema not found with id: " + cinemaId));
+
+        Hall hall = cinema.getHall().stream()
+                .filter(h -> h.getId().equals(hallId))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Hall not found with id: " + hallId + " in cinema with id: " + cinemaId));
+
+        cinema.getHall().remove(hall);
+
+        hallRepository.delete(hall);
+    }
+
     public SeatDto getSeatByIdByHallsIdByCinemaId(Long cinemaId, Long hallId, Long seatId) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);
 
