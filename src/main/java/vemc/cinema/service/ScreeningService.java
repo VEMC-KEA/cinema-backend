@@ -3,6 +3,7 @@ package vemc.cinema.service;
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.*;
 import vemc.cinema.dto.helperdto.*;
+import vemc.cinema.entity.Cinema;
 import vemc.cinema.entity.Hall;
 import vemc.cinema.entity.Movie;
 import vemc.cinema.entity.Screening;
@@ -27,6 +28,24 @@ public class ScreeningService {
 
     public List<ScreeningDto> findAll() {
         return screeningRepository.findAll().stream().map(this::toDto).toList();
+    }
+
+    public ScreeningDto createScreening(ScreeningDto screeningDto) {
+        Screening screening = new Screening();
+        screening.set3d(screeningDto.is3d());
+        Cinema cinema = new Cinema();
+        cinema.setId(screeningDto.getCinema().getId());
+        screening.setCinema(cinema);
+        Movie movie = new Movie();
+        movie.setId(screeningDto.getMovie().getId());
+        screening.setMovie(movie);
+        Hall hall = new Hall();
+        hall.setId(screeningDto.getHall().get(0).getId());
+        screening.setHall(hall);
+        screening.setDate(screeningDto.getDate());
+        screening.setTime(screeningDto.getTime());
+        screeningRepository.save(screening);
+        return toDto(screening);
     }
 
     public ScreeningDto findById(Long id) {
