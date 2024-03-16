@@ -1,5 +1,6 @@
 package vemc.cinema.service;
 
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.*;
 import vemc.cinema.dto.helperdto.CinemaHelperDto;
@@ -119,6 +120,17 @@ public class CinemaService {
         }
     }
 
+    public HallDto getHallsByIdByCinemaId(Long cinemaId, Long hallId) {
+        Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);
+        if(cinemaOptional.isEmpty()) {
+            return null;
+        }
+
+        Cinema cinema = cinemaOptional.get();
+        Optional<Hall> hallOptional = cinema.getHall().stream().filter(hall -> hall.getId().equals(hallId)).findFirst();
+        return hallOptional.map(this::toDtoHall).orElse(null);
+    }
+
     public HallDto createHall(Long cinemaId, HallDto hallDto) {
         Cinema cinema = cinemaRepository.findById(cinemaId)
                 .orElseThrow(() -> new RuntimeException("Cinema not found with id: " + cinemaId));
@@ -133,17 +145,6 @@ public class CinemaService {
         cinemaRepository.save(cinema);
 
         return toDtoHall(savedHall);
-    }
-
-    public HallDto getHallsByIdByCinemaId(Long cinemaId, Long hallId) {
-        Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);
-        if(cinemaOptional.isEmpty()) {
-            return null;
-        }
-
-        Cinema cinema = cinemaOptional.get();
-        Optional<Hall> hallOptional = cinema.getHall().stream().filter(hall -> hall.getId().equals(hallId)).findFirst();
-        return hallOptional.map(this::toDtoHall).orElse(null);
     }
 
     public List<SeatDto> getSeatsByHallsIdByCinemaId(Long cinemaId, Long hallId) {
@@ -166,6 +167,21 @@ public class CinemaService {
         return seats.stream()
                 .map(this::toDtoSeat)
                 .collect(Collectors.toList());
+    }
+
+    public HallDto updateHall(Long cinemaId, Long hallId, HallDto hallDto) {
+        Cinema cinema = cinemaRepository.findById(cinemaId)
+                .orElseThrow(() -> new NoSuchElementException("Cinema not found with id: " + cinemaId));
+
+        Hall hall = hallRepository.findById(hallId)
+                .orElseThrow(() -> new NoSuchElementException("Hall not found with id: " + hallId));
+
+        hall.setNumber(hallDto.getNumber());
+        hall.setAmountOfFrontRowDiscounted(hallDto.getAmountOfFrontRowDiscounted());
+
+        Hall updatedHall = hallRepository.save(hall);
+
+        return toDtoHall(updatedHall);
     }
 
     public SeatDto getSeatByIdByHallsIdByCinemaId(Long cinemaId, Long hallId, Long seatId) {
