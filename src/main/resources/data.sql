@@ -1,48 +1,49 @@
 USE cinema;
 
 INSERT INTO cinema (name, reservation_fee, group_discount, movie_base_price, image_url)
-VALUES ('Cinema Royale', 12, 0.15, 140, "https://migogkbh.dk/wp-content/uploads/2022/06/nfio-1000x600.png"),
-       ('Palads', 10, 0.1, 140, "https://upload.wikimedia.org/wikipedia/commons/b/bf/København_-_Nordisk_Film_Biografer_Palads_(25363585019).jpg"),
-       ('Star Cinema', 15, 0.2, 150, "https://live.staticflickr.com/5461/30688658861_5efbb9bb35_b.jpg");
+VALUES
+    ('Cinema Royale', 12, 0.15, 140, 'https://migogkbh.dk/wp-content/uploads/2022/06/nfio-1000x600.png'),
+    ('Palads', 10, 0.1, 140, 'https://upload.wikimedia.org/wikipedia/commons/b/bf/København_-_Nordisk_Film_Biografer_Palads_(25363585019).jpg'),
+    ('Star Cinema', 15, 0.2, 150, 'https://live.staticflickr.com/5461/30688658861_5efbb9bb35_b.jpg');
 
 INSERT INTO movie (title, run_time, is_classic, genre, pg13, image_url)
-VALUES ('The Matrix', 136, FALSE, 'Sci-Fi', TRUE, "https://i.etsystatic.com/20217829/r/il/16b095/2467136209/il_fullxfull.2467136209_lutd.jpg"),
-       ('The Shawshank Redemption', 142, TRUE, 'Drama', FALSE, "https://i.ytimg.com/vi/fLAL_d3DqO0/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgWChHMA8=&rs=AOn4CLCs8Wc7ANaIG44oFZ_a30tW1eqs1Q"),
-       ('Inception', 148, FALSE, 'Sci-Fi', TRUE, " https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p7825626_p_v8_af.jpg"),
-       ('Forrest Gump', 142, TRUE, 'Drama', TRUE, "https://i5.walmartimages.com/seo/Running-Forrest-Gump-Costume_16263de0-e423-4c2b-8514-7ee4989c8d44_1.f00d571b0cd0b44c98d45dd9dc200ee9.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF"),
-       ('The Dark Knight', 152, FALSE, 'Action', TRUE, "https://m.media-amazon.com/images/M/MV5BMTk4ODQzNDY3Ml5BMl5BanBnXkFtZTcwODA0NTM4Nw@@._V1_FMjpg_UX1000_.jpg"),
-       ('Pulp Fiction', 154, TRUE, 'Crime, Drama', TRUE, "https://image.tmdb.org/t/p/original/A3NXS5e7Zc3FRyi63b7TdPGjFwI.jpg"),
-       ('The Godfather', 175, TRUE, 'Crime, Drama', TRUE, "https://image.tmdb.org/t/p/original/3Tf8vXykYhzHdT0BtsYTp570JGQ.jpg"),
-       ('Schindler''s List', 195, TRUE, 'Drama, War', TRUE, "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p15227_v_v8_bf.jpg"),
-       ('The Gentalman', 113, TRUE, 'Action, Comedy', FALSE, "https://image.tmdb.org/t/p/original/jtrhTYB7xSrJxR1vusu99nvnZ1g.jpg"),
-       ('Fight Club', 139, TRUE, 'Drama', TRUE, "https://i.etsystatic.com/5601395/r/il/0ffcf4/4045621114/il_fullxfull.4045621114_3yut.jpg");
-
+VALUES
+    ('The Matrix', 136, FALSE, 'Sci-Fi', TRUE, 'https://i.etsystatic.com/20217829/r/il/16b095/2467136209/il_fullxfull.2467136209_lutd.jpg'),
+    ('The Shawshank Redemption', 142, TRUE, 'Drama', FALSE, 'https://i.ytimg.com/vi/fLAL_d3DqO0/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgWChHMA8=&rs=AOn4CLCs8Wc7ANaIG44oFZ_a30tW1eqs1Q'),
+    ('Inception', 148, FALSE, 'Sci-Fi', TRUE, 'https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p7825626_p_v8_af.jpg'),
+    ('Forrest Gump', 142, TRUE, 'Drama', TRUE, 'https://i5.walmartimages.com/seo/Running-Forrest-Gump-Costume_16263de0-e423-4c2b-8514-7ee4989c8d44_1.f00d571b0cd0b44c98d45dd9dc200ee9.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF'),
+    ('The Dark Knight', 152, FALSE, 'Action', TRUE, 'https://m.media-amazon.com/images/M/MV5BMTk4ODQzNDY3Ml5BMl5BanBnXkFtZTcwODA0NTM4Nw@@._V1_FMjpg_UX1000_.jpg'),
+    ('Pulp Fiction', 154, TRUE, 'Crime, Drama', TRUE, 'https://image.tmdb.org/t/p/original/A3NXS5e7Zc3FRyi63b7TdPGjFwI.jpg'),
+    ('The Godfather', 175, TRUE, 'Crime, Drama', TRUE, 'https://image.tmdb.org/t/p/original/3Tf8vXykYhzHdT0BtsYTp570JGQ.jpg'),
+    ('Schindler''s List', 195, TRUE, 'Drama, War', TRUE, 'https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p15227_v_v8_bf.jpg'),
+    ('The Gentalman', 113, TRUE, 'Action, Comedy', FALSE, 'https://image.tmdb.org/t/p/original/jtrhTYB7xSrJxR1vusu99nvnZ1g.jpg'),
+    ('Fight Club', 139, TRUE, 'Drama', TRUE, 'https://i.etsystatic.com/5601395/r/il/0ffcf4/4045621114/il_fullxfull.4045621114_3yut.jpg');
 
 INSERT INTO hall (number, amount_of_front_row_discounted)
-VALUES (1, 0.25),
-       (2, 0.2),
-       (3, 0.2),
-       (4, 0.15),
-       (5, 0.15),
-       (6, 0.3),
-       (7, 0.2),
-       (8, 0.15),
-       (9, 0.25),
-       (10, 0.15);
-
+VALUES
+    (1, 0.25),
+    (2, 0.2),
+    (3, 0.2),
+    (4, 0.15),
+    (5, 0.15),
+    (6, 0.3),
+    (7, 0.2),
+    (8, 0.15),
+    (9, 0.25),
+    (10, 0.15);
 
 INSERT INTO screening (is3d, movie_id, date, time, cinema_id, hall_id)
-VALUES (FALSE, 1, NOW() + INTERVAL 1 DAY, '15:30:00', 1, 1),
-       (TRUE, 2, NOW() + INTERVAL 2 DAY, '15:30:00', 1, 1),
-       (FALSE, 3, NOW() + INTERVAL 3 DAY, '17:30:00',2, 2),
-       (FALSE, 4, NOW() + INTERVAL 4 DAY,'15:30:00',3, 3),
-       (TRUE, 5, NOW() + INTERVAL 5 DAY, '15:30:00',2, 2),
-        (FALSE, 6, NOW() + INTERVAL 6 DAY, '15:30:00',1, 1),
-        (TRUE, 7, NOW() + INTERVAL 7 DAY, '15:30:00',1, 1),
-        (FALSE, 8, NOW() + INTERVAL 8 DAY, '15:30:00',2, 2),
-        (FALSE, 9, NOW() + INTERVAL 9 DAY, '15:30:00',3, 3),
-        (TRUE, 10, NOW() + INTERVAL 10 DAY, '15:30:00',2, 2);
-
+VALUES
+    (FALSE, 1, NOW() + INTERVAL 1 DAY, '15:30:00', 1, 1),
+    (TRUE, 2, NOW() + INTERVAL 2 DAY, '15:30:00', 1, 1),
+    (FALSE, 3, NOW() + INTERVAL 3 DAY, '17:30:00', 2, 2),
+    (FALSE, 4, NOW() + INTERVAL 4 DAY, '15:30:00', 3, 3),
+    (TRUE, 5, NOW() + INTERVAL 5 DAY, '15:30:00', 2, 2),
+    (FALSE, 6, NOW() + INTERVAL 6 DAY, '15:30:00', 1, 1),
+    (TRUE, 7, NOW() + INTERVAL 7 DAY, '15:30:00', 1, 1),
+    (FALSE, 8, NOW() + INTERVAL 8 DAY, '15:30:00', 2, 2),
+    (FALSE, 9, NOW() + INTERVAL 9 DAY, '15:30:00', 3, 3),
+    (TRUE, 10, NOW() + INTERVAL 10 DAY, '15:30:00', 2, 2);
 
 INSERT INTO seat (row_letter, number)
 VALUES
@@ -74,138 +75,95 @@ VALUES
     ('Z', 1), ('Z', 2), ('Z', 3), ('Z', 4), ('Z', 5), ('Z', 6), ('Z', 7), ('Z', 8), ('Z', 9), ('Z', 10);
 
 INSERT INTO ticket (screening_id, seat_id)
-VALUES (1, 1),
-       (1, 2),
-       (2, 3),
-       (2, 4),
-       (3, 5),
-       (3, 6),
-       (4, 7),
-       (4, 8),
-       (5, 9),
-       (5, 10),
-       (6, 11),
-       (6, 12),
-       (7, 13),
-       (7, 14),
-       (8, 15),
-       (8, 16),
-       (9, 17),
-       (9, 18),
-       (10, 19),
-       (10, 20);
-
+VALUES
+    (1, 1), (1, 2),
+    (2, 3), (2, 4),
+    (3, 5), (3, 6),
+    (4, 7), (4, 8),
+    (5, 9), (5, 10),
+    (6, 11), (6, 12),
+    (7, 13), (7, 14),
+    (8, 15), (8, 16),
+    (9, 17), (9, 18),
+    (10, 19), (10, 20);
 
 INSERT INTO cinema_hall (cinema_id, hall_id)
-VALUES (1, 1),
-       (1, 2),
-       (2, 3),
-       (2, 4),
-       (3, 5),
-       (3, 6),
-       (1, 9),
-       (1, 10);
+VALUES
+    (1, 1), (1, 2),
+    (2, 3), (2, 4),
+    (3, 5), (3, 6),
+    (1, 9), (1, 10);
 
 INSERT INTO hall_seat (hall_id, seat_id)
-VALUES (1, 1),
-       (1, 2),
-       (2, 3),
-       (2, 4),
-       (3, 5),
-       (3, 6),
-       (4, 7),
-       (4, 8),
-       (1, 9),
-       (1, 10),
-       (2, 11),
-       (2, 12),
-       (3, 13),
-       (3, 14),
-       (4, 15),
-       (4, 16),
-       (5, 17),
-       (5, 18),
-       (6, 19),
-       (6, 20),
-       (7, 21),
-       (7, 22),
-       (8, 23),
-       (8, 24),
-       (9, 25),
-       (9, 26),
-       (10, 27),
-       (10, 28);
-
-
+VALUES
+    (1, 1), (1, 2),
+    (2, 3), (2, 4),
+    (3, 5), (3, 6),
+    (4, 7), (4, 8),
+    (1, 9), (1, 10),
+    (2, 11), (2, 12),
+    (3, 13), (3, 14),
+    (4, 15), (4, 16),
+    (5, 17), (5, 18),
+    (6, 19), (6, 20),
+    (7, 21), (7, 22),
+    (8, 23), (8, 24),
+    (9, 25), (9, 26),
+    (10, 27), (10, 28);
 
 INSERT INTO hall_screening (hall_id, screening_id)
-VALUES (1, 1),
-       (2, 2),
-       (3, 3),
-       (4, 4),
-        (5, 5),
-        (6, 6),
-         (7, 7),
-         (8, 8),
-         (9, 9),
-         (10, 10);
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6),
+    (7, 7),
+    (8, 8),
+    (9, 9),
+    (10, 10);
 
 INSERT INTO screening_tickets (screening_id, tickets_id)
-VALUES (1, 1),
-       (1, 2),
-       (2, 3),
-       (2, 4),
-       (3, 5),
-       (3, 6),
-       (4, 7),
-       (4, 8),
-       (5, 9),
-       (5, 10),
-       (6, 11),
-       (6, 12),
-       (7, 13),
-       (7, 14),
-       (8, 15),
-       (8, 16),
-       (9, 17),
-       (9, 18),
-       (10, 19),
-       (10, 20);
+VALUES
+    (1, 1), (1, 2),
+    (2, 3), (2, 4),
+    (3, 5), (3, 6),
+    (4, 7), (4, 8),
+    (5, 9), (5, 10),
+    (6, 11), (6, 12),
+    (7, 13), (7, 14),
+    (8, 15), (8, 16),
+    (9, 17), (9, 18),
+    (10, 19), (10, 20);
 
 INSERT INTO cinema_movies (cinema_id, movies_id)
-VALUES (1, 1),
-       (1, 2),
-       (1, 3),
-       (1, 4),
-       (2, 3),
-       (2, 4),
-       (3, 1),
-       (3, 2),
-       (3, 3),
-       (3, 4);
+VALUES
+    (1, 1), (1, 2), (1, 3), (1, 4),
+    (2, 3), (2, 4),
+    (3, 1), (3, 2), (3, 3), (3, 4);
 
 INSERT INTO reservation (screening_id, is_completed)
-VALUES (1, FALSE),
-       (2, FALSE),
-       (3, FALSE),
-       (4, FALSE),
-       (5, FALSE),
-       (6, TRUE),
-       (7, FALSE),
-       (8, FALSE),
-       (9, FALSE),
-       (10, FALSE);
+VALUES
+    (1, FALSE),
+    (2, FALSE),
+    (3, FALSE),
+    (4, FALSE),
+    (5, FALSE),
+    (6, TRUE),
+    (7, FALSE),
+    (8, FALSE),
+    (9, FALSE),
+    (10, TRUE);
 
-INSERT INTO reservation_tickets(reservation_id, tickets_id)
-VALUES (1, 1),
-       (1, 6),
-       (2, 2),
-       (3, 3),
-       (4, 4),
-         (5, 5),
-         (6, 7),
-         (7, 8),
-         (8, 9),
-         (9, 10),
-         (10, 11);
-
+INSERT INTO reservation_tickets (reservation_id, tickets_id)
+VALUES
+    (1, 1), (1, 6), (1, 11),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 7),
+    (7, 8),
+    (8, 9),
+    (9, 10);
