@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReservationScreeningHelperDto {
+    private Long id;
     private boolean is3d;
     private CinemaHelperDto cinema;
     private MovieHelperDto movie;

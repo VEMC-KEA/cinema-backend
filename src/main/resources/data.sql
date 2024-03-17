@@ -45,6 +45,7 @@ VALUES
     (FALSE, 9, NOW() + INTERVAL 9 DAY, '15:30:00', 3, 3),
     (TRUE, 10, NOW() + INTERVAL 10 DAY, '15:30:00', 2, 2);
 
+
 INSERT INTO seat (row_letter, number)
 VALUES
     ('A', 1), ('A', 2), ('A', 3), ('A', 4), ('A', 5), ('A', 6), ('A', 7), ('A', 8), ('A', 9), ('A', 10),

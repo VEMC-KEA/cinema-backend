@@ -11,7 +11,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class ReservationTicketHelperDto {
-    private String row_letter;
+    private Long id;
+    private String rowLetter;
     private Integer number;
     private Double price;
 }

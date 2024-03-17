@@ -366,7 +366,7 @@ public class CinemaService {
         SeatDto dto = new SeatDto();
         dto.setId(seat.getId());
         dto.setNumber(seat.getNumber());
-        dto.setRow_letter(seat.getRowLetter());
+        dto.setRowLetter(seat.getRowLetter());
         return dto;
     }
 

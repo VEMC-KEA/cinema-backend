@@ -10,6 +10,7 @@ import vemc.cinema.utils.PriceCalculator;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class ScreeningService {
@@ -174,4 +175,9 @@ public class ScreeningService {
         screeningDto.setTime(reservationScreeningHelperDto.getTime());
         return screeningDto;
     }
+
+    public Optional<ReservationScreeningHelperDto> findByIdReservation(Long id) {
+        return screeningRepository.findById(id).map(this::toHelperDtoScreening);
+    }
+
 }

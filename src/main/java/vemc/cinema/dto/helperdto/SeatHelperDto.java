@@ -10,6 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SeatHelperDto {
-    private String row_letter;
+    private String rowLetter;
     private Integer number;
 }

@@ -17,6 +17,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReservationDto {
     private Long id;
+    private Long screeningId;
     private ReservationScreeningHelperDto screening;
     private List<ReservationTicketHelperDto> tickets = new ArrayList<>();
     private Boolean isCompleted;

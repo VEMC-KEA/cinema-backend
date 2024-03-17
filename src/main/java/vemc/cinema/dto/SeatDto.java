@@ -11,7 +11,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SeatDto {
     private Long id;
-    private String row_letter;
+    private String rowLetter;
     private Integer number;
 }
 

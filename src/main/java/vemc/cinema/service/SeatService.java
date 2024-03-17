@@ -13,7 +13,7 @@ public class SeatService {
      */
     public SeatHelperDto toHelperDto(Seat seat) {
         SeatHelperDto dto = new SeatHelperDto();
-        dto.setRow_letter(seat.getRowLetter());
+        dto.setRowLetter(seat.getRowLetter());
         dto.setNumber(seat.getNumber());
         return dto;
     }

@@ -4,17 +4,21 @@ import org.springframework.stereotype.Service;
 import vemc.cinema.dto.helperdto.ReservationTicketHelperDto;
 import vemc.cinema.dto.helperdto.SeatHelperDto;
 import vemc.cinema.entity.Ticket;
+import vemc.cinema.repository.TicketRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class TicketService {
 
     private final SeatService seatService;
+    private final TicketRepository ticketRepository;
 
-    public TicketService(SeatService seatService) {
+    public TicketService(SeatService seatService, TicketRepository ticketRepository) {
         this.seatService = seatService;
+        this.ticketRepository = ticketRepository;
     }
 
     /**
@@ -36,7 +40,7 @@ public class TicketService {
     public ReservationTicketHelperDto toReservationHelperDto(Ticket ticket){
         ReservationTicketHelperDto dto = new ReservationTicketHelperDto();
         SeatHelperDto seatDto = seatService.toHelperDto(ticket.getSeat());
-        dto.setRow_letter(seatDto.getRow_letter());
+        dto.setRowLetter(seatDto.getRowLetter());
         dto.setNumber(seatDto.getNumber());
         dto.setPrice(ticket.getPrice());
         return dto;
@@ -53,4 +57,12 @@ public class TicketService {
         return dto;
     }
 
+    /**
+     * This method is used to find a Ticket by its id
+     * @param id The id of the Ticket to find
+     * @return An Optional containing the Ticket if found, otherwise an empty Optional
+     */
+    public Optional<Ticket> findById(Long id) {
+        return ticketRepository.findById(id);
+    }
 }
