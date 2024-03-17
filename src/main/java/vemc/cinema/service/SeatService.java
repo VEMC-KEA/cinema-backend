@@ -12,4 +12,11 @@ public class SeatService {
         dto.setNumber(seat.getNumber());
         return dto;
     }
+
+    public Seat createSeat(SeatHelperDto seatHelperDto) {
+        Seat seat = new Seat();
+        seat.setRowLetter(seatHelperDto.getRow_letter());
+        seat.setNumber(seatHelperDto.getNumber());
+        return seat;
+    }
 }

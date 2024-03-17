@@ -119,6 +119,7 @@ public class CinemaService {
         }
     }
 
+
     public HallDto getHallsByIdByCinemaId(Long cinemaId, Long hallId) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);
         if(cinemaOptional.isEmpty()) {

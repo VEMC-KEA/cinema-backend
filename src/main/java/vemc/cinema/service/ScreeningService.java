@@ -117,15 +117,6 @@ public class ScreeningService {
         hallDto.setNumber(hall.getNumber());
         dto.setHall(List.of(hallDto));
 
-       /* List<TicketHelperDto> ticketDtos = screening.getTickets().stream().map(ticket -> {
-            TicketHelperDto ticketDto = new TicketHelperDto();
-            ticketDto.setId(ticket.getId());
-            ticketDto.setSeat(ticket.getSeat());
-            ticketDto.setPrice(ticket.getPrice());
-            return ticketDto;
-        }).toList();
-        dto.setTickets(ticketDtos);*/
-
         List<TicketHelperDto> ticketDtos = screening.getTickets().stream().map(ticket -> {
             TicketHelperDto ticketDto = new TicketHelperDto();
             ticketDto.setId(ticket.getId());
@@ -137,5 +128,46 @@ public class ScreeningService {
 
         return dto;
     }
+
+    public ScreeningDto convertToScreeningDto(ReservationScreeningHelperDto reservationScreeningHelperDto) {
+        ScreeningDto screeningDto = new ScreeningDto();
+        screeningDto.set3d(reservationScreeningHelperDto.is3d());
+        screeningDto.setCinema(reservationScreeningHelperDto.getCinema());
+        screeningDto.setMovie(reservationScreeningHelperDto.getMovie());
+        screeningDto.setHall(reservationScreeningHelperDto.getHall());
+        screeningDto.setDate(reservationScreeningHelperDto.getDate());
+        screeningDto.setTime(reservationScreeningHelperDto.getTime());
+        return screeningDto;
+    }
+
+    public Screening findScreeningById(Long id) {
+        return screeningRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Screening not found with id: " + id));
+    }
+
+    public Screening convertToScreening(ScreeningDto screeningDto) {
+        Screening screening = new Screening();
+        screening.set3d(screeningDto.is3d());
+
+        Cinema cinema = new Cinema();
+        cinema.setId(screeningDto.getCinema().getId());
+        screening.setCinema(cinema);
+
+        Movie movie = new Movie();
+        movie.setId(screeningDto.getMovie().getId());
+        screening.setMovie(movie);
+
+        Hall hall = new Hall();
+        hall.setId(screeningDto.getHall().get(0).getId());
+        screening.setHall(hall);
+
+        screening.setDate(screeningDto.getDate());
+        screening.setTime(screeningDto.getTime());
+
+        return screening;
+    }
+
+
+
 
 }

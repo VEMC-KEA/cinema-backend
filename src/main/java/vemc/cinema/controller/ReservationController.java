@@ -30,6 +30,16 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping
+    public ResponseEntity<ReservationDto> createReservation(@RequestBody ReservationDto reservationDto) {
+        ReservationDto createdReservation = reservationService.createReservation(reservationDto);
+        if (createdReservation != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdReservation);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Optional<ReservationDto>> getAllReservationsById(@PathVariable Long id ) {
         var reservation = this.reservationService.findById(id);

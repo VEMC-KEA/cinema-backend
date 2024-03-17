@@ -26,7 +26,6 @@ public class Screening {
     private Hall hall;
     private LocalDate date;
     @OneToMany(fetch = FetchType.LAZY)
-    @JsonManagedReference
     private List<Ticket> tickets = new ArrayList<>();
     @ManyToOne(fetch = FetchType.EAGER)
     private Cinema cinema;

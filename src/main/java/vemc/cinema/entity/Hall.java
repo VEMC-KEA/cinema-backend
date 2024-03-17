@@ -20,7 +20,6 @@ public class Hall {
     private Integer number;
     private Double amountOfFrontRowDiscounted;
     @OneToMany(fetch = FetchType.LAZY)
-    @JsonBackReference
     private List<Screening> screening = new ArrayList<>();
     @OneToMany(fetch = FetchType.EAGER)
     private List<Seat> seat = new ArrayList<>();

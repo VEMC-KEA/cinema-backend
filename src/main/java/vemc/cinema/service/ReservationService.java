@@ -3,8 +3,11 @@ package vemc.cinema.service;
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.ReservationDto;
 import vemc.cinema.dto.ReservationTicketDto;
+import vemc.cinema.dto.ScreeningDto;
 import vemc.cinema.dto.helperdto.*;
 import vemc.cinema.entity.Reservation;
+import vemc.cinema.entity.Screening;
+import vemc.cinema.entity.Seat;
 import vemc.cinema.entity.Ticket;
 import vemc.cinema.repository.ReservationRepository;
 import vemc.cinema.utils.PriceCalculator;
@@ -18,12 +21,14 @@ import java.util.stream.Collectors;
 public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final ScreeningService screeningService;
+    private final SeatService seatService;
 
     private final TicketService ticketService;
 
-    public ReservationService(ReservationRepository reservationRepository, ScreeningService screeningService, TicketService ticketService) {
+    public ReservationService(ReservationRepository reservationRepository, ScreeningService screeningService, SeatService seatService, TicketService ticketService) {
         this.reservationRepository = reservationRepository;
         this.screeningService = screeningService;
+        this.seatService = seatService;
         this.ticketService = ticketService;
     }
 
@@ -34,6 +39,40 @@ public class ReservationService {
                 .collect(Collectors.toList());
     }
 
+    public ReservationDto createReservation(ReservationDto reservationDto) {
+        Reservation reservation = new Reservation();
+        reservation.setCompleted(false);
+
+        ReservationScreeningHelperDto reservationScreeningHelperDto = reservationDto.getScreening();
+        ScreeningDto screeningDto = screeningService.convertToScreeningDto(reservationScreeningHelperDto);
+        Screening screening = screeningService.findScreeningById(screeningDto.getId());
+        reservation.setScreening(screening);
+
+        for (ReservationTicketHelperDto ticketDto : reservationDto.getTickets()) {
+
+            Ticket ticket = new Ticket();
+
+            SeatHelperDto seatHelperDto = new SeatHelperDto();
+            seatHelperDto.setRow_letter(ticketDto.getRow_letter());
+            seatHelperDto.setNumber(ticketDto.getNumber());
+
+            Seat seat = seatService.createSeat(seatHelperDto);
+
+            PriceCalculator.calculatePrice(ticket, screening, seat);
+
+            ticket.setPrice(ticketDto.getPrice());
+
+            reservation.getTickets().add(ticket);
+        }
+
+
+        double totalPrice = PriceCalculator.calculateTotalPrice(reservation);
+        reservation.setTotalPrice(totalPrice);
+
+        Reservation savedReservation = reservationRepository.save(reservation);
+
+        return toDto(savedReservation);
+    }
 
     public Optional<ReservationDto> findById(Long id) {
         return reservationRepository.findById(id).map(this::toDto);

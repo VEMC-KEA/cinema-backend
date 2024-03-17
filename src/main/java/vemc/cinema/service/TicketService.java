@@ -23,13 +23,6 @@ public class TicketService {
                 .collect(Collectors.toList());
     }
 
-   /* public ReservationTicketHelperDto toReservationHelperDto(Ticket ticket){
-        ReservationTicketHelperDto dto = new ReservationTicketHelperDto();
-        dto.setSeat(seatService.toHelperDto(ticket.getSeat()));
-        dto.setPrice(ticket.getPrice());
-        return dto;
-    }*/
-
     public ReservationTicketHelperDto toReservationHelperDto(Ticket ticket){
         ReservationTicketHelperDto dto = new ReservationTicketHelperDto();
         SeatHelperDto seatDto = seatService.toHelperDto(ticket.getSeat());
@@ -41,7 +34,6 @@ public class TicketService {
 
     public ReservationTicketHelperDto toHelperDto(Ticket ticket) {
         ReservationTicketHelperDto dto = new ReservationTicketHelperDto();
-        //dto.setSeat(seatService.toHelperDto(ticket.getSeat()));
         dto.setPrice(ticket.getPrice());
         return dto;
     }
