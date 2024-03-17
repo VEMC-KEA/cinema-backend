@@ -22,6 +22,10 @@ public class Ticket {
     private Seat seat;
     private Double price;
 
+    /**
+     * This method is used to calculate the price of a ticket
+     * @return the price of the ticket
+     */
     public Double getPrice() {
         if (price == null) {
             PriceCalculator.calculatePrice(this, screening, seat);

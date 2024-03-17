@@ -50,12 +50,13 @@ public class PriceCalculator {
             basePrice += 3.0;
         }
 
-        int seatNumber = seat.getNumber();
-        if (seatNumber <= 2) {
-            basePrice -= screening.getHall().getAmountOfFrontRowDiscounted();
-        } else if (seatNumber >= screening.getHall().getTotalSeats() - 1) {
+        var rowLetter = seat.getRowLetter();
+        if(rowLetter.equals("A") || rowLetter.equals("B")){
+            basePrice -= 1.0;
+        } else if(rowLetter.equals("Y") || rowLetter.equals("Z")) {
             basePrice += 1.0;
         }
+
         ticket.setPrice(basePrice);
     }
 }
