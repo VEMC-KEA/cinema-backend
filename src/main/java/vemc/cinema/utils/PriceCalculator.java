@@ -1,59 +1,52 @@
 package vemc.cinema.utils;
 
-import vemc.cinema.dto.ReservationDto;
-import vemc.cinema.dto.helperdto.ReservationTicketHelperDto;
-import vemc.cinema.dto.helperdto.SeatHelperDto;
+import vemc.cinema.entity.Reservation;
+import vemc.cinema.entity.Screening;
+import vemc.cinema.entity.Seat;
+import vemc.cinema.entity.Ticket;
 
-import java.util.List;
 
 public class PriceCalculator {
-    public static double calculateTotalPrice(ReservationDto reservationDto) {
+
+    public static double calculateTotalPrice(Reservation reservation) {
         double totalPrice = 0.0;
-        int ticketCount = reservationDto.getTickets().size();
+        int ticketCount = reservation.getTickets().size();
+        double reservationFee = reservation.getScreening().getCinema().getReservationFee();
+        double groupDiscountRate = reservation.getScreening().getCinema().getGroupDiscount() / 100.0;
 
-        for (ReservationTicketHelperDto ticketDto : reservationDto.getTickets()) {
-            double ticketPrice = calculateTicketPrice(ticketDto.getRow_letter(), ticketDto.getNumber(), reservationDto.getScreening().getHall().get(0).getNumber());
-
-            Long movieId = reservationDto.getScreening().getMovie().getId();
-            if (isFeatureFilm(movieId)) {
-                ticketPrice += 10.0;
-            }
-
-            if (reservationDto.getScreening().is3d()) {
-                ticketPrice += 5.0;
-            }
-
-            totalPrice += ticketPrice;
-        }
-
-        if (ticketCount > 10) {
-            double groupDiscount = totalPrice * 0.07;
-            totalPrice -= groupDiscount;
+        for (Ticket ticket : reservation.getTickets()) {
+            totalPrice += ticket.getPrice();
         }
 
         if (ticketCount <= 5) {
-            totalPrice += 5.0;
+            totalPrice += reservationFee;
+        }
+
+        if (ticketCount > 10) {
+            totalPrice -= totalPrice * groupDiscountRate;
         }
 
         return totalPrice;
     }
 
-    private static boolean isFeatureFilm(Long movieId) {
-        return movieId % 2 == 0;
-    }
+     public static void calculatePrice(Ticket ticket, Screening screening, Seat seat) {
+        double basePrice = screening.getCinema().getMovieBasePrice();
 
-    private static double calculateTicketPrice(String rowLetter, int seatNumber, int hallNumber) {
-        double basePrice = 10.0;
-
-        if (rowLetter.equalsIgnoreCase("A") || rowLetter.equalsIgnoreCase("B")) {
-            basePrice -= 2.0;
-        } else if (seatNumber >= 12 && seatNumber <= 16) {
+        if (screening.is3d()) {
             basePrice += 2.0;
         }
-
-        if (hallNumber >= 3) {
-            basePrice += 5.0;
+        if (screening.getMovie().getRunTime() > 170) {
+            basePrice += 3.0;
         }
-        return basePrice;
+
+        int seatNumber = seat.getNumber();
+        if (seatNumber <= 2) {
+            basePrice -= screening.getHall().getAmountOfFrontRowDiscounted();
+        } else if (seatNumber >= screening.getHall().getTotalSeats() - 1) {
+            basePrice += 1.0;
+        }
+        ticket.setPrice(basePrice);
     }
 }
+
+

@@ -8,7 +8,7 @@ import vemc.cinema.entity.Seat;
 public class SeatService {
     public SeatHelperDto toHelperDto(Seat seat) {
         SeatHelperDto dto = new SeatHelperDto();
-        dto.setRow_letter(seat.getRow_letter());
+        dto.setRow_letter(seat.getRowLetter());
         dto.setNumber(seat.getNumber());
         return dto;
     }

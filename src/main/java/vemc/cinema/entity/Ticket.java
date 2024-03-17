@@ -5,10 +5,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
+
+import static vemc.cinema.utils.PriceCalculator.calculatePrice;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@Accessors(chain = true)
 @Entity(name = "ticket")
 public class Ticket {
     @Id
@@ -21,4 +25,3 @@ public class Ticket {
     private Seat seat;
     private Double price;
 }
-

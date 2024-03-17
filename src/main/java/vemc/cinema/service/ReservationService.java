@@ -81,12 +81,7 @@ public class ReservationService {
         dto.setIsCompleted(reservation.isCompleted());
         dto.setTickets(ticketService.toHelperDtoList(reservation.getTickets()));
 
-       /* double totalTicketPrice = reservation.getTickets().stream()
-                .mapToDouble(ticket -> ticket.getPrice())
-                .sum();
-        dto.setTotalPrice(totalTicketPrice);*/
-
-        double totalTicketPrice = PriceCalculator.calculateTotalPrice(dto);
+        double totalTicketPrice = PriceCalculator.calculateTotalPrice(reservation);
         dto.setTotalPrice(totalTicketPrice);
 
         return dto;

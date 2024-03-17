@@ -14,6 +14,6 @@ public class Seat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 2)
-    private String row_letter;
+    private String rowLetter;
     private Integer number;
 }

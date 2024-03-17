@@ -24,4 +24,8 @@ public class Hall {
     private List<Screening> screening = new ArrayList<>();
     @OneToMany(fetch = FetchType.EAGER)
     private List<Seat> seat = new ArrayList<>();
+
+    public int getTotalSeats() {
+        return seat.size();
+    }
 }

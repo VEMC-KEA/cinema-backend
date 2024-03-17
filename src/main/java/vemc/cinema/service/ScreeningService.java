@@ -5,6 +5,8 @@ import vemc.cinema.dto.*;
 import vemc.cinema.dto.helperdto.*;
 import vemc.cinema.entity.*;
 import vemc.cinema.repository.ScreeningRepository;
+import vemc.cinema.repository.TicketRepository;
+import vemc.cinema.utils.PriceCalculator;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -14,13 +16,15 @@ public class ScreeningService {
     private final ScreeningRepository screeningRepository;
     private final CinemaService cinemaService;
     private final MovieService movieService;
+    private final TicketRepository ticketRepository;
 
     private final HallService hallService;
 
-    public ScreeningService(ScreeningRepository screeningRepository, CinemaService cinemaService, MovieService movieService, HallService hallService){
+    public ScreeningService(ScreeningRepository screeningRepository, CinemaService cinemaService, MovieService movieService, TicketRepository ticketRepository, HallService hallService){
         this.screeningRepository = screeningRepository;
         this.cinemaService = cinemaService;
         this.movieService = movieService;
+        this.ticketRepository = ticketRepository;
         this.hallService = hallService;
     }
 
@@ -45,6 +49,7 @@ public class ScreeningService {
         screeningRepository.save(screening);
         return toDto(screening);
     }
+
 
     public ScreeningDto findById(Long id) {
         return screeningRepository.findById(id).map(this::toDto).orElse(null);
@@ -111,6 +116,15 @@ public class ScreeningService {
         hallDto.setId(hall.getId());
         hallDto.setNumber(hall.getNumber());
         dto.setHall(List.of(hallDto));
+
+       /* List<TicketHelperDto> ticketDtos = screening.getTickets().stream().map(ticket -> {
+            TicketHelperDto ticketDto = new TicketHelperDto();
+            ticketDto.setId(ticket.getId());
+            ticketDto.setSeat(ticket.getSeat());
+            ticketDto.setPrice(ticket.getPrice());
+            return ticketDto;
+        }).toList();
+        dto.setTickets(ticketDtos);*/
 
         List<TicketHelperDto> ticketDtos = screening.getTickets().stream().map(ticket -> {
             TicketHelperDto ticketDto = new TicketHelperDto();

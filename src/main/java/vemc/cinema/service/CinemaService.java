@@ -1,6 +1,5 @@
 package vemc.cinema.service;
 
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.*;
 import vemc.cinema.dto.helperdto.CinemaHelperDto;
@@ -279,7 +278,7 @@ public class CinemaService {
         SeatDto dto = new SeatDto();
         dto.setId(seat.getId());
         dto.setNumber(seat.getNumber());
-        dto.setRow_letter(seat.getRow_letter());
+        dto.setRow_letter(seat.getRowLetter());
         return dto;
     }
 
