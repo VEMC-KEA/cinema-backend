@@ -42,36 +42,8 @@ public class ReservationService {
     public ReservationDto createReservation(ReservationDto reservationDto) {
         Reservation reservation = new Reservation();
         reservation.setCompleted(false);
-
-        ReservationScreeningHelperDto reservationScreeningHelperDto = reservationDto.getScreening();
-        ScreeningDto screeningDto = screeningService.convertToScreeningDto(reservationScreeningHelperDto);
-        Screening screening = screeningService.findScreeningById(screeningDto.getId());
-        reservation.setScreening(screening);
-
-        for (ReservationTicketHelperDto ticketDto : reservationDto.getTickets()) {
-
-            Ticket ticket = new Ticket();
-
-            SeatHelperDto seatHelperDto = new SeatHelperDto();
-            seatHelperDto.setRow_letter(ticketDto.getRow_letter());
-            seatHelperDto.setNumber(ticketDto.getNumber());
-
-            Seat seat = seatService.createSeat(seatHelperDto);
-
-            PriceCalculator.calculatePrice(ticket, screening, seat);
-
-            ticket.setPrice(ticketDto.getPrice());
-
-            reservation.getTickets().add(ticket);
-        }
-
-
-        double totalPrice = PriceCalculator.calculateTotalPrice(reservation);
-        reservation.setTotalPrice(totalPrice);
-
-        Reservation savedReservation = reservationRepository.save(reservation);
-
-        return toDto(savedReservation);
+        reservationRepository.save(reservation);
+        return toDto(reservation);
     }
 
     public Optional<ReservationDto> findById(Long id) {

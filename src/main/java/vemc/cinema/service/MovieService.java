@@ -17,18 +17,38 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
+    /**
+     * This method is used to convert a Movie object to a MovieDto object
+     * @return MovieDto object
+     */
     public List<MovieDto> findAll() {
         return movieRepository.findAll().stream().map(this::toDto).toList();
     }
 
+    /**
+     * This method is used to convert a Movie object to a MovieDto object
+     * @param id movie id
+     * @return MovieDto object
+     */
     public Optional<MovieDto> findById(Long id) {
         return movieRepository.findById(id).map(this::toDto);
     }
 
+    /**
+     * This method is used to convert a Movie object to a MovieDto object
+     * @param movie MovieDto object
+     * @return MovieDto object
+     */
     public MovieDto save(MovieDto movie) {
         return toDto(movieRepository.save(toEntity(movie)));
     }
 
+    /**
+     * This method is used to convert a Movie object to a MovieDto object
+     * @param id movie id
+     * @param movie MovieDto object
+     * @return MovieDto object
+     */
     public Optional<MovieDto> updateIfExist(Long id, MovieDto movie) {
         if (movieRepository.existsById(id)) {
             Movie entity = toEntity(movie);
@@ -38,12 +58,22 @@ public class MovieService {
         return Optional.empty();
     }
 
+    /**
+     * This method is used to convert a Movie object to a MovieDto object
+     * @param id movie id
+     * @return MovieDto object
+     */
     public Optional<MovieDto> deleteById(Long id) {
         Optional<MovieDto> existingMovie = findById(id);
         movieRepository.deleteById(id);
         return existingMovie;
     }
 
+    /**
+     * This method is used to convert a Movie object to a MovieDto object
+     * @param movie Movie object
+     * @return MovieDto object
+     */
     private MovieDto toDto(Movie movie) {
         MovieDto dto = new MovieDto();
         dto.setId(movie.getId());
@@ -56,6 +86,11 @@ public class MovieService {
         return dto;
     }
 
+    /**
+     * This method is used to convert a MovieDto object to a Movie object
+     * @param movie MovieDto object
+     * @return Movie object
+     */
     public Movie toEntity (MovieDto movie) {
         Movie entity = new Movie();
         entity.setId(movie.getId());
@@ -68,6 +103,11 @@ public class MovieService {
         return entity;
     }
 
+    /**
+     * This method is used to convert a Movie object to a MovieHelperDto object
+     * @param movie Movie object
+     * @return MovieHelperDto object
+     */
     public MovieHelperDto toHelperDto(Movie movie) {
         MovieHelperDto dto = new MovieHelperDto();
         dto.setId(movie.getId());

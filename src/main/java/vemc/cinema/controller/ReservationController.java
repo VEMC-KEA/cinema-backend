@@ -21,6 +21,10 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
+    /**
+     * Get all reservations
+     * @return List of all reservations
+     */
     @GetMapping
     public ResponseEntity<List<ReservationDto>> getAllReservations() {
         var reservations = this.reservationService.findAll();
@@ -30,6 +34,11 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Create a new reservation
+     * @param reservationDto Reservation to create
+     * @return Created reservation
+     */
     @PostMapping
     public ResponseEntity<ReservationDto> createReservation(@RequestBody ReservationDto reservationDto) {
         ReservationDto createdReservation = reservationService.createReservation(reservationDto);
@@ -40,6 +49,11 @@ public class ReservationController {
         }
     }
 
+    /**
+     * Get reservation by id
+     * @param id Id of reservation
+     * @return Reservation with given id
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Optional<ReservationDto>> getAllReservationsById(@PathVariable Long id ) {
         var reservation = this.reservationService.findById(id);
@@ -49,6 +63,11 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Get all tickets by reservation id
+     * @param id Id of reservation
+     * @return List of tickets with given reservation id
+     */
     @GetMapping("/{id}/tickets")
     public ResponseEntity<Optional<ReservationTicketDto>> getAllTicketsByReservationId(@PathVariable Long id ) {
         var tickets = this.reservationService.findTicketsByReservationId(id);
@@ -58,6 +77,12 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Get all tickets by reservation id and tickets id
+     * @param reservationId Id of reservation
+     * @param ticketsId Id of tickets
+     * @return List of tickets with given reservation id and tickets id
+     */
     @GetMapping("/{reservationId}/tickets/{ticketsId}")
     public ResponseEntity<Optional<ReservationTicketDto>> getAllTicketsByReservationId(@PathVariable Long reservationId, @PathVariable Long ticketsId){
         var ticket = this.reservationService.findOneTicketByReservationId(reservationId, ticketsId);

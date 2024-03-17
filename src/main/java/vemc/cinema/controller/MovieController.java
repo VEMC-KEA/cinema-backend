@@ -19,6 +19,10 @@ public class MovieController {
         MovieService = movieService;
     }
 
+    /**
+     * Get all movies
+     * @return List of all movies
+     */
     @GetMapping
     public ResponseEntity<List<MovieDto>> getAllMovies(){
         var movies = this.MovieService.findAll();
@@ -28,6 +32,11 @@ public class MovieController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Get movie by id
+     * @param id Id of movie
+     * @return Movie with given id
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Optional<MovieDto>> getAllMoviesById(@PathVariable Long id){
         var movie = this.MovieService.findById(id);
@@ -37,6 +46,11 @@ public class MovieController {
         return ResponseEntity.notFound().build();
     }
 
+    /**
+     * Create a new movie
+     * @param movie Movie to create
+     * @return Created movie
+     */
     @PostMapping()
     public ResponseEntity<MovieDto> create(@RequestBody MovieDto movie){
         if(movie.getTitle() == null){
@@ -45,11 +59,22 @@ public class MovieController {
         return ResponseEntity.ok(MovieService.save(movie));
     }
 
+    /**
+     * Update movie
+     * @param id Id of movie
+     * @param movie Movie to update
+     * @return Updated movie
+     */
     @PutMapping("/{id}")
     public ResponseEntity<MovieDto> update(@RequestBody MovieDto movie, @PathVariable("id") Long id) {
         return ResponseEntity.of(MovieService.updateIfExist(id, movie));
     }
 
+    /**
+     * Delete movie
+     * @param id Id of movie
+     * @return Deleted movie
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<MovieDto> delete(@PathVariable("id") Long id) {
         return ResponseEntity.of(MovieService.deleteById(id));

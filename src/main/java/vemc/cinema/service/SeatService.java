@@ -6,17 +6,15 @@ import vemc.cinema.entity.Seat;
 
 @Service
 public class SeatService {
+    /**
+     * This method is used to convert a Seat object to a SeatHelperDto object
+     * @param seat Seat object
+     * @return SeatHelperDto object
+     */
     public SeatHelperDto toHelperDto(Seat seat) {
         SeatHelperDto dto = new SeatHelperDto();
         dto.setRow_letter(seat.getRowLetter());
         dto.setNumber(seat.getNumber());
         return dto;
-    }
-
-    public Seat createSeat(SeatHelperDto seatHelperDto) {
-        Seat seat = new Seat();
-        seat.setRowLetter(seatHelperDto.getRow_letter());
-        seat.setNumber(seatHelperDto.getNumber());
-        return seat;
     }
 }

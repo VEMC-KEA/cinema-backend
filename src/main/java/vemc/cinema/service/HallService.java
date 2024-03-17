@@ -9,6 +9,11 @@ import java.util.List;
 
 @Service
 public class HallService  {
+    /**
+     * This method is used to convert a Hall object to a HallHelperDto object
+     * @param hall Hall object
+     * @return HallHelperDto object
+     */
     public List<HallHelperDto> toHelperDto (Hall hall) {
         List<HallHelperDto> hallList = new ArrayList<>();
 

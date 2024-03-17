@@ -16,22 +16,28 @@ public class ScreeningService {
     private final ScreeningRepository screeningRepository;
     private final CinemaService cinemaService;
     private final MovieService movieService;
-    private final TicketRepository ticketRepository;
-
     private final HallService hallService;
 
-    public ScreeningService(ScreeningRepository screeningRepository, CinemaService cinemaService, MovieService movieService, TicketRepository ticketRepository, HallService hallService){
+    public ScreeningService(ScreeningRepository screeningRepository, CinemaService cinemaService, MovieService movieService, HallService hallService){
         this.screeningRepository = screeningRepository;
         this.cinemaService = cinemaService;
         this.movieService = movieService;
-        this.ticketRepository = ticketRepository;
         this.hallService = hallService;
     }
 
+    /**
+     * This method is used to convert a Screening object to a ScreeningDto object
+     * @return ScreeningDto object
+     */
     public List<ScreeningDto> findAll() {
         return screeningRepository.findAll().stream().map(this::toDto).toList();
     }
 
+    /**
+     * This method is used to convert a Screening object to a ScreeningDto object
+     * @param screeningDto ScreeningDto object
+     * @return ScreeningDto object
+     */
     public ScreeningDto createScreening(ScreeningDto screeningDto) {
         Screening screening = new Screening();
         screening.set3d(screeningDto.is3d());
@@ -50,11 +56,21 @@ public class ScreeningService {
         return toDto(screening);
     }
 
-
+    /**
+     * This method is used to convert a Screening object to a ScreeningDto object
+     * @param id screening id
+     * @return ScreeningDto object
+     */
     public ScreeningDto findById(Long id) {
         return screeningRepository.findById(id).map(this::toDto).orElse(null);
     }
 
+    /**
+     * This method is used to convert a Screening object to a ScreeningDto object
+     * @param id screening id
+     * @param screeningDto ScreeningDto object
+     * @return ScreeningDto object
+     */
     public ScreeningDto updateScreening(Long id, ScreeningDto screeningDto) {
         Screening screening = screeningRepository.findById(id).orElse(null);
         if(screening != null){
@@ -76,12 +92,21 @@ public class ScreeningService {
         return null;
     }
 
+    /**
+     * This method is used to convert a Screening object to a ScreeningDto object
+     * @param id screening id
+     */
     public void deleteScreening(Long id) {
         Screening screening = screeningRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Screening not found with id: " + id));
         screeningRepository.delete(screening);
     }
 
+    /**
+     * This method is used to convert a Screening object to a ScreeningDto object
+     * @param screening Screening object
+     * @return ScreeningDto object
+     */
     public ReservationScreeningHelperDto toHelperDtoScreening(Screening screening) {
         ReservationScreeningHelperDto dto = new ReservationScreeningHelperDto();
         dto.set3d(screening.is3d());
@@ -93,6 +118,11 @@ public class ScreeningService {
         return dto;
     }
 
+    /**
+     * This method is used to convert a Screening object to a ScreeningDto object
+     * @param screening Screening object
+     * @return ScreeningDto object
+     */
     public ScreeningDto toDto(Screening screening) {
         ScreeningDto dto = new ScreeningDto();
         dto.setId(screening.getId());
@@ -129,6 +159,11 @@ public class ScreeningService {
         return dto;
     }
 
+    /**
+     * This method is used to convert a Screening object to a ScreeningDto object
+     * @param reservationScreeningHelperDto ReservationScreeningHelperDto object
+     * @return ScreeningDto object
+     */
     public ScreeningDto convertToScreeningDto(ReservationScreeningHelperDto reservationScreeningHelperDto) {
         ScreeningDto screeningDto = new ScreeningDto();
         screeningDto.set3d(reservationScreeningHelperDto.is3d());
@@ -139,35 +174,4 @@ public class ScreeningService {
         screeningDto.setTime(reservationScreeningHelperDto.getTime());
         return screeningDto;
     }
-
-    public Screening findScreeningById(Long id) {
-        return screeningRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Screening not found with id: " + id));
-    }
-
-    public Screening convertToScreening(ScreeningDto screeningDto) {
-        Screening screening = new Screening();
-        screening.set3d(screeningDto.is3d());
-
-        Cinema cinema = new Cinema();
-        cinema.setId(screeningDto.getCinema().getId());
-        screening.setCinema(cinema);
-
-        Movie movie = new Movie();
-        movie.setId(screeningDto.getMovie().getId());
-        screening.setMovie(movie);
-
-        Hall hall = new Hall();
-        hall.setId(screeningDto.getHall().get(0).getId());
-        screening.setHall(hall);
-
-        screening.setDate(screeningDto.getDate());
-        screening.setTime(screeningDto.getTime());
-
-        return screening;
-    }
-
-
-
-
 }

@@ -8,6 +8,11 @@ import vemc.cinema.entity.Ticket;
 
 public class PriceCalculator {
 
+    /**
+     * Calculates the total price of a reservation.
+     * @param reservation the reservation to calculate the price for
+     * @return the total price of the reservation
+     */
     public static double calculateTotalPrice(Reservation reservation) {
         double totalPrice = 0.0;
         int ticketCount = reservation.getTickets().size();
@@ -29,6 +34,12 @@ public class PriceCalculator {
         return totalPrice;
     }
 
+    /**
+     * Calculates the price of a ticket based on the screening and seat.
+     * @param ticket the ticket to calculate the price for
+     * @param screening the screening the ticket is for
+     * @param seat the seat the ticket is for
+     */
      public static void calculatePrice(Ticket ticket, Screening screening, Seat seat) {
         double basePrice = screening.getCinema().getMovieBasePrice();
 

@@ -25,10 +25,19 @@ public class CinemaService {
         this.hallRepository = hallRepository;
     }
 
+    /**
+     * This method returns all cinemas in the database
+     * @return a list of all cinemas in the database
+     */
     public List<CinemaDto> findAll() {
         return cinemaRepository.findAll().stream().map(this::toDtoCinema).toList();
     }
 
+    /**
+     * This method creates a new cinema in the database
+     * @param cinemaDto the cinema to be created
+     * @return the created cinema
+     */
     public CinemaDto createCinema(CinemaDto cinemaDto) {
         Cinema cinema = new Cinema();
         cinema.setName(cinemaDto.getName());
@@ -56,11 +65,21 @@ public class CinemaService {
         return toDtoCinema(savedCinema);
     }
 
+    /**
+     * This method returns a cinema by its id
+     * @param id the id of the cinema
+     * @return the cinema with the given id
+     */
     public CinemaDto findById(Long id) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(id);
         return cinemaOptional.map(this::toDtoCinema).orElse(null);
     }
 
+    /**
+     * This method returns all halls in a cinema by the cinema's id
+     * @param cinemaId the id of the cinema
+     * @return a list of all halls in the cinema
+     */
     public List<HallDto> getHallsByCinemaId(Long cinemaId) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);
         if (cinemaOptional.isEmpty()) {
@@ -76,6 +95,12 @@ public class CinemaService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * This method updates a cinema by its id
+     * @param id the id of the cinema
+     * @param cinemaDto the updated cinema
+     * @return the updated cinema
+     */
     public CinemaDto updateCinema(Long id, CinemaDto cinemaDto) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(id);
 
@@ -108,7 +133,12 @@ public class CinemaService {
         return toDtoCinema(updatedCinema);
     }
 
+    /**
+     * This method deletes a cinema by its id
+     * @param id the id of the cinema
+     */
     public void deleteCinema(Long id) {
+        //error with foreign key constraint when deleting hall
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(id);
 
         if (cinemaOptional.isPresent()) {
@@ -119,7 +149,12 @@ public class CinemaService {
         }
     }
 
-
+    /**
+     * This method returns a hall by its id and the cinema's id
+     * @param cinemaId the id of the cinema
+     * @param hallId the id of the hall
+     * @return the cinema with the given id
+     */
     public HallDto getHallsByIdByCinemaId(Long cinemaId, Long hallId) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);
         if(cinemaOptional.isEmpty()) {
@@ -131,6 +166,12 @@ public class CinemaService {
         return hallOptional.map(this::toDtoHall).orElse(null);
     }
 
+    /**
+     * This method creates a new hall in the database
+     * @param cinemaId the id of the cinema
+     * @param hallDto the hall to be created
+     * @return the created hall
+     */
     public HallDto createHall(Long cinemaId, HallDto hallDto) {
         Cinema cinema = cinemaRepository.findById(cinemaId)
                 .orElseThrow(() -> new RuntimeException("Cinema not found with id: " + cinemaId));
@@ -147,6 +188,12 @@ public class CinemaService {
         return toDtoHall(savedHall);
     }
 
+    /**
+     * This method returns all seats in a hall by the cinema's id and the hall's id
+     * @param cinemaId the id of the cinema
+     * @param hallId the id of the hall
+     * @return a list of all seats in the hall
+     */
     public List<SeatDto> getSeatsByHallsIdByCinemaId(Long cinemaId, Long hallId) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);
 
@@ -169,6 +216,13 @@ public class CinemaService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * This method updates a hall by its id and the cinema's id
+     * @param cinemaId the id of the cinema
+     * @param hallId the id of the hall
+     * @param hallDto the updated hall
+     * @return the updated hall
+     */
     public HallDto updateHall(Long cinemaId, Long hallId, HallDto hallDto) {
         Cinema cinema = cinemaRepository.findById(cinemaId)
                 .orElseThrow(() -> new NoSuchElementException("Cinema not found with id: " + cinemaId));
@@ -184,7 +238,13 @@ public class CinemaService {
         return toDtoHall(updatedHall);
     }
 
+    /**
+     * This method deletes a hall by its id and the cinema's id
+     * @param cinemaId the id of the cinema
+     * @param hallId the id of the hall
+     */
     public void deleteHall(Long cinemaId, Long hallId) {
+        //error with foreign key constraint when deleting hall
         Cinema cinema = cinemaRepository.findById(cinemaId)
                 .orElseThrow(() -> new NoSuchElementException("Cinema not found with id: " + cinemaId));
 
@@ -198,6 +258,13 @@ public class CinemaService {
         hallRepository.delete(hall);
     }
 
+    /**
+     * This method creates a new seat in the database
+     * @param cinemaId the id of the cinema
+     * @param hallId the id of the hall
+     * @param seatId the id of the seat
+     * @return the created seat
+     */
     public SeatDto getSeatByIdByHallsIdByCinemaId(Long cinemaId, Long hallId, Long seatId) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);
 
@@ -218,6 +285,11 @@ public class CinemaService {
         return seatOptional.map(this::toDtoSeat).orElse(null);
     }
 
+    /**
+     * This method gets a movie by the cinema's id
+     * @param id the id of the cinema
+     * @return a list of all movies in the cinema
+     */
     public List<MovieDto> getMovieByCinemaId (Long id) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(id);
 
@@ -237,6 +309,11 @@ public class CinemaService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * This method toDtoCinema converts a cinema to a cinemaDto
+     * @param cinema the cinema to be converted
+     * @return the converted cinema
+     */
     private CinemaDto toDtoCinema(Cinema cinema) {
         CinemaDto dto = new CinemaDto();
         dto.setId(cinema.getId());
@@ -266,6 +343,11 @@ public class CinemaService {
         return dto;
     }
 
+    /**
+     * This method toDtoHall converts a hall to a hallDto
+     * @param hall the hall to be converted
+     * @return the converted hall
+     */
     private HallDto toDtoHall(Hall hall) {
         HallDto dto = new HallDto();
         dto.setId(hall.getId());
@@ -275,6 +357,11 @@ public class CinemaService {
         return dto;
     }
 
+    /**
+     * This method toDtoSeat converts a seat to a seatDto
+     * @param seat the seat to be converted
+     * @return the converted seat
+     */
     private SeatDto toDtoSeat(Seat seat) {
         SeatDto dto = new SeatDto();
         dto.setId(seat.getId());
@@ -283,6 +370,11 @@ public class CinemaService {
         return dto;
     }
 
+    /**
+     * This method toDtoMovie converts a movie to a movieDto
+     * @param movie the movie to be converted
+     * @return the converted movie
+     */
     private MovieDto toDtoMovie(Movie movie) {
         MovieDto dto = new MovieDto();
         dto.setId(movie.getId());
@@ -293,6 +385,11 @@ public class CinemaService {
         return dto;
     }
 
+    /**
+     * This method toHelperDto converts a cinema to a cinemaHelperDto
+     * @param cinema the cinema to be converted
+     * @return the converted cinema
+     */
     public CinemaHelperDto toHelperDto(Cinema cinema) {
         CinemaHelperDto dto = new CinemaHelperDto();
         dto.setId(cinema.getId());
@@ -300,4 +397,3 @@ public class CinemaService {
         return dto;
     }
 }
-

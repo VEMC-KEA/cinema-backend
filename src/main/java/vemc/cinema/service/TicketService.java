@@ -17,12 +17,22 @@ public class TicketService {
         this.seatService = seatService;
     }
 
+    /**
+     * This method is used to convert a list of Ticket objects to a list of ReservationTicketHelperDto objects
+     * @param tickets list of Ticket objects
+     * @return list of ReservationTicketHelperDto objects
+     */
     public List<ReservationTicketHelperDto> toHelperDtoList(List<Ticket> tickets){
         return tickets.stream()
                 .map(this::toReservationHelperDto)
                 .collect(Collectors.toList());
     }
 
+    /**
+     * This method is used to convert a Ticket object to a ReservationTicketHelperDto object
+     * @param ticket Ticket object
+     * @return ReservationTicketHelperDto object
+     */
     public ReservationTicketHelperDto toReservationHelperDto(Ticket ticket){
         ReservationTicketHelperDto dto = new ReservationTicketHelperDto();
         SeatHelperDto seatDto = seatService.toHelperDto(ticket.getSeat());
@@ -32,6 +42,11 @@ public class TicketService {
         return dto;
     }
 
+    /**
+     * This method is used to convert a Ticket object to a ReservationTicketHelperDto object
+     * @param ticket Ticket object
+     * @return ReservationTicketHelperDto object
+     */
     public ReservationTicketHelperDto toHelperDto(Ticket ticket) {
         ReservationTicketHelperDto dto = new ReservationTicketHelperDto();
         dto.setPrice(ticket.getPrice());
