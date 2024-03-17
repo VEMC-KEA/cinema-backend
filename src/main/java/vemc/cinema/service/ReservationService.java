@@ -21,14 +21,12 @@ import java.util.stream.Collectors;
 public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final ScreeningService screeningService;
-    private final SeatService seatService;
 
     private final TicketService ticketService;
 
-    public ReservationService(ReservationRepository reservationRepository, ScreeningService screeningService, SeatService seatService, TicketService ticketService) {
+    public ReservationService(ReservationRepository reservationRepository, ScreeningService screeningService, TicketService ticketService) {
         this.reservationRepository = reservationRepository;
         this.screeningService = screeningService;
-        this.seatService = seatService;
         this.ticketService = ticketService;
     }
 
@@ -41,25 +39,6 @@ public class ReservationService {
 
     public ReservationDto createReservation(ReservationDto reservationDto) {
         Reservation reservation = new Reservation();
-
-        // Convert tickets
-        List<ReservationTicketHelperDto> ticketDtos = reservationDto.getTickets();
-        List<Ticket> tickets = ticketDtos.stream()
-                .map(ticketDto -> {
-                    Ticket ticket = new Ticket();
-                    ticket.setId(ticketDto.getId());
-
-                    Seat seat = new Seat();
-                    seat.setRowLetter(ticketDto.getRowLetter());
-                    seat.setNumber(ticketDto.getNumber());
-
-                    ticket.setSeat(seat);
-
-                    return ticket;
-                })
-                .collect(Collectors.toList());
-
-        reservation.setTickets(tickets);
 
         reservationRepository.save(reservation);
 
@@ -109,7 +88,6 @@ public class ReservationService {
     public ReservationDto toDto(Reservation reservation) {
         ReservationDto dto = new ReservationDto();
         dto.setId(reservation.getId());
-        dto.setScreeningId(reservation.getScreening().getId());
         dto.setScreening(screeningService.toHelperDtoScreening(reservation.getScreening()));
         dto.setIsCompleted(reservation.isCompleted());
         dto.setTickets(ticketService.toHelperDtoList(reservation.getTickets()));

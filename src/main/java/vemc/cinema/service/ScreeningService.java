@@ -111,6 +111,7 @@ public class ScreeningService {
     public ReservationScreeningHelperDto toHelperDtoScreening(Screening screening) {
         ReservationScreeningHelperDto dto = new ReservationScreeningHelperDto();
         dto.set3d(screening.is3d());
+        dto.setId(screening.getId());
         dto.setCinema(cinemaService.toHelperDto(screening.getCinema()));
         dto.setMovie(movieService.toHelperDto(screening.getMovie()));
         dto.setHall(hallService.toHelperDto(screening.getHall()));
@@ -175,9 +176,4 @@ public class ScreeningService {
         screeningDto.setTime(reservationScreeningHelperDto.getTime());
         return screeningDto;
     }
-
-    public Optional<ReservationScreeningHelperDto> findByIdReservation(Long id) {
-        return screeningRepository.findById(id).map(this::toHelperDtoScreening);
-    }
-
 }
