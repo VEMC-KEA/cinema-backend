@@ -33,6 +33,15 @@ public class ScreeningService {
         return screeningRepository.findById(id).map(this::toDto).orElse(null);
     }
 
+    public void deleteByTicketId(Long ticketId) {
+        // Fetch the Screening entities that reference the Ticket
+        List<Screening> screenings = screeningRepository.findTicketById(ticketId);
+        // Delete the Screening entities
+        for (Screening screening : screenings) {
+            screeningRepository.delete(screening);
+        }
+    }
+
     public ReservationScreeningHelperDto toHelperDtoScreening(Screening screening) {
         ReservationScreeningHelperDto dto = new ReservationScreeningHelperDto();
         dto.set3d(screening.is3d());

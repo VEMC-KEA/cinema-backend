@@ -25,7 +25,7 @@ public class Screening {
     @ManyToOne(fetch = FetchType.EAGER)
     private Hall hall;
     private LocalDate date;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Ticket> tickets = new ArrayList<>();
     @ManyToOne(fetch = FetchType.EAGER)

@@ -19,6 +19,6 @@ public class Reservation {
     private boolean isCompleted = false;
     @ManyToOne(fetch = FetchType.EAGER)
     private Screening screening;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> tickets = new ArrayList<>();
 }
