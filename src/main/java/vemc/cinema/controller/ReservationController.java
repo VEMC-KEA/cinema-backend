@@ -39,7 +39,7 @@ public class ReservationController {
      * @param reservationDto Reservation to create
      * @return Created reservation
      */
-    @PostMapping
+     @PostMapping
     public ResponseEntity<ReservationDto> createReservation(@RequestBody ReservationDto reservationDto) {
         ReservationDto createdReservation = reservationService.createReservation(reservationDto);
         if (createdReservation != null) {

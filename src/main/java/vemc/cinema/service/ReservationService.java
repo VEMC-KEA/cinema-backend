@@ -3,11 +3,8 @@ package vemc.cinema.service;
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.ReservationDto;
 import vemc.cinema.dto.ReservationTicketDto;
-import vemc.cinema.dto.ScreeningDto;
 import vemc.cinema.dto.helperdto.*;
 import vemc.cinema.entity.Reservation;
-import vemc.cinema.entity.Screening;
-import vemc.cinema.entity.Seat;
 import vemc.cinema.entity.Ticket;
 import vemc.cinema.repository.ReservationRepository;
 import vemc.cinema.utils.PriceCalculator;
@@ -30,6 +27,10 @@ public class ReservationService {
         this.ticketService = ticketService;
     }
 
+    /**
+     * This method finds all reservations
+     * @return list of ReservationDto objects
+     */
     public List<ReservationDto> findAll() {
         List<Reservation> reservations = reservationRepository.findAll();
         return reservations.stream()
@@ -45,11 +46,20 @@ public class ReservationService {
         return toDto(reservation);
     }
 
-
+    /**
+     * This method finds a reservation by id
+     * @param id reservation id
+     * @return ReservationDto object
+     */
     public Optional<ReservationDto> findById(Long id) {
         return reservationRepository.findById(id).map(this::toDto);
     }
 
+    /**
+     * This method finds all tickets by reservation id
+     * @param id reservation id
+     * @return ReservationTicketDto object
+     */
     public Optional<ReservationTicketDto> findTicketsByReservationId(Long id) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
         if (reservationOptional.isEmpty()) {
@@ -59,6 +69,12 @@ public class ReservationService {
         return Optional.of(toDtoReservationTicket(reservation));
     }
 
+    /**
+     * This method finds a ticket by reservation id and ticket id
+     * @param id reservation id
+     * @param ticketId ticket id
+     * @return ReservationTicketDto object
+     */
     public Optional<ReservationTicketDto> findOneTicketByReservationId(Long id, Long ticketId) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
         if (reservationOptional.isEmpty()) {
@@ -78,6 +94,11 @@ public class ReservationService {
         return Optional.of(reservationTicketDto);
     }
 
+    /**
+     * This method is used to convert a Reservation object to a ReservationTicketDto object
+     * @param reservation Reservation object
+     * @return ReservationTicketDto object
+     */
     public ReservationTicketDto toDtoReservationTicket(Reservation reservation) {
         ReservationTicketDto dto = new ReservationTicketDto();
         List<ReservationTicketHelperDto> ticketDtos = ticketService.toHelperDtoList(reservation.getTickets());
@@ -85,6 +106,11 @@ public class ReservationService {
         return dto;
     }
 
+    /**
+     * This method is used to convert a Reservation object to a ReservationDto object
+     * @param reservation Reservation object
+     * @return ReservationDto object
+     */
     public ReservationDto toDto(Reservation reservation) {
         ReservationDto dto = new ReservationDto();
         dto.setId(reservation.getId());
