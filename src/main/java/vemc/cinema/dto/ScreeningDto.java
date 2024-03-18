@@ -23,8 +23,9 @@ public class ScreeningDto {
     private boolean is3d;
     private CinemaHelperDto cinema;
     private MovieHelperDto movie;
-    private List<HallHelperDto> hall = new ArrayList<>();
+    private HallHelperDto hall;
     private LocalDate date;
     private LocalTime time;
     private List<TicketHelperDto> tickets = new ArrayList<>();
+    private Boolean isCancelled = false;
 }

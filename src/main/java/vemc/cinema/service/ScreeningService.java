@@ -34,6 +34,10 @@ public class ScreeningService {
         return screeningRepository.findAll().stream().map(this::toDto).toList();
     }
 
+    public List<ScreeningDto> findMovieById(Long movieId) {
+        return screeningRepository.findAllByMovieId(movieId).stream().map(this::toDto).toList();
+    }
+
     /**
      * This method is used to convert a Screening object to a ScreeningDto object
      * @param screeningDto ScreeningDto object
@@ -49,7 +53,7 @@ public class ScreeningService {
         movie.setId(screeningDto.getMovie().getId());
         screening.setMovie(movie);
         Hall hall = new Hall();
-        hall.setId(screeningDto.getHall().get(0).getId());
+        hall.setId(screeningDto.getHall().getId());
         screening.setHall(hall);
         screening.setDate(screeningDto.getDate());
         screening.setTime(screeningDto.getTime());
@@ -83,10 +87,15 @@ public class ScreeningService {
             movie.setId(screeningDto.getMovie().getId());
             screening.setMovie(movie);
             Hall hall = new Hall();
-            hall.setId(screeningDto.getHall().get(0).getId());
+            hall.setId(screeningDto.getHall().getId());
             screening.setHall(hall);
             screening.setDate(screeningDto.getDate());
             screening.setTime(screeningDto.getTime());
+
+            for (Ticket ticket : screening.getTickets()) {
+                PriceCalculator.calculatePrice(ticket, screening, ticket.getSeat());
+            }
+
             screeningRepository.save(screening);
             return toDto(screening);
         }
@@ -97,10 +106,12 @@ public class ScreeningService {
      * This method is used to convert a Screening object to a ScreeningDto object
      * @param id screening id
      */
-    public void deleteScreening(Long id) {
+    public ScreeningDto cancelScreening(Long id) {
         Screening screening = screeningRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Screening not found with id: " + id));
-        screeningRepository.delete(screening);
+        screening.setIsCancelled(true);
+        Screening updatedScreening = screeningRepository.save(screening);
+        return toDto(updatedScreening);
     }
 
     /**
@@ -129,6 +140,9 @@ public class ScreeningService {
         ScreeningDto dto = new ScreeningDto();
         dto.setId(screening.getId());
         dto.set3d(screening.is3d());
+        dto.setIsCancelled(screening.getIsCancelled());
+        dto.setTime(screening.getTime());
+        dto.setDate(screening.getDate());
 
         CinemaHelperDto cinemaDto = new CinemaHelperDto();
         cinemaDto.setId(screening.getCinema().getId());
@@ -147,7 +161,7 @@ public class ScreeningService {
         HallHelperDto hallDto = new HallHelperDto();
         hallDto.setId(hall.getId());
         hallDto.setNumber(hall.getNumber());
-        dto.setHall(List.of(hallDto));
+        dto.setHall(hallDto);
 
         List<TicketHelperDto> ticketDtos = screening.getTickets().stream().map(ticket -> {
             TicketHelperDto ticketDto = new TicketHelperDto();

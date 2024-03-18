@@ -24,12 +24,21 @@ public class ScreeningController {
      * @return List of all screenings
      */
     @GetMapping
-    public ResponseEntity<List<ScreeningDto>> getAllScreenings(){
+    public ResponseEntity<List<ScreeningDto>> getAllScreenings(@RequestParam(required = false) Long movieId){
+        if(movieId != null){
+            var screenings =  this.screeningService.findMovieById(movieId);
+            if(screenings != null){
+                return ResponseEntity.ok(screenings);
+            }
+            return ResponseEntity.notFound().build();
+        }
+
         var screenings = this.screeningService.findAll();
-        if(screenings != null){
+        if (screenings != null) {
             return ResponseEntity.ok(screenings);
         }
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.notFound().build();
+
     }
 
     /**
@@ -74,9 +83,12 @@ public class ScreeningController {
      * @param id Id of screening
      * @return No content
      */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteScreening(@PathVariable Long id) {
-        screeningService.deleteScreening(id);
-        return ResponseEntity.noContent().build();
+    @PatchMapping("/{id}/cancel")
+    public ResponseEntity<ScreeningDto> cancelScreening(@PathVariable Long id) {
+        ScreeningDto cancelledScreening = screeningService.cancelScreening(id);
+        if (cancelledScreening != null) {
+            return ResponseEntity.ok(cancelledScreening);
+        }
+        return ResponseEntity.notFound().build();
     }
 }

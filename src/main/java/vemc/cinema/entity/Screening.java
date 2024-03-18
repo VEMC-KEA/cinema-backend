@@ -31,4 +31,5 @@ public class Screening {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Reservation>   reservations = new ArrayList<>();
     private LocalTime time;
+    private Boolean isCancelled = false;
 }

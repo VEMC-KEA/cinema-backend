@@ -382,6 +382,8 @@ public class CinemaService {
         dto.setIsClassic(movie.getIsClassic());
         dto.setGenre(movie.getGenre());
         dto.setPg13(movie.getPg13());
+        dto.setTitle(movie.getTitle());
+        dto.setImageUrl(movie.getImageUrl());
         return dto;
     }
 

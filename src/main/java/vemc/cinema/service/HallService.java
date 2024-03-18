@@ -14,13 +14,10 @@ public class HallService  {
      * @param hall Hall object
      * @return HallHelperDto object
      */
-    public List<HallHelperDto> toHelperDto (Hall hall) {
-        List<HallHelperDto> hallList = new ArrayList<>();
-
+    public HallHelperDto toHelperDto (Hall hall) {
         HallHelperDto dto = new HallHelperDto();
         dto.setId(hall.getId());
         dto.setNumber(hall.getNumber());
-        hallList.add(dto);
-        return hallList;
+        return dto;
     }
 }

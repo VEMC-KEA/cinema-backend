@@ -63,9 +63,17 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/")).permitAll()
 
             // Allow all user cinema endpoints
-            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/cinemas")).permitAll()
-            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/movies/*")).permitAll()
-            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/movies")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/cinemas")).anonymous()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/cinemas/*")).anonymous()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/cinemas/*/movies")).anonymous()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/movies/*")).anonymous()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/movies")).anonymous()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/screenings")).anonymous()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/screenings/*/cancel")).anonymous()
+
+            // Allow all user endpoints
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/screenings/*/cancel")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/screenings/*")).permitAll()
 
             //Allow for swagger-ui
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/swagger-ui/**")).permitAll()

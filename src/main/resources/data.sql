@@ -32,18 +32,18 @@ VALUES
     (9, 0.25),
     (10, 0.15);
 
-INSERT INTO screening (is3d, movie_id, date, time, cinema_id, hall_id)
+INSERT INTO screening (is3d, movie_id, date, time, cinema_id, hall_id, is_cancelled)
 VALUES
-    (FALSE, 1, NOW() + INTERVAL 1 DAY, '15:30:00', 1, 1),
-    (TRUE, 2, NOW() + INTERVAL 2 DAY, '15:30:00', 1, 1),
-    (FALSE, 3, NOW() + INTERVAL 3 DAY, '17:30:00', 2, 2),
-    (FALSE, 4, NOW() + INTERVAL 4 DAY, '15:30:00', 3, 3),
-    (TRUE, 5, NOW() + INTERVAL 5 DAY, '15:30:00', 2, 2),
-    (FALSE, 6, NOW() + INTERVAL 6 DAY, '15:30:00', 1, 1),
-    (TRUE, 7, NOW() + INTERVAL 7 DAY, '15:30:00', 1, 1),
-    (FALSE, 8, NOW() + INTERVAL 8 DAY, '15:30:00', 2, 2),
-    (FALSE, 9, NOW() + INTERVAL 9 DAY, '15:30:00', 3, 3),
-    (TRUE, 10, NOW() + INTERVAL 10 DAY, '15:30:00', 2, 2);
+    (FALSE, 1, NOW() + INTERVAL 1 DAY, '15:30:00', 1, 1, FALSE),
+    (TRUE, 2, NOW() + INTERVAL 2 DAY, '15:30:00', 1, 1, FALSE),
+    (FALSE, 3, NOW() + INTERVAL 3 DAY, '17:30:00', 2, 2, FALSE),
+    (FALSE, 4, NOW() + INTERVAL 4 DAY, '15:30:00', 3, 3, FALSE),
+    (TRUE, 5, NOW() + INTERVAL 5 DAY, '15:30:00', 2, 2, FALSE),
+    (FALSE, 6, NOW() + INTERVAL 6 DAY, '15:30:00', 1, 1, FALSE),
+    (TRUE, 7, NOW() + INTERVAL 7 DAY, '15:30:00', 1, 1, FALSE),
+    (FALSE, 8, NOW() + INTERVAL 8 DAY, '15:30:00', 2, 2, FALSE),
+    (FALSE, 9, NOW() + INTERVAL 9 DAY, '15:30:00', 3, 3, FALSE),
+    (TRUE, 10, NOW() + INTERVAL 10 DAY, '15:30:00', 2, 2, FALSE);
 
 
 INSERT INTO seat (row_letter, number)
