@@ -158,9 +158,10 @@ public class ScreeningService {
 
 
         Hall hall = screening.getHall();
-        HallHelperDto hallDto = new HallHelperDto();
+        HallDto hallDto = new HallDto();
         hallDto.setId(hall.getId());
         hallDto.setNumber(hall.getNumber());
+        hallDto.setSeats(hall.getSeat());
         dto.setHall(hallDto);
 
         List<TicketHelperDto> ticketDtos = screening.getTickets().stream().map(ticket -> {
@@ -175,19 +176,4 @@ public class ScreeningService {
         return dto;
     }
 
-    /**
-     * This method is used to convert a Screening object to a ScreeningDto object
-     * @param reservationScreeningHelperDto ReservationScreeningHelperDto object
-     * @return ScreeningDto object
-     */
-    public ScreeningDto convertToScreeningDto(ReservationScreeningHelperDto reservationScreeningHelperDto) {
-        ScreeningDto screeningDto = new ScreeningDto();
-        screeningDto.set3d(reservationScreeningHelperDto.is3d());
-        screeningDto.setCinema(reservationScreeningHelperDto.getCinema());
-        screeningDto.setMovie(reservationScreeningHelperDto.getMovie());
-        screeningDto.setHall(reservationScreeningHelperDto.getHall());
-        screeningDto.setDate(reservationScreeningHelperDto.getDate());
-        screeningDto.setTime(reservationScreeningHelperDto.getTime());
-        return screeningDto;
-    }
 }

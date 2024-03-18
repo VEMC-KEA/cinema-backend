@@ -23,7 +23,7 @@ public class ScreeningDto {
     private boolean is3d;
     private CinemaHelperDto cinema;
     private MovieHelperDto movie;
-    private HallHelperDto hall;
+    private HallDto hall;
     private LocalDate date;
     private LocalTime time;
     private List<TicketHelperDto> tickets = new ArrayList<>();
