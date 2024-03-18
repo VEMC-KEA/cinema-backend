@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ScreeningRepository extends JpaRepository<Screening, Long> {
     List<Screening> findAllByMovieId(Long movieId);
+
+    List<Screening> findAllByCinemaIdAndMovieId(Long cinemaId, Long movieId);
 }

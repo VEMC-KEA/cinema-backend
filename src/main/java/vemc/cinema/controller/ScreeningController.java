@@ -24,10 +24,19 @@ public class ScreeningController {
      * @return List of all screenings
      */
     @GetMapping
-    public ResponseEntity<List<ScreeningDto>> getAllScreenings(@RequestParam(required = false) Long movieId){
-        if(movieId != null){
-            var screenings =  this.screeningService.findMovieById(movieId);
-            if(screenings != null){
+    public ResponseEntity<List<ScreeningDto>> getAllScreenings(@RequestParam(required = false) Long movieId, @RequestParam(required = false) Long cinemaId){
+        if (movieId != null && cinemaId != null) {
+            var screenings = this.screeningService.findAllByCinemaIdAndMovieId(cinemaId, movieId);
+            if (screenings != null) {
+                return ResponseEntity.ok(screenings);
+            }
+            return ResponseEntity.notFound().build();
+        }
+
+
+        if (movieId != null) {
+            var screenings = this.screeningService.findMovieById(movieId);
+            if (screenings != null) {
                 return ResponseEntity.ok(screenings);
             }
             return ResponseEntity.notFound().build();

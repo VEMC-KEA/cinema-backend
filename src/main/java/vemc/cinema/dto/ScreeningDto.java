@@ -1,6 +1,7 @@
 package vemc.cinema.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ScreeningDto {
     private Long id;
+    @JsonProperty("is3d")
     private boolean is3d;
     private CinemaHelperDto cinema;
     private MovieHelperDto movie;

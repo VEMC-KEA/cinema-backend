@@ -38,6 +38,10 @@ public class ScreeningService {
         return screeningRepository.findAllByMovieId(movieId).stream().map(this::toDto).toList();
     }
 
+    public List<ScreeningDto> findAllByCinemaIdAndMovieId(Long cinemaId, Long movieId) {
+        return screeningRepository.findAllByCinemaIdAndMovieId(cinemaId, movieId).stream().map(this::toDto).toList();
+    }
+
     /**
      * This method is used to convert a Screening object to a ScreeningDto object
      * @param screeningDto ScreeningDto object
