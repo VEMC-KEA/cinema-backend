@@ -105,6 +105,7 @@ public class ScreeningService {
     /**
      * This method is used to convert a Screening object to a ScreeningDto object
      * @param id screening id
+     * @return ScreeningDto object
      */
     public ScreeningDto cancelScreening(Long id) {
         Screening screening = screeningRepository.findById(id)
