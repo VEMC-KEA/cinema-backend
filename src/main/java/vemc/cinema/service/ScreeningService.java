@@ -176,4 +176,9 @@ public class ScreeningService {
         screeningDto.setTime(reservationScreeningHelperDto.getTime());
         return screeningDto;
     }
+
+    public Screening findByIdTest(Long id) {
+        return screeningRepository.findById(id).orElse(null);
+    }
+
 }

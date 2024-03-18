@@ -1,30 +1,39 @@
 package vemc.cinema.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.ReservationDto;
 import vemc.cinema.dto.ReservationTicketDto;
+import vemc.cinema.dto.ScreeningDto;
 import vemc.cinema.dto.helperdto.*;
 import vemc.cinema.entity.Reservation;
+import vemc.cinema.entity.Screening;
+import vemc.cinema.entity.Seat;
 import vemc.cinema.entity.Ticket;
 import vemc.cinema.repository.ReservationRepository;
 import vemc.cinema.utils.PriceCalculator;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static vemc.cinema.utils.PriceCalculator.calculateTotalPrice;
 
 
 @Service
 public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final ScreeningService screeningService;
-
     private final TicketService ticketService;
+    private final SeatService seatService;
 
-    public ReservationService(ReservationRepository reservationRepository, ScreeningService screeningService, TicketService ticketService) {
+    public ReservationService(ReservationRepository reservationRepository, ScreeningService screeningService, TicketService ticketService, SeatService seatService) {
         this.reservationRepository = reservationRepository;
         this.screeningService = screeningService;
         this.ticketService = ticketService;
+        this.seatService = seatService;
     }
 
     /**
@@ -38,13 +47,54 @@ public class ReservationService {
                 .collect(Collectors.toList());
     }
 
-    public ReservationDto createReservation(ReservationDto reservationDto) {
+    /*public ReservationDto createReservation(PostReservationDto postReservationDto) {
+        Screening screening = screeningService.findByIdTest(postReservationDto.getScreeningId());
+        if (screening == null) {
+            return null;
+        }
         Reservation reservation = new Reservation();
+        reservation.setScreening(screening);
 
-        reservationRepository.save(reservation);
+        List<Ticket> tickets = new ArrayList<>();
+        for (TicketHelperDto ticketDto : postReservationDto.getTickets()) {
+            Ticket ticket = new Ticket();
+            tickets.add(ticket);
+        }
+        reservation.setTickets(tickets);
 
-        return toDto(reservation);
+        Double totalPrice = calculateTotalPrice(reservation);
+        reservation.setTotalPrice(totalPrice);
+        Reservation savedReservation = reservationRepository.save(reservation);
+
+        return toDto(savedReservation);
+    }*/
+
+    public ReservationDto createReservation(PostReservationDto postReservationDto) {
+        Screening screening = screeningService.findByIdTest(postReservationDto.getScreeningId());
+        if (screening == null) {
+            return null;
+        }
+        Reservation reservation = new Reservation();
+        reservation.setScreening(screening);
+
+        List<Ticket> tickets = new ArrayList<>();
+        for (TicketHelperDto ticketDto : postReservationDto.getTickets()) {
+            Ticket ticket = new Ticket();
+            Seat seat = seatService.findOrCreateSeat(ticketDto.getSeatNumber());
+            ticket.setSeat(seat);
+            PriceCalculator.calculatePrice(ticket, screening, seat);
+            tickets.add(ticket);
+        }
+        reservation.setTickets(tickets);
+
+        Double totalPrice = calculateTotalPrice(reservation);
+        reservation.setTotalPrice(totalPrice);
+
+        Reservation savedReservation = reservationRepository.save(reservation);
+
+        return toDto(savedReservation);
     }
+
 
     /**
      * This method finds a reservation by id
@@ -118,7 +168,7 @@ public class ReservationService {
         dto.setIsCompleted(reservation.isCompleted());
         dto.setTickets(ticketService.toHelperDtoList(reservation.getTickets()));
 
-        double totalTicketPrice = PriceCalculator.calculateTotalPrice(reservation);
+        double totalTicketPrice = calculateTotalPrice(reservation);
         dto.setTotalPrice(totalTicketPrice);
 
         return dto;

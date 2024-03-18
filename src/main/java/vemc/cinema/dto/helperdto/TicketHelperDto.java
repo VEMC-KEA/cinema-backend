@@ -16,4 +16,12 @@ public class TicketHelperDto {
     private Seat seat;
     private boolean isCompleted = false;
     private Double price;
+
+    public Integer getSeatNumber() {
+        if (seat != null) {
+            return seat.getNumber();
+        } else {
+            return null;
+        }
+    }
 }

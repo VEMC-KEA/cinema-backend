@@ -14,7 +14,3 @@ public class SeatDto {
     private String rowLetter;
     private Integer number;
 }
-
-
-
-
