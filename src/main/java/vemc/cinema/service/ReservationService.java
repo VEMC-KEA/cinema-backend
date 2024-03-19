@@ -5,9 +5,12 @@ import vemc.cinema.dto.ReservationDto;
 import vemc.cinema.dto.ReservationTicketDto;
 import vemc.cinema.dto.helperdto.*;
 import vemc.cinema.entity.Reservation;
+import vemc.cinema.entity.Screening;
 import vemc.cinema.entity.Ticket;
 import vemc.cinema.repository.ReservationRepository;
 import vemc.cinema.utils.PriceCalculator;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -38,13 +41,33 @@ public class ReservationService {
                 .collect(Collectors.toList());
     }
 
-    public ReservationDto createReservation(ReservationDto reservationDto) {
+    public ReservationDto createReservation(PostReservationDto postReservationDto) {
         Reservation reservation = new Reservation();
+        Screening screening = screeningService.findByIdScreeningDto(postReservationDto.getScreening().getId());
+        reservation.setScreening(screening);
 
-        reservationRepository.save(reservation);
+        List<Ticket> tickets = new ArrayList<>();
+        for (TicketHelperDto ticketDto : postReservationDto.getTickets()) {
+            Ticket ticket = new Ticket();
+            ticket.setSeat(ticketDto.getSeat());
+            tickets.add(ticket);
+        }
 
-        return toDto(reservation);
+        for (Ticket ticket : tickets) {
+            double price = PriceCalculator.calculatePrice(ticket, screening, ticket.getSeat());
+            ticket.setPrice(price);
+        }
+
+        reservation.setTickets(tickets);
+
+        double totalPrice = tickets.stream().mapToDouble(Ticket::getPrice).sum();
+        reservation.setTotalPrice(totalPrice);
+
+        Reservation savedReservation = reservationRepository.save(reservation);
+
+        return toDto(savedReservation);
     }
+
 
     /**
      * This method finds a reservation by id

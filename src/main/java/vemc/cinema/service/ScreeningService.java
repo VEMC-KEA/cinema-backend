@@ -179,4 +179,7 @@ public class ScreeningService {
         return dto;
     }
 
+    public Screening findByIdScreeningDto(Long id) {
+        return screeningRepository.findById(id).orElse(null);
+    }
 }

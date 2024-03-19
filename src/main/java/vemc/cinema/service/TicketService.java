@@ -1,8 +1,11 @@
 package vemc.cinema.service;
 
 import org.springframework.stereotype.Service;
+import vemc.cinema.dto.SeatDto;
+import vemc.cinema.dto.TicketDto;
 import vemc.cinema.dto.helperdto.ReservationTicketHelperDto;
 import vemc.cinema.dto.helperdto.SeatHelperDto;
+import vemc.cinema.entity.Seat;
 import vemc.cinema.entity.Ticket;
 import vemc.cinema.repository.TicketRepository;
 
@@ -30,6 +33,12 @@ public class TicketService {
         return tickets.stream()
                 .map(this::toReservationHelperDto)
                 .collect(Collectors.toList());
+    }
+
+    public TicketDto saveTicket(TicketDto ticketDto) {
+        Ticket ticket = toEntity(ticketDto);
+        ticketRepository.save(ticket);
+        return toDto(ticket);
     }
 
     /**
@@ -64,5 +73,26 @@ public class TicketService {
      */
     public Optional<Ticket> findById(Long id) {
         return ticketRepository.findById(id);
+    }
+
+
+    public TicketDto toDto(Ticket ticket) {
+        TicketDto dto = new TicketDto();
+        dto.setId(ticket.getId());
+        dto.setPrice(ticket.getPrice());
+        SeatDto seatDto = new SeatDto();
+        seatDto.setId(ticket.getSeat().getId());
+        dto.setSeat(seatService.toDto(seatDto));
+        return dto;
+    }
+
+    public Ticket toEntity(TicketDto ticketDto) {
+        Ticket ticket = new Ticket();
+        ticket.setId(ticketDto.getId());
+        ticket.setPrice(ticketDto.getPrice());
+        SeatDto seatDto = new SeatDto();
+        seatDto.setId(ticketDto.getSeat().getId());
+        ticket.setSeat(seatService.toEntity(seatDto));
+        return ticket;
     }
 }

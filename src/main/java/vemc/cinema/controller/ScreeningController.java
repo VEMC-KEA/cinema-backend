@@ -8,7 +8,6 @@ import vemc.cinema.service.ScreeningService;
 
 import java.util.List;
 
-@CrossOrigin(origins = "https://cinema-frontend-nine.vercel.app/")
 @RestController
 @RequestMapping("screenings")
 public class ScreeningController {

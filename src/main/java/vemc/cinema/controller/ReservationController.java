@@ -5,13 +5,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vemc.cinema.dto.ReservationDto;
 import vemc.cinema.dto.ReservationTicketDto;
+import vemc.cinema.dto.helperdto.PostReservationDto;
 import vemc.cinema.dto.helperdto.ReservationTicketHelperDto;
 import vemc.cinema.service.ReservationService;
 
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "https://cinema-frontend-nine.vercel.app/")
 @RestController
 @RequestMapping("reservations")
 public class ReservationController {
@@ -34,14 +34,9 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
-    /**
-     * Create a new reservation
-     * @param reservationDto Reservation to create
-     * @return Created reservation
-     */
      @PostMapping
-    public ResponseEntity<ReservationDto> createReservation(@RequestBody ReservationDto reservationDto) {
-        ReservationDto createdReservation = reservationService.createReservation(reservationDto);
+    public ResponseEntity<ReservationDto> createReservation(@RequestBody PostReservationDto postReservationDto) {
+        ReservationDto createdReservation = reservationService.createReservation(postReservationDto);
         if (createdReservation != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body(createdReservation);
         } else {
