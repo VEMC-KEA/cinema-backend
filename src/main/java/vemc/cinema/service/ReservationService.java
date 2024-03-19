@@ -95,6 +95,22 @@ public class ReservationService {
     }
 
     /**
+     * This method is used to complete a reservation
+     * @param id reservation id
+     * @return ReservationDto object
+     */
+    public ReservationDto completeReservation(Long id) {
+        Optional<Reservation> reservationOptional = reservationRepository.findById(id);
+        if (reservationOptional.isEmpty()) {
+            return null;
+        }
+        Reservation reservation = reservationOptional.get();
+        reservation.setCompleted(true);
+        reservationRepository.save(reservation);
+        return toDto(reservation);
+    }
+
+    /**
      * This method is used to convert a Reservation object to a ReservationTicketDto object
      * @param reservation Reservation object
      * @return ReservationTicketDto object

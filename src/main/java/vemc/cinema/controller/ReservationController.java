@@ -91,4 +91,18 @@ public class ReservationController {
         }
         return ResponseEntity.noContent().build();
     }
+
+    /**
+     * Complete a reservation
+     * @param id Id of reservation
+     * @return Completed reservation
+     */
+    @DeleteMapping("/{id}/complete")
+    public ResponseEntity<ReservationDto> completeReservation(@PathVariable Long id) {
+        var reservation = this.reservationService.completeReservation(id);
+        if (reservation != null) {
+            return ResponseEntity.ok(reservation);
+        }
+        return ResponseEntity.noContent().build();
+    }
 }
