@@ -91,7 +91,7 @@ public class ScreeningController {
      * @param id Id of screening
      * @return Cancelled screening
      */
-    @PatchMapping("/{id}/cancel")
+    @DeleteMapping("/{id}/cancel")
     public ResponseEntity<ScreeningDto> cancelScreening(@PathVariable Long id) {
         ScreeningDto cancelledScreening = screeningService.cancelScreening(id);
         if (cancelledScreening != null) {

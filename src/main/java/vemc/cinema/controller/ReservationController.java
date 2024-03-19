@@ -123,7 +123,7 @@ public class ReservationController {
      * @param id Id of reservation
      * @return Completed reservation
      */
-    @DeleteMapping("/{id}/complete")
+    @PatchMapping("/{id}/complete")
     public ResponseEntity<ReservationDto> completeReservation(@PathVariable Long id) {
         var reservation = this.reservationService.completeReservation(id);
         if (reservation != null) {
