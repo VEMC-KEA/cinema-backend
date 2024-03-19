@@ -9,7 +9,6 @@ import vemc.cinema.service.MovieService;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "https://cinema-frontend-nine.vercel.app/")
 @RestController
 @RequestMapping("movies")
 public class MovieController {
