@@ -20,6 +20,8 @@ public class Ticket {
     private Screening screening;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Seat seat;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private Reservation reservation;
     private Double price;
 
     /**

@@ -36,9 +36,10 @@ public class PriceCalculator {
 
     /**
      * Calculates the price of a ticket based on the screening and seat.
-     * @param ticket the ticket to calculate the price for
+     *
+     * @param ticket    the ticket to calculate the price for
      * @param screening the screening the ticket is for
-     * @param seat the seat the ticket is for
+     * @param seat      the seat the ticket is for
      */
      public static void calculatePrice(Ticket ticket, Screening screening, Seat seat) {
         double basePrice = screening.getCinema().getMovieBasePrice();
@@ -58,7 +59,7 @@ public class PriceCalculator {
         }
 
         ticket.setPrice(basePrice);
-    }
+     }
 }
 
 

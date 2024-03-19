@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vemc.cinema.dto.ReservationDto;
 import vemc.cinema.dto.ReservationTicketDto;
+import vemc.cinema.dto.helperdto.PostReservationDto;
+import vemc.cinema.dto.helperdto.PostTicketDto;
 import vemc.cinema.dto.helperdto.ReservationTicketHelperDto;
 import vemc.cinema.service.ReservationService;
 
@@ -33,14 +35,9 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
-    /**
-     * Create a new reservation
-     * @param reservationDto Reservation to create
-     * @return Created reservation
-     */
      @PostMapping
-    public ResponseEntity<ReservationDto> createReservation(@RequestBody ReservationDto reservationDto) {
-        ReservationDto createdReservation = reservationService.createReservation(reservationDto);
+    public ResponseEntity<ReservationDto> createReservation(@RequestBody PostReservationDto postReservationDto) {
+        ReservationDto createdReservation = reservationService.createReservation(postReservationDto);
         if (createdReservation != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body(createdReservation);
         } else {
@@ -77,6 +74,21 @@ public class ReservationController {
     }
 
     /**
+     * Post ticket by reservation id
+     * @param id Id of reservation
+     * @param postTicketDto Ticket to post
+     * @return Posted ticket
+     */
+    @PostMapping("/{id}/tickets")
+    public ResponseEntity<ReservationDto> postTicketByReservationId(@PathVariable Long id, @RequestBody PostTicketDto postTicketDto) {
+        var ticket = this.reservationService.postTicketByReservationId(id, postTicketDto);
+        if (ticket != null) {
+            return ResponseEntity.ok(ticket);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+    /**
      * Get all tickets by reservation id and tickets id
      * @param reservationId Id of reservation
      * @param ticketsId Id of tickets
@@ -86,6 +98,21 @@ public class ReservationController {
     public ResponseEntity<Optional<ReservationTicketDto>> getAllTicketsByReservationId(@PathVariable Long reservationId, @PathVariable Long ticketsId){
         var ticket = this.reservationService.findOneTicketByReservationId(reservationId, ticketsId);
         if(ticket.isPresent()){
+            return ResponseEntity.ok(ticket);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+    /**
+        * Delete ticket by reservation id and tickets id
+        * @param reservationId Id of reservation
+        * @param ticketsId Id of tickets
+        * @return Deleted ticket
+     */
+    @DeleteMapping("/{reservationId}/tickets/{ticketsId}")
+    public ResponseEntity<ReservationDto> deleteTicketByReservationId(@PathVariable Long reservationId, @PathVariable Long ticketsId){
+        var ticket = this.reservationService.deleteTicketByReservationId(reservationId, ticketsId);
+        if(ticket != null){
             return ResponseEntity.ok(ticket);
         }
         return ResponseEntity.noContent().build();

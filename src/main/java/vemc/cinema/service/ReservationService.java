@@ -5,9 +5,13 @@ import vemc.cinema.dto.ReservationDto;
 import vemc.cinema.dto.ReservationTicketDto;
 import vemc.cinema.dto.helperdto.*;
 import vemc.cinema.entity.Reservation;
+import vemc.cinema.entity.Screening;
+import vemc.cinema.entity.Seat;
 import vemc.cinema.entity.Ticket;
 import vemc.cinema.repository.ReservationRepository;
 import vemc.cinema.utils.PriceCalculator;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -18,13 +22,14 @@ import java.util.stream.Collectors;
 public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final ScreeningService screeningService;
-
     private final TicketService ticketService;
+    private final SeatService seatService;
 
-    public ReservationService(ReservationRepository reservationRepository, ScreeningService screeningService, TicketService ticketService) {
+    public ReservationService(ReservationRepository reservationRepository, ScreeningService screeningService, TicketService ticketService, SeatService seatService) {
         this.reservationRepository = reservationRepository;
         this.screeningService = screeningService;
         this.ticketService = ticketService;
+        this.seatService = seatService;
     }
 
     /**
@@ -38,13 +43,22 @@ public class ReservationService {
                 .collect(Collectors.toList());
     }
 
-    public ReservationDto createReservation(ReservationDto reservationDto) {
+    /**
+     * creates a reservation on a screening id
+     * @param postReservationDto object
+     * @return ReservationDto object
+     */
+
+    public ReservationDto createReservation(PostReservationDto postReservationDto) {
         Reservation reservation = new Reservation();
+        Screening screening = screeningService.findByIdScreeningDto(postReservationDto.getScreeningId());
+        reservation.setScreening(screening);
 
-        reservationRepository.save(reservation);
+        Reservation savedReservation = reservationRepository.save(reservation);
 
-        return toDto(reservation);
+        return toDto(savedReservation);
     }
+
 
     /**
      * This method finds a reservation by id
@@ -138,5 +152,52 @@ public class ReservationService {
         dto.setTotalPrice(totalTicketPrice);
 
         return dto;
+    }
+
+    /**
+     * This method is used to add tickets to a reservation
+     * @param id reservation id
+     * @param postTicketDto PostTicketDto object
+     * @return ReservationDto object
+     */
+    public ReservationDto postTicketByReservationId(Long id, PostTicketDto postTicketDto) {
+        Optional<Reservation> reservationOptional = reservationRepository.findById(id);
+        if (reservationOptional.isPresent()) {
+            Reservation reservation = reservationOptional.get();
+            Long screeningId = reservation.getScreening().getId();
+            for (Long seatId : postTicketDto.getSeatIds()) {
+                Optional<Seat> seat = seatService.findById(seatId);
+                if (seat.isPresent()) {
+                    var ticket = new Ticket();
+                    ticket.setSeat(seat.get());
+                    ticket.setReservation(reservation);
+                    ticket.setScreening(reservation.getScreening());
+                    ticket = ticketService.saveTicket(ticket, screeningId);
+                    reservation.getTickets().add(ticket);
+                }
+            }
+            reservation = reservationRepository.save(reservation);
+            return toDto(reservation);
+        }
+        return null;
+    }
+
+    /**
+     * This method is used to delete a ticket by reservation id and ticket id
+     * @param reservationId reservation id
+     * @param ticketsId ticket id
+     * @return ReservationDto object
+     */
+    public ReservationDto deleteTicketByReservationId(Long reservationId, Long ticketsId) {
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
+        if (reservationOptional.isPresent()) {
+            Reservation reservation = reservationOptional.get();
+            List<Ticket> tickets = reservation.getTickets();
+            tickets.removeIf(t -> t.getId().equals(ticketsId));
+            reservation.setTickets(tickets);
+            reservationRepository.save(reservation);
+            return toDto(reservation);
+        }
+        return null;
     }
 }
