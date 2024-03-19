@@ -319,7 +319,8 @@ public class CinemaService {
         dto.setId(cinema.getId());
         dto.setImageUrl(cinema.getImageUrl());
         dto.setName(cinema.getName());
-
+        dto.setGroupDiscount(cinema.getGroupDiscount());
+        dto.setMovieBasePrice(cinema.getMovieBasePrice());
         List<MovieHelperDto> movieDtos = cinema.getMovies().stream()
                 .map(movie -> {
                     MovieHelperDto movieDto = new MovieHelperDto();
