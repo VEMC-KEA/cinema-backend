@@ -21,13 +21,14 @@ import java.util.stream.Collectors;
 public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final ScreeningService screeningService;
-
     private final TicketService ticketService;
+    private final SeatService seatService;
 
-    public ReservationService(ReservationRepository reservationRepository, ScreeningService screeningService, TicketService ticketService) {
+    public ReservationService(ReservationRepository reservationRepository, ScreeningService screeningService, TicketService ticketService, SeatService seatService) {
         this.reservationRepository = reservationRepository;
         this.screeningService = screeningService;
         this.ticketService = ticketService;
+        this.seatService = seatService;
     }
 
     /**
@@ -41,27 +42,16 @@ public class ReservationService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * creates a reservation on a screening id
+     * @param postReservationDto
+     * @return
+     */
+
     public ReservationDto createReservation(PostReservationDto postReservationDto) {
         Reservation reservation = new Reservation();
-        Screening screening = screeningService.findByIdScreeningDto(postReservationDto.getScreening().getId());
+        Screening screening = screeningService.findByIdScreeningDto(postReservationDto.getScreeningId());
         reservation.setScreening(screening);
-
-        List<Ticket> tickets = new ArrayList<>();
-        for (TicketHelperDto ticketDto : postReservationDto.getTickets()) {
-            Ticket ticket = new Ticket();
-            ticket.setSeat(ticketDto.getSeat());
-            tickets.add(ticket);
-        }
-
-        for (Ticket ticket : tickets) {
-            double price = PriceCalculator.calculatePrice(ticket, screening, ticket.getSeat());
-            ticket.setPrice(price);
-        }
-
-        reservation.setTickets(tickets);
-
-        double totalPrice = tickets.stream().mapToDouble(Ticket::getPrice).sum();
-        reservation.setTotalPrice(totalPrice);
 
         Reservation savedReservation = reservationRepository.save(reservation);
 

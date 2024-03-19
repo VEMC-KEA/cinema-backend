@@ -4,9 +4,20 @@ import org.springframework.stereotype.Service;
 import vemc.cinema.dto.SeatDto;
 import vemc.cinema.dto.helperdto.SeatHelperDto;
 import vemc.cinema.entity.Seat;
+import vemc.cinema.repository.SeatRepository;
 
 @Service
 public class SeatService {
+    private final SeatRepository seatRepository;
+
+    public SeatService(SeatRepository seatRepository) {
+        this.seatRepository = seatRepository;
+    }
+
+    public Seat findSeatById(Long Id) {
+        return seatRepository.findById(Id).orElse(null);
+    }
+
     /**
      * This method is used to convert a Seat object to a SeatHelperDto object
      * @param seat Seat object

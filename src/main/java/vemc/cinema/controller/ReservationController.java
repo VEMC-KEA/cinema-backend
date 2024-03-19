@@ -72,6 +72,9 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
+  /*  @PostMapping("/{id}/tickets")
+    public ResponseEntity<Optional<ReservationTicketDto>>*/
+
     /**
      * Get all tickets by reservation id and tickets id
      * @param reservationId Id of reservation
