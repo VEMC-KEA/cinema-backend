@@ -5,12 +5,10 @@ import vemc.cinema.dto.*;
 import vemc.cinema.dto.helperdto.*;
 import vemc.cinema.entity.*;
 import vemc.cinema.repository.ScreeningRepository;
-import vemc.cinema.repository.TicketRepository;
 import vemc.cinema.utils.PriceCalculator;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 public class ScreeningService {
