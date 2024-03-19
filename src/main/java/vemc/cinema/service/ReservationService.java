@@ -6,6 +6,7 @@ import vemc.cinema.dto.ReservationTicketDto;
 import vemc.cinema.dto.helperdto.*;
 import vemc.cinema.entity.Reservation;
 import vemc.cinema.entity.Screening;
+import vemc.cinema.entity.Seat;
 import vemc.cinema.entity.Ticket;
 import vemc.cinema.repository.ReservationRepository;
 import vemc.cinema.utils.PriceCalculator;
@@ -44,8 +45,8 @@ public class ReservationService {
 
     /**
      * creates a reservation on a screening id
-     * @param postReservationDto
-     * @return
+     * @param postReservationDto object
+     * @return ReservationDto object
      */
 
     public ReservationDto createReservation(PostReservationDto postReservationDto) {
@@ -151,5 +152,50 @@ public class ReservationService {
         dto.setTotalPrice(totalTicketPrice);
 
         return dto;
+    }
+
+   /* public ReservationDto postTicketByReservationId(Long id, PostTicketDto postTicketDto) {
+        Optional<Reservation> reservationOptional = reservationRepository.findById(id);
+        if (reservationOptional.isPresent()) {
+            Reservation reservation = reservationOptional.get();
+            Long screeningId = reservation.getScreening().getId();
+            Screening screening = reservation.getScreening();
+            for (Long seatId : postTicketDto.getSeatsId()) {
+                Optional<Seat> seat = seatService.findById(seatId);
+                if (seat.isPresent()) {
+                    var ticket = new Ticket();
+                    ticket.setSeat(seat.get());
+                    ticket.setReservation(reservation);
+                    ticket.setScreening(screening);
+                    ticket = ticketService.save(ticket);
+                    reservation.getTickets().add(ticket);
+                }
+            }
+            reservation = reservationRepository.save(reservation);
+            return toDto(reservation);
+        }
+        return null;
+    }*/
+
+    public ReservationDto postTicketByReservationId(Long id, PostTicketDto postTicketDto) {
+        Optional<Reservation> reservationOptional = reservationRepository.findById(id);
+        if (reservationOptional.isPresent()) {
+            Reservation reservation = reservationOptional.get();
+            Long screeningId = reservation.getScreening().getId();
+            for (Long seatId : postTicketDto.getSeatsId()) {
+                Optional<Seat> seat = seatService.findById(seatId);
+                if (seat.isPresent()) {
+                    var ticket = new Ticket();
+                    ticket.setSeat(seat.get());
+                    ticket.setReservation(reservation);
+                    ticket.setScreening(reservation.getScreening());
+                    ticket = ticketService.saveTicket(ticket, screeningId); // Save the ticket in the repository
+                    reservation.getTickets().add(ticket);
+                }
+            }
+            reservation = reservationRepository.save(reservation);
+            return toDto(reservation);
+        }
+        return null;
     }
 }

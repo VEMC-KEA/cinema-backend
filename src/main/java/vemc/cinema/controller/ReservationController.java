@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import vemc.cinema.dto.ReservationDto;
 import vemc.cinema.dto.ReservationTicketDto;
 import vemc.cinema.dto.helperdto.PostReservationDto;
+import vemc.cinema.dto.helperdto.PostTicketDto;
 import vemc.cinema.dto.helperdto.ReservationTicketHelperDto;
 import vemc.cinema.service.ReservationService;
 
@@ -72,8 +73,14 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
-  /*  @PostMapping("/{id}/tickets")
-    public ResponseEntity<Optional<ReservationTicketDto>>*/
+    @PostMapping("/{id}/tickets")
+    public ResponseEntity<ReservationDto> postTicketByReservationId(@PathVariable Long id, @RequestBody PostTicketDto postTicketDto) {
+        var ticket = this.reservationService.postTicketByReservationId(id, postTicketDto);
+        if (ticket != null) {
+            return ResponseEntity.ok(ticket);
+        }
+        return ResponseEntity.noContent().build();
+    }
 
     /**
      * Get all tickets by reservation id and tickets id

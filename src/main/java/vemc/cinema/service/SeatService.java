@@ -6,6 +6,8 @@ import vemc.cinema.dto.helperdto.SeatHelperDto;
 import vemc.cinema.entity.Seat;
 import vemc.cinema.repository.SeatRepository;
 
+import java.util.Optional;
+
 @Service
 public class SeatService {
     private final SeatRepository seatRepository;
@@ -14,8 +16,8 @@ public class SeatService {
         this.seatRepository = seatRepository;
     }
 
-    public Seat findSeatById(Long Id) {
-        return seatRepository.findById(Id).orElse(null);
+    public Optional<Seat> findById(Long Id) {
+        return Optional.ofNullable(seatRepository.findById(Id).orElse(null));
     }
 
     /**
@@ -43,4 +45,5 @@ public class SeatService {
         seat.setNumber(SeatDto.getNumber());
         return seat;
     }
+
 }
