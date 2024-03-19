@@ -13,5 +13,5 @@ import java.util.List;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostTicketDto {
-    private List<Long> seatsId = new ArrayList<>();
+    private List<Long> seatIds = new ArrayList<>();
 }
