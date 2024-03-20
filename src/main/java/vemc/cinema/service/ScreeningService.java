@@ -75,38 +75,6 @@ public class ScreeningService {
     /**
      * This method is used to convert a Screening object to a ScreeningDto object
      * @param id screening id
-     * @param screeningDto ScreeningDto object
-     * @return ScreeningDto object
-     */
-    public ScreeningDto updateScreening(Long id, ScreeningDto screeningDto) {
-        Screening screening = screeningRepository.findById(id).orElse(null);
-        if(screening != null){
-            screening.set3d(screeningDto.is3d());
-            Cinema cinema = new Cinema();
-            cinema.setId(screeningDto.getCinema().getId());
-            screening.setCinema(cinema);
-            Movie movie = new Movie();
-            movie.setId(screeningDto.getMovie().getId());
-            screening.setMovie(movie);
-            Hall hall = new Hall();
-            hall.setId(screeningDto.getHall().getId());
-            screening.setHall(hall);
-            screening.setDate(screeningDto.getDate());
-            screening.setTime(screeningDto.getTime());
-
-            for (Ticket ticket : screening.getTickets()) {
-                PriceCalculator.calculatePrice(ticket, screening, ticket.getSeat());
-            }
-
-            screeningRepository.save(screening);
-            return toDto(screening);
-        }
-        return null;
-    }
-
-    /**
-     * This method is used to convert a Screening object to a ScreeningDto object
-     * @param id screening id
      * @return ScreeningDto object
      */
     public ScreeningDto cancelScreening(Long id) {

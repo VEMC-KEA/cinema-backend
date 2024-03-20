@@ -24,8 +24,6 @@ public class Screening {
     @ManyToOne(fetch = FetchType.EAGER)
     private Hall hall;
     private LocalDate date;
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Ticket> tickets = new ArrayList<>();
     @ManyToOne(fetch = FetchType.EAGER)
     private Cinema cinema;
     @OneToMany(fetch = FetchType.EAGER)

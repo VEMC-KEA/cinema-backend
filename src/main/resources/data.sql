@@ -75,19 +75,6 @@ VALUES
     ('Y', 1), ('Y', 2), ('Y', 3), ('Y', 4), ('Y', 5), ('Y', 6), ('Y', 7), ('Y', 8), ('Y', 9), ('Y', 10),
     ('Z', 1), ('Z', 2), ('Z', 3), ('Z', 4), ('Z', 5), ('Z', 6), ('Z', 7), ('Z', 8), ('Z', 9), ('Z', 10);
 
-INSERT INTO ticket (screening_id, seat_id)
-VALUES
-    (1, 1), (1, 2),
-    (2, 3), (2, 4),
-    (3, 5), (3, 6),
-    (4, 7), (4, 8),
-    (5, 9), (5, 10),
-    (6, 11), (6, 12),
-    (7, 13), (7, 14),
-    (8, 15), (8, 16),
-    (9, 17), (9, 18),
-    (10, 19), (10, 20);
-
 INSERT INTO cinema_hall (cinema_id, hall_id)
 VALUES
     (1, 1), (1, 2),
@@ -112,46 +99,8 @@ VALUES
     (9, 9),
     (10, 10);
 
-INSERT INTO screening_tickets (screening_id, tickets_id)
-VALUES
-    (1, 1), (1, 2),
-    (2, 3), (2, 4),
-    (3, 5), (3, 6),
-    (4, 7), (4, 8),
-    (5, 9), (5, 10),
-    (6, 11), (6, 12),
-    (7, 13), (7, 14),
-    (8, 15), (8, 16),
-    (9, 17), (9, 18),
-    (10, 19), (10, 20);
-
 INSERT INTO cinema_movies (cinema_id, movies_id)
 VALUES
     (1, 1), (1, 2), (1, 3), (1, 4),
     (2, 3), (2, 4),
     (3, 1), (3, 2), (3, 3), (3, 4);
-
-INSERT INTO reservation (screening_id, is_completed)
-VALUES
-    (1, FALSE),
-    (2, FALSE),
-    (3, FALSE),
-    (4, FALSE),
-    (5, FALSE),
-    (6, TRUE),
-    (7, FALSE),
-    (8, FALSE),
-    (9, FALSE),
-    (10, TRUE);
-
-INSERT INTO reservation_tickets (reservation_id, tickets_id)
-VALUES
-    (1, 1), (1, 6), (1, 11),
-    (2, 2),
-    (3, 3),
-    (4, 4),
-    (5, 5),
-    (6, 7),
-    (7, 8),
-    (8, 9),
-    (9, 10);

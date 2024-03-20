@@ -66,24 +66,12 @@ public class ScreeningController {
      * @return Screening with given id
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ScreeningDto> getAllScreeningsById(@PathVariable Long id){
+    public ResponseEntity<ScreeningDto> getScreeningById(@PathVariable Long id){
         var screening = this.screeningService.findById(id);
         if(screening != null){
             return ResponseEntity.ok(screening);
         }
         return ResponseEntity.notFound().build();
-    }
-
-    /**
-     * Update a screening
-     * @param id Id of screening
-     * @param screeningDto Screening to update
-     * @return Updated screening
-     */
-    @PutMapping("/{id}")
-    public ResponseEntity<ScreeningDto> updateScreening(@PathVariable Long id, @RequestBody ScreeningDto screeningDto) {
-        ScreeningDto updatedScreening = screeningService.updateScreening(id, screeningDto);
-        return ResponseEntity.ok(updatedScreening);
     }
 
     /**
