@@ -118,6 +118,11 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Delete reservation by id
+     * @param id Id of reservation
+     * @return Deleted reservation
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<ReservationDto> deleteReservation(@PathVariable Long id){
         var reservation = this.reservationService.deleteByReservationId(id);
