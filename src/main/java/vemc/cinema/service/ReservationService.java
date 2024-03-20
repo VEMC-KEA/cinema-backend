@@ -181,25 +181,19 @@ public class ReservationService {
         if (reservationToUpdate.isPresent()) {
             Reservation reservation = reservationToUpdate.get();
             Long screeningId = reservation.getScreening().getId();
-            List<Ticket> existingTickets = reservation.getTickets();
-
-            List<Ticket> ticketsToDelete = new ArrayList<>();
-
-            for (Ticket ticket : existingTickets) {
-                if (postTicketDto.getSeatIds().contains(ticket.getSeat().getId())) {
-                    postTicketDto.getSeatIds().remove(ticket.getSeat().getId());
-                } else {
-                    ticketsToDelete.add(ticket); // Add the ticket to delete
+            var tickets = new ArrayList<Ticket>();
+            for(var seatId : postTicketDto.getSeatIds()){
+                var newTicket = new Ticket();
+                var seatOptional = seatService.findById(seatId);
+                if(seatOptional.isPresent()){
+                    var seat = seatOptional.get();
+                    newTicket.setSeat(seat);
+                    var savedTicket = ticketService.saveTicket(newTicket, screeningId);
+                    tickets.add(savedTicket);
                 }
             }
-
-            // Delete the tickets marked for deletion
-            for (Ticket ticket : ticketsToDelete) {
-                deleteTicketByReservationId(id, ticket.getId());
-            }
-            setTickets(postTicketDto, reservation, screeningId);
-            reservation = reservationRepository.save(reservation);
-            return toDto(reservation);
+            reservation.setTickets(tickets);
+            reservationRepository.save(reservation);
         }
         return null;
     }

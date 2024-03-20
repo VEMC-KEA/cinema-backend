@@ -82,6 +82,9 @@ public class TicketService {
         return ticketRepository.findById(id);
     }
 
+    public Optional<List<Ticket>> findByReservationId(Long id){
+        return ticketRepository.findAllByReservationId(id);
+    }
 
     public TicketDto toDto(Ticket ticket) {
         TicketDto dto = new TicketDto();

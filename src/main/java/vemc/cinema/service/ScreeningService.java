@@ -7,6 +7,7 @@ import vemc.cinema.entity.*;
 import vemc.cinema.repository.ScreeningRepository;
 import vemc.cinema.utils.PriceCalculator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -135,19 +136,23 @@ public class ScreeningService {
         hallDto.setSeats(hall.getSeat());
         dto.setHall(hallDto);
 
-        List<ReservationTicketDto> reservationDtos = screening.getReservations()
-                .stream().map(reservation -> {
-            ReservationTicketDto reservationDto = new ReservationTicketDto();
-            reservationDto.setTickets(reservation.getTickets().stream().map(ticket -> {
-                ReservationTicketHelperDto ticketDto = new ReservationTicketHelperDto();
+        var reservationDtos = new ArrayList<ReservationTicketDto>();
+
+        for(var reservation : screening.getReservations()){
+            var reservationDto = new ReservationTicketDto();
+            var ticketDtos = new ArrayList<ReservationTicketHelperDto>();
+            for(var ticket : reservation.getTickets()){
+                var ticketDto = new ReservationTicketHelperDto();
                 ticketDto.setId(ticket.getId());
                 ticketDto.setPrice(ticket.getPrice());
                 ticketDto.setRowLetter(ticket.getSeat().getRowLetter());
                 ticketDto.setNumber(ticket.getSeat().getNumber());
-                return ticketDto;
-            }).toList());
-            return reservationDto;
-        }).toList();
+                ticketDtos.add(ticketDto);
+            }
+            reservationDto.setTickets(ticketDtos);
+            reservationDtos.add(reservationDto);
+        }
+
         dto.setReservations(reservationDtos);
 
         return dto;
