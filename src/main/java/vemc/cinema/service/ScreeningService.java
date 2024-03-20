@@ -7,6 +7,8 @@ import vemc.cinema.entity.*;
 import vemc.cinema.repository.ScreeningRepository;
 import vemc.cinema.utils.PriceCalculator;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -137,7 +139,6 @@ public class ScreeningService {
         movieDto.setTitle(movie.getTitle());
         dto.setMovie(movieDto);
 
-
         Hall hall = screening.getHall();
         HallDto hallDto = new HallDto();
         hallDto.setId(hall.getId());
@@ -148,18 +149,20 @@ public class ScreeningService {
         var reservationDtos = new ArrayList<ReservationTicketDto>();
 
         for(var reservation : screening.getReservations()){
-            var reservationDto = new ReservationTicketDto();
-            var ticketDtos = new ArrayList<ReservationTicketHelperDto>();
-            for(var ticket : reservation.getTickets()){
-                var ticketDto = new ReservationTicketHelperDto();
-                ticketDto.setId(ticket.getId());
-                ticketDto.setPrice(ticket.getPrice());
-                ticketDto.setRowLetter(ticket.getSeat().getRowLetter());
-                ticketDto.setNumber(ticket.getSeat().getNumber());
-                ticketDtos.add(ticketDto);
+            if(reservation.isCompleted() || ChronoUnit.MINUTES.between(LocalDateTime.now(), reservation.getReservationTime()) <= 15) {
+                var reservationDto = new ReservationTicketDto();
+                var ticketDtos = new ArrayList<ReservationTicketHelperDto>();
+                for(var ticket : reservation.getTickets()){
+                    var ticketDto = new ReservationTicketHelperDto();
+                    ticketDto.setId(ticket.getId());
+                    ticketDto.setPrice(ticket.getPrice());
+                    ticketDto.setRowLetter(ticket.getSeat().getRowLetter());
+                    ticketDto.setNumber(ticket.getSeat().getNumber());
+                    ticketDtos.add(ticketDto);
+                }
+                reservationDto.setTickets(ticketDtos);
+                reservationDtos.add(reservationDto);
             }
-            reservationDto.setTickets(ticketDtos);
-            reservationDtos.add(reservationDto);
         }
 
         dto.setReservations(reservationDtos);

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,4 +23,5 @@ public class Reservation {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
     private Double totalPrice;
+    private LocalDateTime reservationTime = LocalDateTime.now();
 }
