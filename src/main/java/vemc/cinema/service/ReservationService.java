@@ -53,9 +53,8 @@ public class ReservationService {
         var reservation = new Reservation();
         var screening = screeningService.findByIdScreeningDto(postReservationDto.getScreeningId());
         reservation.setScreening(screening);
-        screeningService.addReservation(reservation, screening.getId());
         var savedReservation = reservationRepository.save(reservation);
-
+        screeningService.addReservation(savedReservation, screening.getId());
         return toDto(savedReservation);
     }
 
