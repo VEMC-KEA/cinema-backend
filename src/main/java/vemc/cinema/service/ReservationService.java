@@ -193,7 +193,7 @@ public class ReservationService {
                 }
             }
             reservation.setTickets(tickets);
-            reservationRepository.save(reservation);
+            return toDto(reservationRepository.save(reservation));
         }
         return null;
     }
