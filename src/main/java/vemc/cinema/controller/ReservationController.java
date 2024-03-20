@@ -88,6 +88,15 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/{id}/tickets")
+    public ResponseEntity<ReservationDto> updateTicketsByReservationId(@PathVariable Long id, @RequestBody PostTicketDto postTicketDto) {
+        var ticket = this.reservationService.updateTicketsByReservationId(id, postTicketDto);
+        if (ticket != null) {
+            return ResponseEntity.ok(ticket);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
     /**
      * Get all tickets by reservation id and tickets id
      * @param reservationId Id of reservation

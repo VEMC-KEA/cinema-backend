@@ -1,5 +1,6 @@
 package vemc.cinema.service;
 
+import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.ReservationDto;
 import vemc.cinema.dto.ReservationTicketDto;
@@ -16,7 +17,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 
 @Service
 public class ReservationService {
@@ -147,10 +147,8 @@ public class ReservationService {
         dto.setScreening(screeningService.toHelperDtoScreening(reservation.getScreening()));
         dto.setIsCompleted(reservation.isCompleted());
         dto.setTickets(ticketService.toHelperDtoList(reservation.getTickets()));
-
         double totalTicketPrice = PriceCalculator.calculateTotalPrice(reservation);
         dto.setTotalPrice(totalTicketPrice);
-
         return dto;
     }
 
@@ -165,21 +163,54 @@ public class ReservationService {
         if (reservationOptional.isPresent()) {
             Reservation reservation = reservationOptional.get();
             Long screeningId = reservation.getScreening().getId();
-            for (Long seatId : postTicketDto.getSeatIds()) {
-                Optional<Seat> seat = seatService.findById(seatId);
-                if (seat.isPresent()) {
-                    var ticket = new Ticket();
-                    ticket.setSeat(seat.get());
-                    ticket.setReservation(reservation);
-                    ticket.setScreening(reservation.getScreening());
-                    ticket = ticketService.saveTicket(ticket, screeningId);
-                    reservation.getTickets().add(ticket);
-                }
-            }
+            setTickets(postTicketDto, reservation, screeningId);
             reservation = reservationRepository.save(reservation);
             return toDto(reservation);
         }
         return null;
+    }
+
+    public ReservationDto updateTicketsByReservationId(Long id, PostTicketDto postTicketDto) {
+        Optional<Reservation> reservationToUpdate = reservationRepository.findById(id);
+        if (reservationToUpdate.isPresent()) {
+            Reservation reservation = reservationToUpdate.get();
+            Long screeningId = reservation.getScreening().getId();
+            List<Ticket> existingTickets = reservation.getTickets();
+
+            List<Ticket> ticketsToDelete = new ArrayList<>();
+
+            for (Ticket ticket : existingTickets) {
+                if (postTicketDto.getSeatIds().contains(ticket.getSeat().getId())) {
+                    postTicketDto.getSeatIds().remove(ticket.getSeat().getId());
+                } else {
+                    ticketsToDelete.add(ticket); // Add the ticket to delete
+                }
+            }
+
+            // Delete the tickets marked for deletion
+            for (Ticket ticket : ticketsToDelete) {
+                deleteTicketByReservationId(id, ticket.getId());
+            }
+            setTickets(postTicketDto, reservation, screeningId);
+            reservation = reservationRepository.save(reservation);
+            return toDto(reservation);
+        }
+        return null;
+    }
+
+
+    private void setTickets(PostTicketDto postTicketDto, Reservation reservation, Long screeningId) {
+        for (Long seatId: postTicketDto.getSeatIds()) {
+            Optional<Seat> seat = seatService.findById(seatId);
+            if (seat.isPresent()) {
+                var ticket = new Ticket();
+                ticket.setSeat(seat.get());
+                ticket.setReservation(reservation);
+                ticket.setScreening(reservation.getScreening());
+                ticket = ticketService.saveTicket(ticket, screeningId);
+                reservation.getTickets().add(ticket);
+            }
+        }
     }
 
     /**
@@ -196,6 +227,7 @@ public class ReservationService {
             tickets.removeIf(t -> t.getId().equals(ticketsId));
             reservation.setTickets(tickets);
             reservationRepository.save(reservation);
+            ticketService.deleteById(ticketsId);
             return toDto(reservation);
         }
         return null;

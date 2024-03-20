@@ -6,7 +6,6 @@ import vemc.cinema.dto.TicketDto;
 import vemc.cinema.dto.helperdto.ReservationTicketHelperDto;
 import vemc.cinema.dto.helperdto.SeatHelperDto;
 import vemc.cinema.entity.Screening;
-import vemc.cinema.entity.Seat;
 import vemc.cinema.entity.Ticket;
 import vemc.cinema.repository.ScreeningRepository;
 import vemc.cinema.repository.TicketRepository;
@@ -112,5 +111,10 @@ public class TicketService {
 
     public Ticket save(Ticket ticket) {
         return ticketRepository.save(ticket);
+    }
+
+    public void deleteById(Long id) {
+        Optional<Ticket> existingTicket = findById(id);
+        existingTicket.ifPresent(ticket -> ticketRepository.deleteById(ticket.getId()));
     }
 }

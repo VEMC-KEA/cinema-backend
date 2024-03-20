@@ -96,21 +96,8 @@ VALUES
     (1, 9), (1, 10);
 
 INSERT INTO hall_seat (hall_id, seat_id)
-VALUES
-    (1, 1), (1, 2),
-    (2, 3), (2, 4),
-    (3, 5), (3, 6),
-    (4, 7), (4, 8),
-    (1, 9), (1, 10),
-    (2, 11), (2, 12),
-    (3, 13), (3, 14),
-    (4, 15), (4, 16),
-    (5, 17), (5, 18),
-    (6, 19), (6, 20),
-    (7, 21), (7, 22),
-    (8, 23), (8, 24),
-    (9, 25), (9, 26),
-    (10, 27), (10, 28);
+SELECT 1, id FROM seat
+WHERE id <= 30;
 
 INSERT INTO hall_screening (hall_id, screening_id)
 VALUES

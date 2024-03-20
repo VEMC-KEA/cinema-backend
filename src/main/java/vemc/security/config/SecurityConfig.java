@@ -70,6 +70,14 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/movies")).anonymous()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/screenings")).anonymous()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/screenings/*/cancel")).anonymous()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/reservations")).anonymous()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/reservations")).anonymous()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/reservations/*")).anonymous()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/reservations/*/tickets")).anonymous()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/reservations/*/tickets")).anonymous()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/reservations/*/tickets")).anonymous()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/reservations/*/tickets/*")).anonymous()
+
 
             // Allow all user endpoints
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/screenings/*/cancel")).permitAll()
