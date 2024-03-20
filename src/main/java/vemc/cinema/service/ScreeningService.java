@@ -7,6 +7,7 @@ import vemc.cinema.entity.*;
 import vemc.cinema.repository.ScreeningRepository;
 import vemc.cinema.utils.PriceCalculator;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -149,10 +150,15 @@ public class ScreeningService {
         var reservationDtos = new ArrayList<ReservationTicketDto>();
 
         for(var reservation : screening.getReservations()){
-            if(reservation.isCompleted() || ChronoUnit.MINUTES.between(LocalDateTime.now(), reservation.getReservationTime()) <= 15) {
-                var reservationDto = new ReservationTicketDto();
-                var ticketDtos = new ArrayList<ReservationTicketHelperDto>();
-                for(var ticket : reservation.getTickets()){
+            var reservationDto = new ReservationTicketDto();
+            var ticketDtos = new ArrayList<ReservationTicketHelperDto>();
+            for(var ticket : reservation.getTickets()){
+
+                LocalDateTime now = LocalDateTime.now();
+
+                Duration duration = Duration.between(reservation.getReservationTime(), now);
+
+                if (duration.toMinutes() < 15 || reservation.isCompleted()) {
                     var ticketDto = new ReservationTicketHelperDto();
                     ticketDto.setId(ticket.getId());
                     ticketDto.setPrice(ticket.getPrice());
@@ -160,9 +166,9 @@ public class ScreeningService {
                     ticketDto.setNumber(ticket.getSeat().getNumber());
                     ticketDtos.add(ticketDto);
                 }
-                reservationDto.setTickets(ticketDtos);
-                reservationDtos.add(reservationDto);
             }
+            reservationDto.setTickets(ticketDtos);
+            reservationDtos.add(reservationDto);
         }
 
         dto.setReservations(reservationDtos);
