@@ -107,6 +107,22 @@ public class ReservationService {
         return Optional.of(reservationTicketDto);
     }
 
+    public ReservationDto deleteByReservationId(Long id) {
+        Optional<Reservation> reservationOptional = reservationRepository.findById(id);
+        if (reservationOptional.isPresent()) {
+            Reservation reservation = reservationOptional.get();
+            // Remove reservation from screening
+            screeningService.removeReservation(reservation);
+            // Delete all tickets associated with the reservation
+            for (Ticket ticket : reservation.getTickets()) {
+                ticketService.deleteById(ticket.getId());
+            }
+            reservationRepository.deleteById(id);
+            return toDto(reservation);
+        }
+        return null;
+    }
+
     /**
      * This method is used to complete a reservation
      * @param id reservation id

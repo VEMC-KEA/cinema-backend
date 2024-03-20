@@ -118,6 +118,15 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ReservationDto> deleteReservation(@PathVariable Long id){
+        var reservation = this.reservationService.deleteByReservationId(id);
+        if(reservation != null){
+            return ResponseEntity.ok(reservation);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
     /**
         * Delete ticket by reservation id and tickets id
         * @param reservationId Id of reservation
