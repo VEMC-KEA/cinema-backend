@@ -18,7 +18,7 @@ public class Ticket {
     private Long id;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Screening screening;
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Seat seat;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Reservation reservation;
