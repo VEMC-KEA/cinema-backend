@@ -170,6 +170,12 @@ public class ReservationService {
         return null;
     }
 
+    /**
+     * This method is used to update tickets by reservation id
+     * @param id reservation id
+     * @param postTicketDto PostTicketDto object
+     * @return ReservationDto object
+     */
     public ReservationDto updateTicketsByReservationId(Long id, PostTicketDto postTicketDto) {
         Optional<Reservation> reservationToUpdate = reservationRepository.findById(id);
         if (reservationToUpdate.isPresent()) {
@@ -198,7 +204,12 @@ public class ReservationService {
         return null;
     }
 
-
+    /**
+     * This method is used to set tickets
+     * @param postTicketDto PostTicketDto object
+     * @param reservation Reservation object
+     * @param screeningId screening id
+     */
     private void setTickets(PostTicketDto postTicketDto, Reservation reservation, Long screeningId) {
         for (Long seatId: postTicketDto.getSeatIds()) {
             Optional<Seat> seat = seatService.findById(seatId);
