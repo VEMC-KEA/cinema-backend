@@ -167,14 +167,20 @@ public class ScreeningService {
         hallDto.setSeats(hall.getSeat());
         dto.setHall(hallDto);
 
-        List<TicketHelperDto> ticketDtos = screening.getTickets().stream().map(ticket -> {
-            TicketHelperDto ticketDto = new TicketHelperDto();
-            ticketDto.setId(ticket.getId());
-            ticketDto.setSeat(ticket.getSeat());
-            ticketDto.setPrice(ticket.getPrice());
-            return ticketDto;
+        List<ReservationTicketDto> reservationDtos = screening.getReservations()
+                .stream().map(reservation -> {
+            ReservationTicketDto reservationDto = new ReservationTicketDto();
+            reservationDto.setTickets(reservation.getTickets().stream().map(ticket -> {
+                ReservationTicketHelperDto ticketDto = new ReservationTicketHelperDto();
+                ticketDto.setId(ticket.getId());
+                ticketDto.setPrice(ticket.getPrice());
+                ticketDto.setRowLetter(ticket.getSeat().getRowLetter());
+                ticketDto.setNumber(ticket.getSeat().getNumber());
+                return ticketDto;
+            }).toList());
+            return reservationDto;
         }).toList();
-        dto.setTickets(ticketDtos);
+        dto.setReservations(reservationDtos);
 
         return dto;
     }

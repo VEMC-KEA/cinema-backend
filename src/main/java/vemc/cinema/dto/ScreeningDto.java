@@ -28,6 +28,6 @@ public class ScreeningDto {
     private HallDto hall;
     private LocalDate date;
     private LocalTime time;
-    private List<TicketHelperDto> tickets = new ArrayList<>();
+    private List<ReservationTicketDto> reservations = new ArrayList<>();
     private Boolean isCancelled = false;
 }
