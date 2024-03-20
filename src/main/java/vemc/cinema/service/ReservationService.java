@@ -50,11 +50,11 @@ public class ReservationService {
      */
 
     public ReservationDto createReservation(PostReservationDto postReservationDto) {
-        Reservation reservation = new Reservation();
-        Screening screening = screeningService.findByIdScreeningDto(postReservationDto.getScreeningId());
+        var reservation = new Reservation();
+        var screening = screeningService.findByIdScreeningDto(postReservationDto.getScreeningId());
         reservation.setScreening(screening);
-
-        Reservation savedReservation = reservationRepository.save(reservation);
+        screeningService.addReservation(reservation, screening.getId());
+        var savedReservation = reservationRepository.save(reservation);
 
         return toDto(savedReservation);
     }

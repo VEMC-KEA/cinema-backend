@@ -64,6 +64,15 @@ public class ScreeningService {
         return toDto(screening);
     }
 
+    public void addReservation(Reservation reservation, Long screeningId){
+        var screeningToUpdate = screeningRepository.findById(screeningId);
+        if(screeningToUpdate.isPresent()){
+            var screening = screeningToUpdate.get();
+            screening.getReservations().add(reservation);
+            screeningRepository.save(screening);
+        }
+    }
+
     /**
      * This method is used to convert a Screening object to a ScreeningDto object
      * @param id screening id
