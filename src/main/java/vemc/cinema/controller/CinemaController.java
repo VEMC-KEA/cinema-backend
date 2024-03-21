@@ -1,5 +1,8 @@
 package vemc.cinema.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vemc.cinema.dto.CinemaDto;
@@ -19,10 +22,12 @@ public class CinemaController {
         this.cinemaService = cinemaService;
     }
 
+
     /**
      * Get all cinemas
      * @return List of all cinemas
      */
+    @Operation (summary = "Get all cinemas", description = "# Get a list of all cinemas")
    @GetMapping
     public ResponseEntity<List<CinemaDto>> getAllCinemas(){
         var cinemas = this.cinemaService.findAll();
@@ -37,6 +42,7 @@ public class CinemaController {
      * @param cinemaDto Cinema to create
      * @return Created cinema
      */
+    @Operation (summary = "Create a new cinema", description = "# Create a new cinema")
     @PostMapping
     public ResponseEntity<CinemaDto> createCinema(@RequestBody CinemaDto cinemaDto) {
         CinemaDto createdCinema = cinemaService.createCinema(cinemaDto);
@@ -48,6 +54,7 @@ public class CinemaController {
      * @param id Id of cinema
      * @return Cinema with given id
      */
+    @Operation (summary = "Get cinema by id", description = "# Get a cinema by id")
     @GetMapping("/{id}")
     public ResponseEntity<CinemaDto> getCinemaById(@PathVariable Long id){
         var cinema = this.cinemaService.findById(id);
@@ -63,6 +70,7 @@ public class CinemaController {
      * @param cinemaDto Cinema to update
      * @return Updated cinema
      */
+    @Operation (summary = "Update cinema", description = "# Update a cinema")
     @PutMapping("/{id}")
     public ResponseEntity<CinemaDto> updateCinema(@PathVariable Long id, @RequestBody CinemaDto cinemaDto) {
         CinemaDto updatedCinema = cinemaService.updateCinema(id, cinemaDto);
@@ -74,6 +82,7 @@ public class CinemaController {
      * @param id Id of cinema
      * @return No content
      */
+    @Operation (summary = "Delete cinema", description = "# Delete a cinema")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCinema(@PathVariable Long id) {
         cinemaService.deleteCinema(id);
@@ -85,6 +94,7 @@ public class CinemaController {
      * @param id Id of cinema
      * @return List of all halls of a cinema
      */
+    @Operation (summary = "Get all halls of a cinema", description = "# Get a list of all halls of a cinema")
     @GetMapping("/{id}/halls")
     public ResponseEntity<List<HallDto>> getHallsByCinemaId(@PathVariable Long id){
         var halls = this.cinemaService.getHallsByCinemaId(id);
@@ -100,6 +110,7 @@ public class CinemaController {
      * @param hallDto Hall to create
      * @return Created hall
      */
+    @Operation (summary = "Create a new hall", description = "# Create a new hall")
     @PostMapping("/{id}/halls")
     public ResponseEntity<HallDto> createHall(@PathVariable Long id, @RequestBody HallDto hallDto) {
         HallDto createdHall = cinemaService.createHall(id, hallDto);
@@ -112,6 +123,7 @@ public class CinemaController {
      * @param hallId Id of hall
      * @return Hall with given id
      */
+    @Operation (summary = "Get hall by id", description = "# Get a hall by id")
     @GetMapping("/{cinemaId}/halls/{hallId}")
     public ResponseEntity<HallDto> getHallsByIdByCinemaId(@PathVariable Long cinemaId, @PathVariable Long hallId){
         var hall = this.cinemaService.getHallsByIdByCinemaId(cinemaId, hallId);
@@ -128,6 +140,7 @@ public class CinemaController {
      * @param hallDto Hall to update
      * @return Updated hall
      */
+    @Operation (summary = "Update hall", description = "# Update a hall")
     @PutMapping("/{cinemaId}/halls/{hallId}")
     public ResponseEntity<HallDto> updateHall(@PathVariable Long cinemaId, @PathVariable Long hallId, @RequestBody HallDto hallDto) {
         HallDto updatedHall = cinemaService.updateHall(cinemaId, hallId, hallDto);
@@ -140,6 +153,7 @@ public class CinemaController {
      * @param hallId Id of hall
      * @return No content
      */
+    @Operation (summary = "Delete hall", description = "# Delete a hall via cinemaId and hallId")
     @DeleteMapping("/{cinemaId}/halls/{hallId}")
     public ResponseEntity<Void> deleteHall(@PathVariable Long cinemaId, @PathVariable Long hallId) {
         cinemaService.deleteHall(cinemaId, hallId);
@@ -152,6 +166,7 @@ public class CinemaController {
      * @param hallId Id of hall
      * @return List of all seats of a hall
      */
+    @Operation (summary = "Get all seats of a hall", description = "# Get a list of all seats of a hall")
     @GetMapping("/{cinemaId}/halls/{hallId}/seats")
     public ResponseEntity <List<SeatDto>> getSeatsByHallsIdByCinemaId(@PathVariable Long cinemaId, @PathVariable Long hallId){
         var seats = this.cinemaService.getSeatsByHallsIdByCinemaId(cinemaId, hallId);
@@ -168,6 +183,7 @@ public class CinemaController {
      * @param seatId id of seat
      * @return Seat with given id
      */
+    @Operation (summary = "Get seat by id", description = "# Get a seat by id")
     @GetMapping("/{cinemaId}/halls/{hallId}/seats/{seatId}")
     public ResponseEntity <SeatDto> getSeatByIdByHallsIdByCinemaId(@PathVariable Long cinemaId, @PathVariable Long hallId, @PathVariable Long seatId){
         var seat = this.cinemaService.getSeatByIdByHallsIdByCinemaId(cinemaId, hallId, seatId);
@@ -182,6 +198,7 @@ public class CinemaController {
      * @param id Id of cinema
      * @return List of all movies of a cinema
      */
+    @Operation (summary = "Get all movies of a cinema", description = "# Get a list of all movies of a cinema")
     @GetMapping("/{id}/movies")
     public  ResponseEntity<List<MovieDto>> getMovieByCinemaId(@PathVariable Long id) {
         var movies = this.cinemaService.getMovieByCinemaId(id);

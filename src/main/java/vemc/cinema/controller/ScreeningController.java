@@ -1,5 +1,6 @@
 package vemc.cinema.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ public class ScreeningController {
      * Get all screenings
      * @return List of all screenings
      */
+    @Operation(summary = "Get all screenings", description = "# Get a list of all screenings")
     @GetMapping
     public ResponseEntity<List<ScreeningDto>> getAllScreenings(@RequestParam(required = false) Long movieId, @RequestParam(required = false) Long cinemaId){
         if (movieId != null && cinemaId != null) {
@@ -53,6 +55,7 @@ public class ScreeningController {
      * @param screeningDto Screening to create
      * @return Created screening
      */
+    @Operation(summary = "Create a new screening", description = "# Create a new screening")
     @PostMapping
     public ResponseEntity<ScreeningDto> createScreening(@RequestBody ScreeningDto screeningDto) {
         ScreeningDto createdScreening = screeningService.createScreening(screeningDto);
@@ -64,6 +67,7 @@ public class ScreeningController {
      * @param id Id of screening
      * @return Screening with given id
      */
+    @Operation(summary = "Get screening by id", description = "# Get a screening by id")
     @GetMapping("/{id}")
     public ResponseEntity<ScreeningDto> getScreeningById(@PathVariable Long id){
         var screening = this.screeningService.findById(id);
@@ -78,6 +82,7 @@ public class ScreeningController {
      * @param id Id of screening
      * @return Cancelled screening
      */
+    @Operation(summary = "Cancel a screening", description = "# Cancel a screening")
     @DeleteMapping("/{id}/cancel")
     public ResponseEntity<ScreeningDto> cancelScreening(@PathVariable Long id) {
         ScreeningDto cancelledScreening = screeningService.cancelScreening(id);
