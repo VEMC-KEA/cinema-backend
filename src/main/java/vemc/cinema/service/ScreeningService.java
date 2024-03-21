@@ -168,6 +168,7 @@ public class ScreeningService {
             for(var ticket : reservation.getTickets()){
                 var ticketDto = new ReservationTicketHelperDto();
                 ticketDto.setId(ticket.getId());
+                ticketDto.setSeatId(ticket.getSeat().getId());
                 ticketDto.setPrice(ticket.getPrice());
                 ticketDto.setRowLetter(ticket.getSeat().getRowLetter());
                 ticketDto.setNumber(ticket.getSeat().getNumber());

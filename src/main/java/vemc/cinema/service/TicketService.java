@@ -68,6 +68,7 @@ public class TicketService {
         ReservationTicketHelperDto dto = new ReservationTicketHelperDto();
         dto.setPrice(ticket.getPrice());
         dto.setId(ticket.getId());
+        dto.setSeatId(ticket.getSeat().getId());
         dto.setRowLetter(ticket.getSeat().getRowLetter());
         dto.setNumber(ticket.getSeat().getNumber());
         return dto;

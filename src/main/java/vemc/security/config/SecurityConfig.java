@@ -77,6 +77,7 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/reservations/*/tickets")).anonymous()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/reservations/*/tickets")).anonymous()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/reservations/*/tickets/*")).anonymous()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PATCH, "/reservations/*/complete")).anonymous()
 
 
             // Allow all user endpoints
