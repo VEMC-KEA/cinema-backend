@@ -32,7 +32,6 @@ public class ScreeningController {
             return ResponseEntity.notFound().build();
         }
 
-
         if (movieId != null) {
             var screenings = this.screeningService.findMovieById(movieId);
             if (screenings != null) {

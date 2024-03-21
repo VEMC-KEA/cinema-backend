@@ -5,7 +5,6 @@ import vemc.cinema.dto.*;
 import vemc.cinema.dto.helperdto.*;
 import vemc.cinema.entity.*;
 import vemc.cinema.repository.ScreeningRepository;
-import vemc.cinema.utils.PriceCalculator;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -28,17 +27,29 @@ public class ScreeningService {
     }
 
     /**
-     * This method is used to convert a Screening object to a ScreeningDto object
+     * This method is used to find all screenings
      * @return ScreeningDto object
      */
     public List<ScreeningDto> findAll() {
         return screeningRepository.findAll().stream().map(this::toDto).toList();
     }
 
+    /**
+     * This method is used to find all screenings by movie id
+     * @param movieId cinema id
+     * @return ScreeningDto object
+     */
+
     public List<ScreeningDto> findMovieById(Long movieId) {
         return screeningRepository.findAllByMovieId(movieId).stream().map(this::toDto).toList();
     }
 
+    /**
+     * This method is used to find all screenings by cinema id and movie id
+     * @param cinemaId cinema id
+     * @param movieId movie id
+     * @return ScreeningDto object
+     */
     public List<ScreeningDto> findAllByCinemaIdAndMovieId(Long cinemaId, Long movieId) {
         return screeningRepository.findAllByCinemaIdAndMovieId(cinemaId, movieId).stream().map(this::toDto).toList();
     }
@@ -66,6 +77,11 @@ public class ScreeningService {
         return toDto(screening);
     }
 
+    /**
+     * This method is used to add a reservation to a screening
+     * @param reservation Reservation object
+     * @param screeningId screening id
+     */
     public void addReservation(Reservation reservation, Long screeningId){
         var screeningToUpdate = screeningRepository.findById(screeningId);
         if(screeningToUpdate.isPresent()){
@@ -76,7 +92,7 @@ public class ScreeningService {
     }
 
     /**
-     * This method is used to convert a Screening object to a ScreeningDto object
+     * This method is used to find a screening by id
      * @param id screening id
      * @return ScreeningDto object
      */
@@ -85,7 +101,7 @@ public class ScreeningService {
     }
 
     /**
-     * This method is used to convert a Screening object to a ScreeningDto object
+     * This method is used to cancel a screening
      * @param id screening id
      * @return ScreeningDto object
      */
@@ -97,15 +113,10 @@ public class ScreeningService {
         return toDto(updatedScreening);
     }
 
-//    public void removeReservation(Reservation reservation, Long screeningId){
-//        var screeningToUpdate = screeningRepository.findById(screeningId);
-//        if(screeningToUpdate.isPresent()){
-//            var screening = screeningToUpdate.get();
-//            screening.getReservations().remove(reservation);
-//            screeningRepository.save(screening);
-//        }
-//    }
-
+    /**
+     * This method is used to remove a reservation from a screening
+     * @param reservation Reservation object
+     */
     public void removeReservation(Reservation reservation){
         Screening screening = reservation.getScreening();
         screening.getReservations().remove(reservation);
@@ -113,7 +124,7 @@ public class ScreeningService {
     }
 
     /**
-     * This method is used to convert a Screening object to a ScreeningDto object
+     * This method is used to help convert toDto in reservation service
      * @param screening Screening object
      * @return ScreeningDto object
      */
@@ -130,7 +141,7 @@ public class ScreeningService {
     }
 
     /**
-     * This method is used to convert a Screening object to a ScreeningDto object
+     * This method is used to convert a Screening object to a ScreeningDto object it only returns the ticket that is younger than 15 minutes and if not where completed = true
      * @param screening Screening object
      * @return ScreeningDto object
      */
@@ -191,6 +202,11 @@ public class ScreeningService {
         return dto;
     }
 
+    /**
+     * This method is used to find a screening by id
+     * @param id screening id
+     * @return Screening object
+     */
     public Screening findByIdScreeningDto(Long id) {
         return screeningRepository.findById(id).orElse(null);
     }

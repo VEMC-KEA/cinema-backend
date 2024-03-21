@@ -259,11 +259,11 @@ public class CinemaService {
     }
 
     /**
-     * This method creates a new seat in the database
+     * This method find a seat by its id and the cinema's id and the hall's id
      * @param cinemaId the id of the cinema
      * @param hallId the id of the hall
      * @param seatId the id of the seat
-     * @return the created seat
+     * @return the seat with the given id
      */
     public SeatDto getSeatByIdByHallsIdByCinemaId(Long cinemaId, Long hallId, Long seatId) {
         Optional<Cinema> cinemaOptional = cinemaRepository.findById(cinemaId);

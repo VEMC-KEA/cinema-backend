@@ -1,8 +1,6 @@
 package vemc.cinema.service;
 
 import org.springframework.stereotype.Service;
-import vemc.cinema.dto.SeatDto;
-import vemc.cinema.dto.TicketDto;
 import vemc.cinema.dto.helperdto.ReservationTicketHelperDto;
 import vemc.cinema.dto.helperdto.SeatHelperDto;
 import vemc.cinema.entity.Screening;
@@ -36,12 +34,6 @@ public class TicketService {
         return tickets.stream()
                 .map(this::toReservationHelperDto)
                 .collect(Collectors.toList());
-    }
-
-    public TicketDto save(TicketDto ticketDto) {
-        Ticket ticket = toEntity(ticketDto);
-        ticketRepository.save(ticket);
-        return toDto(ticket);
     }
 
     /**
@@ -83,40 +75,23 @@ public class TicketService {
         return ticketRepository.findById(id);
     }
 
-    public Optional<List<Ticket>> findByReservationId(Long id){
-        return ticketRepository.findAllByReservationId(id);
-    }
-
-    public TicketDto toDto(Ticket ticket) {
-        TicketDto dto = new TicketDto();
-        dto.setId(ticket.getId());
-        dto.setPrice(ticket.getPrice());
-        SeatDto seatDto = new SeatDto();
-        seatDto.setId(ticket.getSeat().getId());
-        dto.setSeat(seatService.toDto(seatDto));
-        return dto;
-    }
-
-    public Ticket toEntity(TicketDto ticketDto) {
-        Ticket ticket = new Ticket();
-        ticket.setId(ticketDto.getId());
-        ticket.setPrice(ticketDto.getPrice());
-        SeatDto seatDto = new SeatDto();
-        seatDto.setId(ticketDto.getSeat().getId());
-        ticket.setSeat(seatService.toEntity(seatDto));
-        return ticket;
-    }
-
+    /**
+     * This method is used to save a Ticket on a Screening
+     * @param ticket The Ticket to save
+     * @param screeningId The id of the Screening the Ticket is for
+     * @return The saved Ticket
+     */
     public Ticket saveTicket(Ticket ticket, Long screeningId) {
         Screening screening = screeningRepository.findById(screeningId).orElseThrow(() -> new IllegalArgumentException("Screening not found"));
         ticket.setScreening(screening);
         return ticketRepository.save(ticket);
     }
 
-    public Ticket save(Ticket ticket) {
-        return ticketRepository.save(ticket);
-    }
 
+    /**
+     * This method is used to delete a Ticket by its id
+     * @param id The id of the Ticket to delete
+     */
     public void deleteById(Long id) {
         Optional<Ticket> existingTicket = findById(id);
         existingTicket.ifPresent(ticket -> ticketRepository.deleteById(ticket.getId()));

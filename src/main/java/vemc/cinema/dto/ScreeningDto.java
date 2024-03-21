@@ -6,9 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vemc.cinema.dto.helperdto.CinemaHelperDto;
-import vemc.cinema.dto.helperdto.HallHelperDto;
 import vemc.cinema.dto.helperdto.MovieHelperDto;
-import vemc.cinema.dto.helperdto.TicketHelperDto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

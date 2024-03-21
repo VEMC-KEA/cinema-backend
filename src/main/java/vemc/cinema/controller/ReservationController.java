@@ -7,7 +7,6 @@ import vemc.cinema.dto.ReservationDto;
 import vemc.cinema.dto.ReservationTicketDto;
 import vemc.cinema.dto.helperdto.PostReservationDto;
 import vemc.cinema.dto.helperdto.PostTicketDto;
-import vemc.cinema.dto.helperdto.ReservationTicketHelperDto;
 import vemc.cinema.service.ReservationService;
 
 import java.util.List;
@@ -35,6 +34,11 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Post initial reservation
+     * @param postReservationDto postReservation dto
+     * @return ReservationDto created reservation
+     */
      @PostMapping
     public ResponseEntity<ReservationDto> createReservation(@RequestBody PostReservationDto postReservationDto) {
         ReservationDto createdReservation = reservationService.createReservation(postReservationDto);

@@ -1,7 +1,6 @@
 package vemc.cinema.configuration;
 
 import vemc.security.entity.Role;
-import vemc.security.entity.UserWithRoles;
 import vemc.security.repository.RoleRepository;
 import vemc.security.repository.UserWithRolesRepository;
 import org.springframework.boot.ApplicationArguments;
@@ -9,7 +8,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.NoSuchElementException;
 
 @Component
 public class SetupDevUsers implements ApplicationRunner {
@@ -32,5 +30,4 @@ public class SetupDevUsers implements ApplicationRunner {
         roleRepository.save(new Role("USER"));
         roleRepository.save(new Role("ADMIN"));
     }
-
 }

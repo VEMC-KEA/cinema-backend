@@ -1,12 +1,10 @@
 package vemc.cinema.service;
 
-import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.ReservationDto;
 import vemc.cinema.dto.ReservationTicketDto;
 import vemc.cinema.dto.helperdto.*;
 import vemc.cinema.entity.Reservation;
-import vemc.cinema.entity.Screening;
 import vemc.cinema.entity.Seat;
 import vemc.cinema.entity.Ticket;
 import vemc.cinema.repository.ReservationRepository;
@@ -83,7 +81,7 @@ public class ReservationService {
     }
 
     /**
-     * This method finds a ticket by reservation id and ticket id
+     * This method find a ticket by reservation id and ticket id
      * @param id reservation id
      * @param ticketId ticket id
      * @return ReservationTicketDto object

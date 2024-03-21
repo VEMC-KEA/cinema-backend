@@ -18,7 +18,7 @@ public class MovieService {
     }
 
     /**
-     * This method is used to convert a Movie object to a MovieDto object
+     * this is method is used to find all movies
      * @return MovieDto object
      */
     public List<MovieDto> findAll() {
@@ -26,7 +26,7 @@ public class MovieService {
     }
 
     /**
-     * This method is used to convert a Movie object to a MovieDto object
+     * This method is used to find a movie by id
      * @param id movie id
      * @return MovieDto object
      */
@@ -35,7 +35,7 @@ public class MovieService {
     }
 
     /**
-     * This method is used to convert a Movie object to a MovieDto object
+     * This method is used to save a movie
      * @param movie MovieDto object
      * @return MovieDto object
      */
@@ -44,7 +44,7 @@ public class MovieService {
     }
 
     /**
-     * This method is used to convert a Movie object to a MovieDto object
+     * This method is used to update a movie if it exists
      * @param id movie id
      * @param movie MovieDto object
      * @return MovieDto object
@@ -59,7 +59,7 @@ public class MovieService {
     }
 
     /**
-     * This method is used to convert a Movie object to a MovieDto object
+     * This method is used to delete a movie by id
      * @param id movie id
      * @return MovieDto object
      */

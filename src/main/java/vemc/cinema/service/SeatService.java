@@ -1,7 +1,6 @@
 package vemc.cinema.service;
 
 import org.springframework.stereotype.Service;
-import vemc.cinema.dto.SeatDto;
 import vemc.cinema.dto.helperdto.SeatHelperDto;
 import vemc.cinema.entity.Seat;
 import vemc.cinema.repository.SeatRepository;
@@ -16,8 +15,13 @@ public class SeatService {
         this.seatRepository = seatRepository;
     }
 
+    /**
+     * find seat by id
+     * @param Id seat id
+     * @return Seat
+     */
     public Optional<Seat> findById(Long Id) {
-        return Optional.ofNullable(seatRepository.findById(Id).orElse(null));
+        return seatRepository.findById(Id);
     }
 
     /**
@@ -31,19 +35,4 @@ public class SeatService {
         dto.setNumber(seat.getNumber());
         return dto;
     }
-
-    public Seat toDto(SeatDto SeatDto){
-        Seat seat = new Seat();
-        seat.setRowLetter(SeatDto.getRowLetter());
-        seat.setNumber(SeatDto.getNumber());
-        return seat;
-    }
-
-    public Seat toEntity(SeatDto SeatDto){
-        Seat seat = new Seat();
-        seat.setRowLetter(SeatDto.getRowLetter());
-        seat.setNumber(SeatDto.getNumber());
-        return seat;
-    }
-
 }

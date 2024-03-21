@@ -4,11 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import vemc.cinema.dto.ScreeningDto;
-import vemc.cinema.entity.Screening;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter

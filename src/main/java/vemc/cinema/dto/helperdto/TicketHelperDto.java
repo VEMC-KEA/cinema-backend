@@ -16,6 +16,4 @@ public class TicketHelperDto {
     private Seat seat;
     private boolean isCompleted;
     private Double price;
-
-    //her skal der filtreres
 }
