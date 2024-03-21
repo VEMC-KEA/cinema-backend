@@ -7,6 +7,8 @@ import vemc.cinema.entity.*;
 import vemc.cinema.repository.ScreeningRepository;
 import vemc.cinema.utils.PriceCalculator;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -152,7 +154,6 @@ public class ScreeningService {
         movieDto.setTitle(movie.getTitle());
         dto.setMovie(movieDto);
 
-
         Hall hall = screening.getHall();
         HallDto hallDto = new HallDto();
         hallDto.setId(hall.getId());
@@ -166,13 +167,20 @@ public class ScreeningService {
             var reservationDto = new ReservationTicketDto();
             var ticketDtos = new ArrayList<ReservationTicketHelperDto>();
             for(var ticket : reservation.getTickets()){
-                var ticketDto = new ReservationTicketHelperDto();
-                ticketDto.setId(ticket.getId());
-                ticketDto.setSeatId(ticket.getSeat().getId());
-                ticketDto.setPrice(ticket.getPrice());
-                ticketDto.setRowLetter(ticket.getSeat().getRowLetter());
-                ticketDto.setNumber(ticket.getSeat().getNumber());
-                ticketDtos.add(ticketDto);
+
+                LocalDateTime now = LocalDateTime.now();
+
+                Duration duration = Duration.between(reservation.getReservationTime(), now);
+
+                if (duration.toMinutes() < 15 || reservation.isCompleted()) {
+                    var ticketDto = new ReservationTicketHelperDto();
+                    ticketDto.setId(ticket.getId());
+                    ticketDto.setPrice(ticket.getPrice());
+                    ticketDto.setRowLetter(ticket.getSeat().getRowLetter());
+                    ticketDto.setNumber(ticket.getSeat().getNumber());
+                    ticketDto.setSeatId(ticket.getSeat().getId());
+                    ticketDtos.add(ticketDto);
+                }
             }
             reservationDto.setTickets(ticketDtos);
             reservationDtos.add(reservationDto);
