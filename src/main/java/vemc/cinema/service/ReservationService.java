@@ -201,14 +201,19 @@ public class ReservationService {
             Long screeningId = reservation.getScreening().getId();
             var tickets = new ArrayList<Ticket>();
             for(var seatId : postTicketDto.getSeatIds()){
-                var newTicket = new Ticket();
-                var seatOptional = seatService.findById(seatId);
-                if(seatOptional.isPresent()){
-                    var seat = seatOptional.get();
-                    newTicket.setSeat(seat);
-                    newTicket.setReservation(reservation);
-                    var savedTicket = ticketService.saveTicket(newTicket, screeningId);
-                    tickets.add(savedTicket);
+                var ticketWithSeat = ticketService.findByReservationIdAndSeatId(id, seatId);
+                if(ticketWithSeat.isPresent()){
+                    tickets.add(ticketWithSeat.get());
+                } else {
+                    var newTicket = new Ticket();
+                    var seatOptional = seatService.findById(seatId);
+                    if(seatOptional.isPresent()){
+                        var seat = seatOptional.get();
+                        newTicket.setSeat(seat);
+                        newTicket.setReservation(reservation);
+                        var savedTicket = ticketService.saveTicket(newTicket, screeningId);
+                        tickets.add(savedTicket);
+                    }
                 }
             }
             reservation.setTickets(tickets);

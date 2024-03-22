@@ -75,6 +75,10 @@ public class TicketService {
         return ticketRepository.findById(id);
     }
 
+    public Optional<Ticket> findByReservationIdAndSeatId(Long reservationId, Long seatId) {
+        return ticketRepository.findFirstByReservationIdAndSeatId(reservationId, seatId);
+    }
+
     /**
      * This method is used to save a Ticket on a Screening
      * @param ticket The Ticket to save
