@@ -1,5 +1,6 @@
 package vemc.cinema.service;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.ReservationDto;
 import vemc.cinema.dto.ReservationTicketDto;
@@ -196,9 +197,10 @@ public class ReservationService {
      */
     public ReservationDto updateTicketsByReservationId(Long id, PostTicketDto postTicketDto) {
         Optional<Reservation> reservationToUpdate = reservationRepository.findById(id);
-        if (reservationToUpdate.isPresent()) {
-            Reservation reservation = reservationToUpdate.get();
-            Long screeningId = reservation.getScreening().getId();
+        throw new DataIntegrityViolationException("Ticket already exists");
+        /*if (reservationToUpdate.isPresent()) {
+            var reservation = reservationToUpdate.get();
+            var screeningId = reservation.getScreening().getId();
             var tickets = new ArrayList<Ticket>();
             for(var seatId : postTicketDto.getSeatIds()){
                 var ticketWithSeat = ticketService.findByReservationIdAndSeatId(id, seatId);
@@ -219,7 +221,7 @@ public class ReservationService {
             reservation.setTickets(tickets);
             return toDto(reservationRepository.save(reservation));
         }
-        return null;
+        return null;*/
     }
 
     /**
