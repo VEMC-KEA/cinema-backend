@@ -197,8 +197,7 @@ public class ReservationService {
      */
     public ReservationDto updateTicketsByReservationId(Long id, PostTicketDto postTicketDto) {
         Optional<Reservation> reservationToUpdate = reservationRepository.findById(id);
-        throw new DataIntegrityViolationException("Ticket already exists");
-        /*if (reservationToUpdate.isPresent()) {
+        if (reservationToUpdate.isPresent()) {
             var reservation = reservationToUpdate.get();
             var screeningId = reservation.getScreening().getId();
             var tickets = new ArrayList<Ticket>();
@@ -221,7 +220,7 @@ public class ReservationService {
             reservation.setTickets(tickets);
             return toDto(reservationRepository.save(reservation));
         }
-        return null;*/
+        return null;
     }
 
     /**
