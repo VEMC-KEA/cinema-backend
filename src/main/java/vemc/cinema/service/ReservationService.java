@@ -1,6 +1,5 @@
 package vemc.cinema.service;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import vemc.cinema.dto.ReservationDto;
 import vemc.cinema.dto.ReservationTicketDto;
@@ -114,13 +113,13 @@ public class ReservationService {
     public ReservationDto deleteByReservationId(Long id) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
         if (reservationOptional.isPresent()) {
-            Reservation reservation = reservationOptional.get();
-            // Remove reservation from screening
+            var reservation = reservationOptional.get();
             screeningService.removeReservation(reservation);
-            // Delete all tickets associated with the reservation
             for (Ticket ticket : reservation.getTickets()) {
                 ticketService.deleteById(ticket.getId());
             }
+            reservation.getTickets().clear();
+            reservationRepository.save(reservation);
             reservationRepository.deleteById(id);
             return toDto(reservation);
         }
