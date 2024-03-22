@@ -206,6 +206,7 @@ public class ReservationService {
                 if(seatOptional.isPresent()){
                     var seat = seatOptional.get();
                     newTicket.setSeat(seat);
+                    newTicket.setReservation(reservation);
                     var savedTicket = ticketService.saveTicket(newTicket, screeningId);
                     tickets.add(savedTicket);
                 }
