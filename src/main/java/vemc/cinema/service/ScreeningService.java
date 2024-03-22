@@ -1,8 +1,13 @@
 package vemc.cinema.service;
 
 import org.springframework.stereotype.Service;
-import vemc.cinema.dto.*;
-import vemc.cinema.dto.helperdto.*;
+import vemc.cinema.dto.HallDto;
+import vemc.cinema.dto.ReservationTicketDto;
+import vemc.cinema.dto.ScreeningDto;
+import vemc.cinema.dto.helperdto.CinemaHelperDto;
+import vemc.cinema.dto.helperdto.MovieHelperDto;
+import vemc.cinema.dto.helperdto.ReservationScreeningHelperDto;
+import vemc.cinema.dto.helperdto.ReservationTicketHelperDto;
 import vemc.cinema.entity.*;
 import vemc.cinema.repository.ScreeningRepository;
 
@@ -19,7 +24,7 @@ public class ScreeningService {
     private final MovieService movieService;
     private final HallService hallService;
 
-    public ScreeningService(ScreeningRepository screeningRepository, CinemaService cinemaService, MovieService movieService, HallService hallService){
+    public ScreeningService(ScreeningRepository screeningRepository, CinemaService cinemaService, MovieService movieService, HallService hallService) {
         this.screeningRepository = screeningRepository;
         this.cinemaService = cinemaService;
         this.movieService = movieService;
@@ -28,6 +33,7 @@ public class ScreeningService {
 
     /**
      * This method is used to find all screenings
+     *
      * @return ScreeningDto object
      */
     public List<ScreeningDto> findAll() {
@@ -36,6 +42,7 @@ public class ScreeningService {
 
     /**
      * This method is used to find all screenings by movie id
+     *
      * @param movieId cinema id
      * @return ScreeningDto object
      */
@@ -46,8 +53,9 @@ public class ScreeningService {
 
     /**
      * This method is used to find all screenings by cinema id and movie id
+     *
      * @param cinemaId cinema id
-     * @param movieId movie id
+     * @param movieId  movie id
      * @return ScreeningDto object
      */
     public List<ScreeningDto> findAllByCinemaIdAndMovieId(Long cinemaId, Long movieId) {
@@ -56,6 +64,7 @@ public class ScreeningService {
 
     /**
      * This method is used to convert a Screening object to a ScreeningDto object
+     *
      * @param screeningDto ScreeningDto object
      * @return ScreeningDto object
      */
@@ -79,12 +88,13 @@ public class ScreeningService {
 
     /**
      * This method is used to add a reservation to a screening
+     *
      * @param reservation Reservation object
      * @param screeningId screening id
      */
-    public void addReservation(Reservation reservation, Long screeningId){
+    public void addReservation(Reservation reservation, Long screeningId) {
         var screeningToUpdate = screeningRepository.findById(screeningId);
-        if(screeningToUpdate.isPresent()){
+        if (screeningToUpdate.isPresent()) {
             var screening = screeningToUpdate.get();
             screening.getReservations().add(reservation);
             screeningRepository.save(screening);
@@ -93,6 +103,7 @@ public class ScreeningService {
 
     /**
      * This method is used to find a screening by id
+     *
      * @param id screening id
      * @return ScreeningDto object
      */
@@ -102,6 +113,7 @@ public class ScreeningService {
 
     /**
      * This method is used to cancel a screening
+     *
      * @param id screening id
      * @return ScreeningDto object
      */
@@ -115,16 +127,21 @@ public class ScreeningService {
 
     /**
      * This method is used to remove a reservation from a screening
+     *
      * @param reservation Reservation object
      */
-    public void removeReservation(Reservation reservation){
-        Screening screening = reservation.getScreening();
-        screening.getReservations().remove(reservation);
-        screeningRepository.save(screening);
+    public void removeReservation(Reservation reservation) {
+        var screeningOptional = screeningRepository.findById(reservation.getScreening().getId());
+        if (screeningOptional.isPresent()) {
+            var screening = screeningOptional.get();
+            screening.getReservations().remove(reservation);
+            screeningRepository.save(screening);
+        }
     }
 
     /**
      * This method is used to help convert toDto in reservation service
+     *
      * @param screening Screening object
      * @return ScreeningDto object
      */
@@ -142,6 +159,7 @@ public class ScreeningService {
 
     /**
      * This method is used to convert a Screening object to a ScreeningDto object it only returns the ticket that is younger than 15 minutes and if not where completed = true
+     *
      * @param screening Screening object
      * @return ScreeningDto object
      */
@@ -174,10 +192,10 @@ public class ScreeningService {
 
         var reservationDtos = new ArrayList<ReservationTicketDto>();
 
-        for(var reservation : screening.getReservations()){
+        for (var reservation : screening.getReservations()) {
             var reservationDto = new ReservationTicketDto();
             var ticketDtos = new ArrayList<ReservationTicketHelperDto>();
-            for(var ticket : reservation.getTickets()){
+            for (var ticket : reservation.getTickets()) {
 
                 LocalDateTime now = LocalDateTime.now();
 
@@ -204,6 +222,7 @@ public class ScreeningService {
 
     /**
      * This method is used to find a screening by id
+     *
      * @param id screening id
      * @return Screening object
      */

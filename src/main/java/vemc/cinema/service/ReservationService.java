@@ -115,11 +115,16 @@ public class ReservationService {
         if (reservationOptional.isPresent()) {
             var reservation = reservationOptional.get();
             screeningService.removeReservation(reservation);
-            for (Ticket ticket : reservation.getTickets()) {
+            reservation.setScreening(null);
+            reservationRepository.save(reservation);
+            
+            var tickets = reservation.getTickets();
+            reservation.setTickets(new ArrayList<>());
+            for (var ticket : tickets) {
                 ticketService.deleteById(ticket.getId());
             }
-            reservation.getTickets().clear();
             reservationRepository.save(reservation);
+
             reservationRepository.deleteById(id);
             return toDto(reservation);
         }

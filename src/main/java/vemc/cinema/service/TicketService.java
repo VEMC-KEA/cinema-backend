@@ -98,6 +98,13 @@ public class TicketService {
      */
     public void deleteById(Long id) {
         Optional<Ticket> existingTicket = findById(id);
-        existingTicket.ifPresent(ticket -> ticketRepository.deleteById(ticket.getId()));
+        if(existingTicket.isPresent()){
+            var ticket = existingTicket.get();
+            ticket.setSeat(null);
+            ticket.setScreening(null);
+            ticket.setReservation(null);
+            ticketRepository.save(ticket);
+            ticketRepository.deleteById(ticket.getId());
+        }
     }
 }
